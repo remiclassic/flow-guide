@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>M02·L04b: Ingeniería de Fricción, GFM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body class="lang-es" data-lesson-id="mod2-friction">
+<div id="progress-bar"></div><div id="sidebar-overlay"></div>
+<nav id="course-nav">
+  <div class="nav-left"><a href="../index.html" class="nav-back">← Dashboard</a><span class="nav-sep">|</span><span class="nav-logo">GFM</span><span class="nav-sep">|</span><span class="nav-context"><span class="es">M02 · Ingeniería de Fricción</span><span class="en">M02 · Friction Engineering</span></span></div>
+  <div class="nav-right"><button class="btn-sidebar-toggle">☰</button><button class="btn-lang" onclick="toggleLang()"><span class="es">🇺🇸 EN</span><span class="en">🇪🇸 ES</span></button></div>
+</nav>
+<div class="course-shell">
+  <aside id="sidebar"><div class="sidebar-header"><div class="sidebar-progress-label"><span class="es">Progreso</span><span class="en">Progress</span></div><div class="sidebar-progress-bar-wrap"><div class="sidebar-progress-fill"></div></div><div class="sidebar-progress-pct"></div></div><div class="sidebar-modules" id="sidebar-modules-container"></div></aside>
+  <main id="main-content">
+    <div class="content-inner">
+
+      <div class="lesson-hero">
+        <div class="lesson-tag"><span class="es">Módulo 02 · Ingeniería de Fricción</span><span class="en">Module 02 · Friction Engineering</span></div>
+        <h1><span class="es">Ingeniería de fricción: haz lo correcto más fácil</span><span class="en">Friction Engineering: Make the Right Thing Easier</span></h1>
+        <p class="lead"><span class="es">En el Módulo 1 diseñaste tu entorno general. Ahora vamos un paso más profundo: aprende a calibrar la fricción directamente sobre el bucle de tus hábitos y no-negociables, para que el comportamiento correcto sea literalmente el camino de menor resistencia en el momento crítico.</span><span class="en">In Module 1 you designed your general environment. Now we go one step deeper: learn to calibrate friction directly on your habit loop and non-negotiables, so the right behavior is literally the path of least resistance at the critical moment.</span></p>
+        <div class="lesson-meta-row"><span class="meta-item"><span class="meta-icon">📖</span><span class="es">~18 min</span><span class="en">~18 min</span></span><span class="meta-item"><span class="meta-icon">🎥</span><span class="es">Script incluido</span><span class="en">Script included</span></span></div>
+      </div>
+
+      <div class="outcomes-box">
+        <h5><span class="es">Al terminar esta lección</span><span class="en">By the end of this lesson</span></h5>
+        <ul class="outcomes-list">
+          <li><span class="es">Entenderás cómo la fricción actúa específicamente en la señal del bucle de hábito</span><span class="en">You'll understand how friction acts specifically on the habit loop cue</span></li>
+          <li><span class="es">Sabrás asignar un "presupuesto de fricción" a cada no-negociable para protegerlo bajo presión</span><span class="en">You'll know how to assign a "friction budget" to each non-negotiable to protect it under pressure</span></li>
+          <li><span class="es">Tendrás un protocolo de defaults que hace que el comportamiento correcto ocurra sin decisión activa</span><span class="en">You'll have a defaults protocol that makes the right behavior happen without active decision-making</span></li>
+        </ul>
+      </div>
+
+      <div class="lesson-section">
+        <h2><span class="es">De M1 a M2: fricción operativa, no solo ambiental</span><span class="en">From M1 to M2: operational friction, not just environmental</span></h2>
+        <p><span class="es">En el Módulo 1 aprendiste el principio fundamental: el comportamiento más conveniente es el que ocurre con más frecuencia. Redeseñaste tu espacio físico y digital para reducir la fricción hacia los comportamientos que quieres y aumentarla hacia los que no. Ese nivel funciona para hábitos generales.</span><span class="en">In Module 1 you learned the fundamental principle: the most convenient behavior is the one that occurs most frequently. You redesigned your physical and digital space to reduce friction toward behaviors you want and increase it toward those you don't. That level works for general habits.</span></p>
+        <p><span class="es">Pero hay un nivel más preciso que la mayoría de personas no alcanza: diseñar la fricción directamente sobre el <strong>punto de señal</strong> de cada no-negociable. Cuando entiendes cómo un hábito específico falla, puedes intervenir exactamente ahí, no en el entorno general.</span><span class="en">But there's a more precise level that most people never reach: designing friction directly on the <strong>cue point</strong> of each non-negotiable. When you understand exactly how a specific habit fails, you can intervene right there, not in the general environment.</span></p>
+
+        <div class="callout insight">
+          <div class="callout-label"><span class="es">La diferencia clave</span><span class="en">The key difference</span></div>
+          <p><span class="es">El diseño ambiental (M1) dice: "haz difícil el acceso al teléfono en general." La ingeniería de fricción operativa (M2) dice: "¿dónde exactamente falla este no-negociable específico? Diseña la intervención para ese punto y solo ese punto."</span><span class="en">Environmental design (M1) says: "make phone access difficult in general." Operational friction engineering (M2) says: "where exactly does this specific non-negotiable fail? Design the intervention for that point and only that point."</span></p>
+        </div>
+      </div>
+
+      <div class="lesson-section">
+        <h2><span class="es">El mapa de fricción del bucle de hábito</span><span class="en">The habit loop friction map</span></h2>
+        <p><span class="es">Recuerda el bucle: señal → rutina → recompensa. La fricción puede intervenir en cualquier punto, pero no todos los puntos tienen el mismo impacto. La investigación de Ann Graybiel sobre la formación de hábitos muestra que el punto de mayor vulnerabilidad es la <strong>señal</strong>: el momento entre que el disparador ocurre y el comportamiento empieza. Esos segundos son donde la fricción hace más trabajo.</span><span class="en">Remember the loop: cue → routine → reward. Friction can intervene at any point, but not all points have the same impact. Ann Graybiel's research on habit formation shows that the most vulnerable point is the <strong>cue</strong>: the moment between when the trigger occurs and when the behavior starts. Those seconds are where friction does the most work.</span></p>
+
+        <div class="framework-box">
+          <div class="framework-label"><span class="es">Mapa de fricción por punto del bucle</span><span class="en">Friction map by loop point</span></div>
+          <ul class="framework-steps">
+            <li><div class="step-num">1</div><div><strong><span class="es">Fricción en la señal (más efectiva):</span><span class="en">Friction at the cue (most effective):</span></strong> <span class="es">Modificar o eliminar el disparador del hábito no deseado, o crear uno irresistible para el deseado. Si tu señal de revisar el email es abrir la computadora, cambia tu app de inicio para que abra el editor de texto en su lugar.</span><span class="en">Modify or eliminate the trigger of the unwanted habit, or create an irresistible one for the desired habit. If your cue to check email is opening the computer, change your startup app so it opens the text editor instead.</span></div></li>
+            <li><div class="step-num">2</div><div><strong><span class="es">Fricción en la rutina (moderadamente efectiva):</span><span class="en">Friction in the routine (moderately effective):</span></strong> <span class="es">Cambiar cuántos pasos se necesitan para ejecutar el comportamiento. Menos pasos = más probable. Más pasos = menos probable. Preparar la ropa de entrenamiento la noche anterior es friction engineering en la rutina.</span><span class="en">Change how many steps are needed to execute the behavior. Fewer steps = more likely. More steps = less likely. Laying out workout clothes the night before is friction engineering at the routine level.</span></div></li>
+            <li><div class="step-num">3</div><div><strong><span class="es">Fricción en la recompensa (menos efectiva sola):</span><span class="en">Friction at the reward (least effective alone):</span></strong> <span class="es">Añadir o quitar recompensas puede reforzar o debilitar el bucle, pero tarda más en operar. Funciona mejor combinada con cambios en señal o rutina.</span><span class="en">Adding or removing rewards can reinforce or weaken the loop, but it takes longer to operate. Works best combined with cue or routine changes.</span></div></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="lesson-section">
+        <h2><span class="es">El presupuesto de fricción para no-negociables</span><span class="en">The friction budget for non-negotiables</span></h2>
+        <p><span class="es">Un no-negociable es un comportamiento que has decidido no debatir. Pero "no debatir" requiere que el entorno apoye esa decisión. Si cada vez que intentas ejecutarlo debes superar tres obstáculos de fricción innecesaria, tarde o temprano la fricción gana.</span><span class="en">A non-negotiable is a behavior you've decided not to debate. But "not debating" requires the environment to support that decision. If every time you try to execute it you must overcome three unnecessary friction obstacles, sooner or later friction wins.</span></p>
+        <p><span class="es">El concepto de <strong>presupuesto de fricción</strong> es simple: para cada no-negociable, tienes un presupuesto máximo de fricción tolerable en el punto de inicio. Si el costo de iniciar supera ese umbral bajo presión emocional, el no-negociable falla consistentemente. Tu trabajo como ingeniero/a de tu comportamiento es mantener el costo de inicio por debajo de ese umbral.</span><span class="en">The concept of a <strong>friction budget</strong> is simple: for each non-negotiable, you have a maximum tolerable friction budget at the start point. If the cost of starting exceeds that threshold under emotional pressure, the non-negotiable fails consistently. Your job as a behavioral engineer is to keep the startup cost below that threshold.</span></p>
+
+        <div class="vignette">
+          <div class="vignette-label"><span class="es">Diagnóstico de presupuesto de fricción</span><span class="en">Friction budget diagnosis</span></div>
+          <div class="vignette-ba">
+            <div class="vignette-col">
+              <h5><span class="es">No-negociable con fricción alta</span><span class="en">High-friction non-negotiable</span></h5>
+              <p><span class="es">Entrenar a las 6am. Ropa en el clóset (hay que buscarla). Botella en otro cuarto. Zapatillas bajo la cama. En un día normal funciona. En un día de 30% de energía, esos 3 pasos de fricción son suficientes para el sistema límbico: "demasiado difícil, mañana."</span><span class="en">Train at 6am. Clothes in the closet (have to find them). Bottle in another room. Sneakers under the bed. On a normal day it works. On a 30%-energy day, those 3 friction steps are enough for the limbic system: "too hard, tomorrow."</span></p>
+            </div>
+            <div class="vignette-col">
+              <h5><span class="es">Mismo no-negociable, fricción diseñada</span><span class="en">Same non-negotiable, engineered friction</span></h5>
+              <p><span class="es">Ropa puesta sobre la silla la noche anterior. Botella llenada en la cocina la noche anterior. Zapatillas junto a la silla. El cerebro solo necesita sentarse en la cama y ver la ropa: la señal ya está ahí y la rutina empieza con cero decisiones pendientes.</span><span class="en">Clothes laid on the chair the night before. Bottle filled in the kitchen the night before. Sneakers next to the chair. The brain only needs to sit up in bed and see the clothes: the cue is right there and the routine starts with zero pending decisions.</span></p>
+            </div>
+          </div>
+        </div>
+
+        <h3><span class="es">Cómo asignar tu presupuesto de fricción</span><span class="en">How to assign your friction budget</span></h3>
+        <p><span class="es">Para cada no-negociable, hazte esta pregunta: <strong>¿Cuántos pasos de preparación necesito superar en mi peor día para ejecutar esto?</strong> Si la respuesta es más de 1, hay trabajo de friction engineering. El objetivo no es cero fricción en todo, es cero fricción innecesaria en el punto de inicio de cada no-negociable.</span><span class="en">For each non-negotiable, ask yourself: <strong>How many preparation steps do I need to overcome on my worst day to execute this?</strong> If the answer is more than 1, there's friction engineering work to do. The goal isn't zero friction everywhere; it's zero unnecessary friction at the start point of each non-negotiable.</span></p>
+      </div>
+
+      <div class="lesson-section">
+        <h2><span class="es">El protocolo de defaults: comportamiento por defecto = comportamiento correcto</span><span class="en">The defaults protocol: default behavior = correct behavior</span></h2>
+        <p><span class="es">El diseño más poderoso de fricción operativa no es reducir la fricción de lo que quieres, aunque eso importa, sino convertir el comportamiento deseado en el <strong>default</strong>: lo que ocurre automáticamente si no haces nada diferente.</span><span class="en">The most powerful operational friction design isn't just reducing friction toward what you want, though that matters, it's making the desired behavior the <strong>default</strong>: what happens automatically if you do nothing differently.</span></p>
+        <p><span class="es">Los economistas conductuales Richard Thaler y Cass Sunstein documentaron extensamente cómo los defaults gobiernan el comportamiento humano: los planes de ahorro 401k con inscripción automática tienen tasas de participación enormemente más altas que los que requieren inscripción activa. El mismo principio aplica a tus comportamientos.</span><span class="en">Behavioral economists Richard Thaler and Cass Sunstein extensively documented how defaults govern human behavior: 401k savings plans with automatic enrollment have dramatically higher participation rates than those requiring active enrollment. The same principle applies to your behaviors.</span></p>
+
+        <div class="framework-box">
+          <div class="framework-label"><span class="es">Construye tu protocolo de defaults</span><span class="en">Build your defaults protocol</span></div>
+          <h4><span class="es">Para cada no-negociable, define el comportamiento por defecto</span><span class="en">For each non-negotiable, define the default behavior</span></h4>
+          <ul class="framework-steps">
+            <li><div class="step-num">1</div><div><strong><span class="es">Default de inicio de día:</span><span class="en">Start-of-day default:</span></strong> <span class="es">¿Qué hace tu rutina matutina automáticamente? ¿El primer comportamiento de tu día empuja hacia tus no-negociables o los aleja? Diseña los primeros 15 minutos del día como un carril de lanzamiento.</span><span class="en">What does your morning routine do automatically? Does the first behavior of your day push you toward your non-negotiables or away from them? Design the first 15 minutes of the day as a launch track.</span></div></li>
+            <li><div class="step-num">2</div><div><strong><span class="es">Default de transición:</span><span class="en">Transition default:</span></strong> <span class="es">¿Qué pasa automáticamente cuando terminas una tarea o llegas a casa? Si no lo has diseñado, el default es lo que el entorno ofrezca primero: teléfono, televisión, apps. Diseña los primeros 3 minutos de cada transición.</span><span class="en">What happens automatically when you finish a task or arrive home? If you haven't designed it, the default is whatever the environment offers first: phone, TV, apps. Design the first 3 minutes of each transition.</span></div></li>
+            <li><div class="step-num">3</div><div><strong><span class="es">Default de ruptura:</span><span class="en">Break default:</span></strong> <span class="es">¿Qué haces cuando tienes 10 minutos inesperados? Si tu default de ruptura es scroll, ese es el comportamiento que más se practica y más se fortalece. Diseña un default de ruptura que refuerce uno de tus no-negociables (lectura, movimiento, revisión de prioridades).</span><span class="en">What do you do when you have an unexpected 10 minutes? If your break default is scrolling, that's the behavior that gets practiced most and strengthens most. Design a break default that reinforces one of your non-negotiables (reading, movement, priority review).</span></div></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="lesson-section">
+        <h2><span class="es">Fricción asimétrica: el arma más infrautilizada</span><span class="en">Asymmetric friction: the most underused weapon</span></h2>
+        <p><span class="es">La mayoría de las personas aplica fricción de forma simétrica: o eliminan fricción de todo o no cambian nada. La ingeniería de fricción poderosa es <strong>asimétrica</strong>: fricción mínima en el comportamiento que quieres, fricción máxima en el comportamiento que no quieres, en el mismo espacio y el mismo momento.</span><span class="en">Most people apply friction symmetrically: they either remove friction from everything or change nothing. Powerful friction engineering is <strong>asymmetric</strong>: minimum friction on the behavior you want, maximum friction on the behavior you don't want, in the same space at the same moment.</span></p>
+        <p><span class="es">Ejemplo concreto: si tu no-negociable es trabajo profundo por la mañana pero tienes el email abierto en la misma pantalla, la fricción es simétrica: trabajar en el proyecto y revisar email cuestan lo mismo en términos de clics. Para hacer la ingeniería asimétrica: cierra el email antes de dormir (un clic para abrirlo ahora), deja el documento del proyecto abierto (cero clics para continuar). Mañana, el default es el documento, no el email.</span><span class="en">Concrete example: if your non-negotiable is deep work in the morning but you have email open on the same screen, friction is symmetric: working on the project and checking email cost the same in terms of clicks. To make it asymmetric: close email before sleeping (one click to open it now), leave the project document open (zero clicks to continue). Tomorrow, the default is the document, not email.</span></p>
+
+        <div class="callout warning">
+          <div class="callout-label"><span class="es">El error más común</span><span class="en">The most common mistake</span></div>
+          <p><span class="es">Aplicar fricción simétrica y luego culparse por "falta de disciplina." Si el email y el trabajo profundo tienen el mismo costo de inicio, el cerebro bajo fatiga siempre elegirá lo más inmediatamente recompensante. No es debilidad: es física del comportamiento. La solución es diseño, no esfuerzo.</span><span class="en">Applying symmetric friction and then blaming yourself for "lack of discipline." If email and deep work have the same startup cost, the brain under fatigue will always choose the most immediately rewarding. It's not weakness: it's behavioral physics. The solution is design, not effort.</span></p>
+        </div>
+      </div>
+
+      <div class="lesson-quote">"<span class="es">No puedes disciplinarte<br>por encima de un diseño defectuoso.<br>Tienes que <em>rediseñar el terreno.</em></span><span class="en">You cannot discipline yourself<br>past a broken design.<br>You have to <em>redesign the terrain.</em></span>"</div>
+
+      <div class="exercise-block">
+        <div class="exercise-header">
+          <div class="exercise-icon">✍️</div>
+          <div><div class="exercise-label"><span class="es">Ejercicio</span><span class="en">Exercise</span></div><h4><span class="es">Auditoría de fricción operativa</span><span class="en">Operational friction audit</span></h4></div>
+        </div>
+        <ol class="exercise-steps">
+          <li><div class="ex-step-num">1</div><div><strong><span class="es">Toma tus 3 no-negociables del Módulo 2:</span><span class="en">Take your 3 non-negotiables from Module 2:</span></strong> <span class="es">Para cada uno, escribe los pasos concretos que necesitas superar desde el momento de la señal hasta el inicio real del comportamiento. Sé literal: ¿cuántos objetos debes mover, abrir, buscar?</span><span class="en">For each one, write the concrete steps you need to get through from the moment of the cue to the actual start of the behavior. Be literal: how many objects do you need to move, open, find?</span></div></li>
+          <li><div class="ex-step-num">2</div><div><strong><span class="es">Identifica el punto de mayor fricción en cada uno:</span><span class="en">Identify the highest-friction point in each one:</span></strong> <span class="es">¿Dónde está el paso que más cuesta en un día de baja energía? Ese es tu punto de intervención.</span><span class="en">Where is the step that costs the most on a low-energy day? That is your intervention point.</span></div></li>
+          <li><div class="ex-step-num">3</div><div><strong><span class="es">Diseña una modificación asimétrica:</span><span class="en">Design an asymmetric modification:</span></strong> <span class="es">Para el no-negociable: elimina o prepara de antemano el paso de mayor fricción. Para el comportamiento de sabotaje más frecuente en ese momento: añade un paso (log de autenticación, dejar el dispositivo en otra habitación, app bloqueada hasta las 10am).</span><span class="en">For the non-negotiable: eliminate or pre-prepare the highest-friction step. For the most frequent sabotage behavior at that same moment: add a step (login screen, device in another room, app blocked until 10am).</span></div></li>
+          <li><div class="ex-step-num">4</div><div><strong><span class="es">Define tu protocolo de defaults para mañana:</span><span class="en">Define your defaults protocol for tomorrow:</span></strong> <span class="es">¿Qué estará ya preparado la noche anterior? ¿Qué aplicación o documento estará ya abierto? ¿Qué será lo primero que veas al despertar? Escríbelo como instrucciones para ti mismo/a de esta noche.</span><span class="en">What will already be prepared the night before? What app or document will already be open? What will be the first thing you see when you wake up? Write it as instructions to yourself for tonight.</span></div></li>
+        </ol>
+        <div class="exercise-success">
+          <div class="exercise-success-label"><span class="es">Sabrás que funcionó cuando...</span><span class="en">You'll know it worked when...</span></div>
+          <p><span class="es">En tu próximo día de baja energía, el no-negociable ocurra de todas formas, no porque te hayas "motivado" sino porque era literalmente lo más fácil disponible en ese momento.</span><span class="en">On your next low-energy day, the non-negotiable happens anyway, not because you "motivated yourself" but because it was literally the easiest thing available at that moment.</span></p>
+        </div>
+      </div>
+
+      <div class="reflection-block">
+        <div class="reflection-label"><span class="es">Reflexión</span><span class="en">Reflection</span></div>
+        <ul class="reflection-list">
+          <li><span class="es">¿Cuál de tus no-negociables tiene la mayor cantidad de pasos de fricción en el inicio? ¿Cuándo falla más?</span><span class="en">Which of your non-negotiables has the most friction steps at startup? When does it fail most?</span></li>
+          <li><span class="es">¿Qué comportamiento de sabotaje comparte exactamente el mismo momento o contexto que un no-negociable tuyo? ¿Cómo puedes hacer asimétrico el terreno?</span><span class="en">What sabotage behavior shares the exact same moment or context as one of your non-negotiables? How can you make the terrain asymmetric?</span></li>
+          <li><span class="es">Si tuvieras que diseñar el "default" perfecto de los primeros 5 minutos del día para reforzar tus no-negociables, ¿cómo se vería?</span><span class="en">If you had to design the perfect "default" for the first 5 minutes of your day to reinforce your non-negotiables, what would it look like?</span></li>
+        </ul>
+      </div>
+
+      <details class="video-script">
+        <summary><div class="script-icon">🎥</div><div class="script-meta"><div class="script-title"><span class="es">Script, M02·Fricción</span><span class="en">Script, M02·Friction</span></div><div class="script-time"><span class="es">~10 minutos</span><span class="en">~10 minutes</span></div></div><span class="script-caret">▼</span></summary>
+        <div class="script-body">
+          <div class="script-section">
+            <div class="script-section-head"><span class="script-beat-label">HOOK</span><span class="script-time-badge">0:00–0:45</span></div>
+            <div class="script-text es">"Piensa en la última vez que rompiste un compromiso contigo mismo. No fue porque no querías cumplirlo. Fue porque en el momento crítico, lo que no debías hacer era más fácil que lo que sí. Eso no es falta de disciplina. Es un problema de diseño. Y hoy te enseño a corregirlo."</div>
+            <div class="script-text en" style="display:none;">"Think about the last time you broke a commitment to yourself. It wasn't because you didn't want to keep it. It was because at the critical moment, what you shouldn't do was easier than what you should. That's not a lack of discipline. It's a design problem. And today I'll show you how to fix it."</div>
+          </div>
+          <hr class="script-divider">
+          <div class="script-section">
+            <div class="script-section-head"><span class="script-beat-label">ENSEÑANZA CORE</span><span class="script-time-badge">0:45–7:00</span></div>
+            <div class="script-text es">"En el Módulo 1 aprendiste a rediseñar tu entorno general. Hoy vamos al nivel operativo: la fricción directamente sobre el punto de inicio de cada no-negociable."
+            <br><br>"El concepto clave de hoy es el presupuesto de fricción: para cada no-negociable que has definido en este módulo, ¿cuántos pasos necesitas superar desde la señal hasta que empiezas? Si son más de uno en tu peor día, estás dependiendo de la fuerza de voluntad para compensar fricción innecesaria."
+            <br><br>"Y la segunda idea es igual de importante: fricción asimétrica. No es suficiente reducir la fricción de lo que quieres. Tienes que aumentar la fricción de lo que no quieres, en el mismo momento, para hacer el terreno desigual a tu favor."
+            <br><br><span class="script-cue">[Ejemplo concreto]</span>
+            "Si tu no-negociable es trabajo profundo a las 8am, pero el email está abierto en tu pantalla y el documento del proyecto está cerrado... la fricción es simétrica. Ambas cosas cuestan lo mismo. La solución no es tener más disciplina: es dejar el documento abierto la noche anterior y cerrar el email."</div>
+            <div class="script-text en" style="display:none;">"In Module 1 you learned to redesign your general environment. Today we go to the operational level: friction directly on the startup point of each non-negotiable."
+            <br><br>"The key concept today is the friction budget: for each non-negotiable you've defined in this module, how many steps do you need to get through from the cue to when you start? If it's more than one on your worst day, you're depending on willpower to compensate for unnecessary friction."
+            <br><br>"And the second idea is equally important: asymmetric friction. It's not enough to reduce friction toward what you want. You have to increase friction toward what you don't want, at the same moment, to tilt the terrain in your favor."
+            <br><br><span class="script-cue">[Concrete example]</span>
+            "If your non-negotiable is deep work at 8am, but email is open on your screen and the project document is closed... friction is symmetric. Both things cost the same. The solution isn't to have more discipline: it's to leave the document open the night before and close email."</div>
+          </div>
+          <hr class="script-divider">
+          <div class="script-section">
+            <div class="script-section-head"><span class="script-beat-label">CIERRE</span><span class="script-time-badge">7:00–10:00</span></div>
+            <div class="script-text es">"Tu ejercicio es la auditoría de fricción operativa. Para cada no-negociable: cuenta los pasos de inicio, identifica el de mayor fricción, elimínalo o prepáralo de antemano, y añade fricción al comportamiento de sabotaje que compite con él. Escríbelo como instrucciones para esta noche. Esta noche, no 'cuando pueda.'"</div>
+            <div class="script-text en" style="display:none;">"Your exercise is the operational friction audit. For each non-negotiable: count the startup steps, identify the highest-friction one, eliminate it or pre-prepare it, and add friction to the sabotage behavior that competes with it. Write it as instructions for tonight. Tonight, not 'when I can.'"</div>
+          </div>
+        </div>
+      </details>
+
+      <div class="integration-note">
+        <span class="integration-icon">🔗</span>
+        <div>
+          <h5><span class="es">Cómo conecta con el curso</span><span class="en">How this connects to the course</span></h5>
+          <p><span class="es">Esta lección profundiza el diseño de entorno de M1L05 aplicándolo específicamente al bucle de hábitos (L03) y los no-negociables del protocolo de cero negociación (L01–L02). La siguiente lección (L04: Acción mínima viable) construirá sobre esto: una vez que la fricción está diseñada, el "piso mínimo" define cuánto debes hacer incluso cuando el entorno no coopera del todo.</span><span class="en">This lesson deepens the environment design from M1L05 by applying it specifically to the habit loop (L03) and the non-negotiables from the zero-negotiation protocol (L01–L02). The next lesson (L04: Minimum viable action) builds on this: once friction is designed, the "minimum floor" defines how much you must do even when the environment doesn't fully cooperate.</span></p>
+        </div>
+      </div>
+
+      <section class="knowledge-quiz" aria-labelledby="kq-lesson-h">
+        <h3 id="kq-lesson-h" class="kq-heading"><span class="es">Comprueba tu comprensión</span><span class="en">Check your understanding</span></h3>
+        <p class="kq-intro"><span class="es">Tres preguntas de opción múltiple. No afectan tu progreso del curso: sirven para que veas qué tan claro te quedó el tema.</span><span class="en">Three multiple-choice questions. They do not affect course progress. They help you see how clear the ideas are.</span></p>
+        <div class="kq-score" aria-live="polite"></div>
+
+        <div class="kq-item" data-correct="1">
+          <p class="kq-prompt"><span class="es">La ingeniería de fricción operativa (M2) se distingue del diseño ambiental (M1) porque:</span><span class="en">Operational friction engineering (M2) differs from environmental design (M1) because:</span></p>
+          <div class="kq-options" role="group">
+            <button type="button" class="kq-opt" data-i="0"><span class="es">Es exactamente lo mismo</span><span class="en">It is exactly the same</span></button>
+            <button type="button" class="kq-opt" data-i="1"><span class="es">Interviene en el punto exacto de señal de cada no-negociable, no en el entorno general</span><span class="en">It intervenes at the exact cue point of each non-negotiable, not the general environment</span></button>
+            <button type="button" class="kq-opt" data-i="2"><span class="es">Solo aplica a hábitos físicos</span><span class="en">Only applies to physical habits</span></button>
+            <button type="button" class="kq-opt" data-i="3"><span class="es">No requiere ningún cambio de entorno</span><span class="en">Requires no environment change</span></button>
+          </div>
+          <div class="kq-after kq-after-wrong" hidden><p><span class="es">No es la mejor opción. Repasa la lección para afianzar el concepto.</span><span class="en">Not the best fit. Re-read the lesson to strengthen the idea.</span></p></div>
+          <div class="kq-after kq-after-right" hidden><p><span class="es">Correcto.</span><span class="en">Correct.</span></p></div>
+        </div>
+
+        <div class="kq-item" data-correct="1">
+          <p class="kq-prompt"><span class="es">La fricción asimétrica significa:</span><span class="en">Asymmetric friction means:</span></p>
+          <div class="kq-options" role="group">
+            <button type="button" class="kq-opt" data-i="0"><span class="es">Aplicar mucha fricción a todo por igual</span><span class="en">Applying heavy friction to everything equally</span></button>
+            <button type="button" class="kq-opt" data-i="1"><span class="es">Mínima fricción en el comportamiento deseado y máxima en el comportamiento de sabotaje, en el mismo momento</span><span class="en">Minimum friction on the desired behavior and maximum on the sabotage behavior, at the same moment</span></button>
+            <button type="button" class="kq-opt" data-i="2"><span class="es">Solo reducir fricción sin añadirla nunca</span><span class="en">Only reducing friction, never adding it</span></button>
+            <button type="button" class="kq-opt" data-i="3"><span class="es">Que el sabotaje sea más fácil que el no-negociable</span><span class="en">Making sabotage easier than the non-negotiable</span></button>
+          </div>
+          <div class="kq-after kq-after-wrong" hidden><p><span class="es">No es la mejor opción. Repasa la lección para afianzar el concepto.</span><span class="en">Not the best fit. Re-read the lesson to strengthen the idea.</span></p></div>
+          <div class="kq-after kq-after-right" hidden><p><span class="es">Correcto.</span><span class="en">Correct.</span></p></div>
+        </div>
+
+        <div class="kq-item" data-correct="0">
+          <p class="kq-prompt"><span class="es">El "default" más poderoso para un no-negociable matutino es:</span><span class="en">The most powerful "default" for a morning non-negotiable is:</span></p>
+          <div class="kq-options" role="group">
+            <button type="button" class="kq-opt" data-i="0"><span class="es">Preparar la noche anterior todo lo que reduce el costo de inicio a cero</span><span class="en">Preparing the night before everything that reduces the startup cost to zero</span></button>
+            <button type="button" class="kq-opt" data-i="1"><span class="es">Confiar en la motivación de la mañana</span><span class="en">Trusting morning motivation</span></button>
+            <button type="button" class="kq-opt" data-i="2"><span class="es">Esperar a tener más energía</span><span class="en">Waiting until you have more energy</span></button>
+            <button type="button" class="kq-opt" data-i="3"><span class="es">Revisar el email primero para "entrar en calor"</span><span class="en">Checking email first to "warm up"</span></button>
+          </div>
+          <div class="kq-after kq-after-wrong" hidden><p><span class="es">No es la mejor opción. Repasa la lección para afianzar el concepto.</span><span class="en">Not the best fit. Re-read the lesson to strengthen the idea.</span></p></div>
+          <div class="kq-after kq-after-right" hidden><p><span class="es">Correcto.</span><span class="en">Correct.</span></p></div>
+        </div>
+      </section>
+
+<div class="lesson-nav">
+        <a href="lesson-03.html" class="btn-lesson-nav">← <span class="es">Diseño de Hábitos</span><span class="en">Habit Design</span></a>
+        <a href="lesson-04.html" class="btn-lesson-nav next"><div><div class="nav-direction"><span class="es">Siguiente</span><span class="en">Next</span></div><div class="nav-title"><span class="es">Acción Mínima Viable →</span><span class="en">Minimum Viable Action →</span></div></div></a>
+      </div>
+    </div>
+    <div class="mark-complete-bar"><span class="mark-complete-text"><span class="es">¿Terminaste?</span><span class="en">Finished?</span></span><button class="btn-complete" id="btn-complete"><span class="es">Marcar como completada</span><span class="en">Mark as complete</span></button></div>
+  </main>
+</div>
+<script src="../assets/course.js"></script>
+</body>
+</html>

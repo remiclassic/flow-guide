@@ -245,34 +245,34 @@ export const LESSON_QUIZZES = {
       ['Garantizar flow inmediato', 'Guarantee immediate flow'],
     ]),
   ],
-  'module-2/lesson-04.html': [
+  'module-2/lesson-04b.html': [
     Q(1, 'Ingeniería de fricción apunta a:', 'Friction engineering aims to:', [
       ['Hacer lo difícil aún más difícil siempre', 'Always make the hard thing harder'],
-      ['Subir coste de lo que sabes que te sabotea y bajar coste de lo correcto', 'Raise the cost of what sabotages you and lower the cost of the right thing'],
+      ['Subir coste de lo que sabotea y bajar coste de lo correcto', 'Raise the cost of what sabotages you and lower the cost of the right thing'],
       ['Eliminar todo obstáculo aunque sea malo', 'Remove every obstacle even if harmful'],
       ['Evitar medir resultados', 'Avoid measuring results'],
     ]),
-    Q(1, 'Un ejemplo de reducir fricción sería:', 'An example of reducing friction would be:', [
-      ['Esconder lo que necesitas hasta “merecerlo”', 'Hiding what you need until you “deserve” it'],
-      ['Preparar el entorno la noche anterior', 'Preparing the environment the night before'],
-      ['Añadir 10 pasos extra al inicio', 'Adding 10 extra steps at the start'],
-      ['Depender de recordar en el último minuto', 'Depending on last-minute memory'],
+    Q(1, 'La fricción asimétrica significa:', 'Asymmetric friction means:', [
+      ['Aplicar mucha fricción a todo por igual', 'Applying heavy friction to everything equally'],
+      ['Mínima fricción en el comportamiento deseado y máxima en el de sabotaje, en el mismo momento', 'Minimum friction on the desired behavior and maximum on the sabotage behavior, at the same moment'],
+      ['Solo reducir fricción, nunca añadirla', 'Only reducing friction, never adding it'],
+      ['Que el sabotaje sea más fácil que el no-negociable', 'Making sabotage easier than the non-negotiable'],
     ]),
-    Q(1, 'La fricción mal diseñada contra el hábito deseado:', 'Poorly designed friction against the desired habit:', [
-      ['Siempre ayuda', 'Always helps'],
-      ['Te empuja al camino por defecto del sabotaje', 'Pushes you toward sabotage’s default path'],
-      ['No importa si eres disciplinado', 'Does not matter if you are disciplined'],
-      ['Solo afecta a principiantes', 'Only affects beginners'],
+    Q(0, 'El "presupuesto de fricción" de un no-negociable mide:', 'The "friction budget" of a non-negotiable measures:', [
+      ['Cuántos pasos de inicio deben superarse en el peor día para ejecutarlo', 'How many startup steps must be overcome on the worst day to execute it'],
+      ['El coste económico del hábito', 'The economic cost of the habit'],
+      ['Cuántas veces se puede fallar sin consecuencias', 'How many times you can fail without consequences'],
+      ['La duración total del hábito', 'The total duration of the habit'],
     ]),
   ],
-  'module-2/lesson-05.html': [
+  'module-2/lesson-04.html': [
     Q(1, 'La acción mínima viable protege:', 'Minimum viable action protects:', [
       ['Solo días perfectos', 'Only perfect days'],
       ['La consistencia en días bajos de energía o ánimo', 'Consistency on low-energy or low-mood days'],
       ['Eliminar el descanso', 'Removing rest'],
       ['Evitar todo seguimiento', 'Avoiding all tracking'],
     ]),
-    Q(1, 'El “piso” del sistema se refiere a:', 'The system “floor” refers to:', [
+    Q(1, 'El "piso" del sistema se refiere a:', 'The system "floor" refers to:', [
       ['El máximo posible cada día', 'The maximum possible every day'],
       ['Lo mínimo no negociable que preserva la cadena', 'The non-negotiable minimum that preserves the chain'],
       ['Ignorar calidad', 'Ignoring quality'],
@@ -280,12 +280,12 @@ export const LESSON_QUIZZES = {
     ]),
     Q(1, 'Si el mínimo es cero en la práctica, el sistema:', 'If the minimum is effectively zero, the system:', [
       ['Es más honesto', 'Is more honest'],
-      ['Colapsa a “días de cero” repetidos', 'Collapses into repeated “zero days”'],
+      ['Colapsa a "días de cero" repetidos', 'Collapses into repeated "zero days"'],
       ['Siempre mejora solo', 'Always improves on its own'],
       ['No necesita revisión', 'Needs no review'],
     ]),
   ],
-  'module-2/lesson-06.html': [
+  'module-2/lesson-05.html': [
     Q(1, 'Tratar el calendario como contrato implica:', 'Treating the calendar as a contract implies:', [
       ['Llenarlo sin priorizar', 'Filling it without prioritizing'],
       ['Compromisos explícitos con bloques que protegen lo esencial', 'Explicit commitments with blocks that protect essentials'],
@@ -305,7 +305,7 @@ export const LESSON_QUIZZES = {
       ['No tener coste', 'Have no cost'],
     ]),
   ],
-  'module-2/lesson-07.html': [
+  'module-2/lesson-06.html': [
     Q(1, 'Seguimiento sin espiral de vergüenza significa:', 'Tracking without a shame spiral means:', [
       ['Castigarte por cada fallo', 'Punishing yourself for every miss'],
       ['Usar datos para ajustar el sistema, no para atacarte', 'Use data to tune the system, not to attack yourself'],
@@ -325,7 +325,7 @@ export const LESSON_QUIZZES = {
       ['Hacer el seguimiento más preciso', 'Make tracking more accurate'],
     ]),
   ],
-  'module-2/lesson-08.html': [
+  'module-2/lesson-07.html': [
     Q(1, 'El protocolo de recuperación prioriza:', 'The recovery protocol prioritizes:', [
       ['Demostrar perfección', 'Proving perfection'],
       ['Volver al sistema rápido con reglas claras post-fallo', 'Returning to the system quickly with clear post-failure rules'],
@@ -339,16 +339,36 @@ export const LESSON_QUIZZES = {
       ['Evitar responsabilidad', 'Avoiding responsibility'],
     ]),
     Q(1, 'La recuperación no es lo mismo que:', 'Recovery is not the same as:', [
-      ['Racionalizar otro “solo hoy” sin límite', 'Rationalizing another “just today” with no limit'],
+      ['Racionalizar otro "solo hoy" sin límite', 'Rationalizing another "just today" with no limit'],
       ['Reanudar en el siguiente ancla acordada', 'Resuming at the next agreed anchor'],
       ['Revisar qué falló en el sistema', 'Reviewing what failed in the system'],
       ['Bajar el mínimo temporalmente con intención', 'Temporarily lowering the minimum on purpose'],
     ]),
   ],
-  'module-2/lesson-09.html': [
+  'module-2/lesson-08.html': [
+    Q(1, 'Tu entorno social puede sabotear tu disciplina principalmente porque:', 'Your social environment can sabotage your discipline mainly because:', [
+      ['Las personas no existen', 'People do not exist'],
+      ['La presión de grupo y los no-negociables chocan en el momento crítico', 'Group pressure and non-negotiables collide at the critical moment'],
+      ['El calendario siempre falla primero', 'The calendar always fails first'],
+      ['El sabotaje social es inevitable y no se puede diseñar', 'Social sabotage is inevitable and cannot be designed around'],
+    ]),
+    Q(1, 'Proteger tus no-negociables socialmente requiere:', 'Protecting your non-negotiables socially requires:', [
+      ['Aislarte completamente del entorno', 'Completely isolating yourself from your environment'],
+      ['Claridad interna y frases prácticas de redirección sin explicación compleja', 'Internal clarity and practical redirect phrases without complex explanation'],
+      ['Eliminar toda relación que no apoya tus metas', 'Eliminating every relationship that does not support your goals'],
+      ['Mentir sobre tus compromisos', 'Lying about your commitments'],
+    ]),
+    Q(0, 'Cuando alguien importante presiona para que rompas un no-negociable, la mejor respuesta del sistema es:', 'When someone important pressures you to break a non-negotiable, the best system response is:', [
+      ['Tener una frase preparada de antemano que no negocie en el momento', 'Having a pre-prepared phrase that does not negotiate in the moment'],
+      ['Ceder siempre para preservar la relación', 'Always give in to preserve the relationship'],
+      ['Ignorar a la persona por completo', 'Ignore the person completely'],
+      ['Agregar el no-negociable al día siguiente en lugar de defenderlo hoy', 'Add the non-negotiable to the next day instead of defending it today'],
+    ]),
+  ],
+    'module-2/lesson-09.html': [
     Q(1, 'El laboratorio del Módulo 2 integra sobre todo:', 'The Module 2 lab mainly integrates:', [
       ['Teoría del Módulo 4', 'Module 4 theory'],
-      ['Protocolo, hábitos, fricción, calendario y recuperación', 'Protocol, habits, friction, calendar, and recovery'],
+      ['Protocolo, hábitos, fricción, AMV, calendario, seguimiento, recuperación y entorno social', 'Protocol, habits, friction, MVA, calendar, tracking, recovery, and social environment'],
       ['Solo motivación', 'Motivation only'],
       ['Eliminar seguimiento', 'Removing tracking'],
     ]),

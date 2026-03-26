@@ -12,8 +12,8 @@ const rightLesEs = 'Correcto.';
 const rightLesEn = 'Correct.';
 const wrongModEs = 'No encaja del todo. Repasa las lecciones del módulo si quieres reforzar.';
 const wrongModEn = 'Not quite. Review module lessons if you want to strengthen this.';
-const rightModEs = 'Correcto — buena señal de comprensión del módulo.';
-const rightModEn = 'Correct — solid sign you understand the module.';
+const rightModEs = 'Correcto, buena señal de comprensión del módulo.';
+const rightModEn = 'Correct, solid sign you understand the module.';
 
 function itemsToHtml(items, isModule) {
   const wes = isModule ? wrongModEs : wrongLesEs;
@@ -43,7 +43,7 @@ ${o
 function wrapLesson(itemsHtml) {
   return `      <section class="knowledge-quiz" aria-labelledby="kq-lesson-h">
         <h3 id="kq-lesson-h" class="kq-heading"><span class="es">Comprueba tu comprensión</span><span class="en">Check your understanding</span></h3>
-        <p class="kq-intro"><span class="es">Tres preguntas de opción múltiple. No afectan tu progreso del curso: sirven para que veas qué tan claro te quedó el tema.</span><span class="en">Three multiple-choice questions. They do not affect course progress — they help you see how clear the ideas are.</span></p>
+        <p class="kq-intro"><span class="es">Tres preguntas de opción múltiple. No afectan tu progreso del curso: sirven para que veas qué tan claro te quedó el tema.</span><span class="en">Three multiple-choice questions. They do not affect course progress. They help you see how clear the ideas are.</span></p>
         <div class="kq-score" aria-live="polite"></div>${itemsHtml}
       </section>
 

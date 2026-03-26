@@ -1,4 +1,4 @@
-/* ── GFM MODULE WORKBOOK — PRINT / PDF STYLES ── */
+/* ── GFM MODULE WORKBOOK - PRINT / PDF STYLES ── */
 
 :root {
   --accent: #c9a96e;
@@ -11,6 +11,11 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* Bilingual layers (html.lang-* so a head script can set language before paint) */
+.en { display: none; }
+html.lang-en .es { display: none !important; }
+html.lang-en .en { display: revert !important; }
 
 body {
   font-family: var(--font);
@@ -323,6 +328,43 @@ p { margin-bottom: 0.6rem; color: var(--text-muted); }
   text-decoration: none;
   font-size: 0.85rem;
   font-weight: 600;
+}
+
+.wb-lang {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.wb-lang-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-right: 0.25rem;
+}
+
+.wb-lang button {
+  font: inherit;
+  cursor: pointer;
+  padding: 0.45rem 0.75rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--light-bg);
+  color: var(--text);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.wb-lang button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+html.lang-es .wb-lang button[data-set-lang="es"],
+html.lang-en .wb-lang button[data-set-lang="en"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
 }
 
 @media print {

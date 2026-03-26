@@ -3,89 +3,106 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Módulo 01 — Reset Mental · Workbook GFM</title>
+  <script>(function(){var k='gfm_lang',l='es';try{l=localStorage.getItem(k)||'es';}catch(e){}if(l!=='es'&&l!=='en')l='es';document.documentElement.classList.remove('lang-es','lang-en');document.documentElement.classList.add('lang-'+l);document.documentElement.lang=l;})();</script>
+  <title>Módulo 01: Reset Mental · Workbook GFM</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/print-pdf.css">
+  <script src="../assets/workbook-i18n.js" defer></script>
 </head>
 <body>
 
   <!-- SCREEN NAV -->
   <div class="screen-nav">
-    <a href="../index.html">← Volver al dashboard</a>
-    <a href="#" onclick="window.print(); return false;">🖨 Imprimir / Guardar PDF</a>
+    <a href="../index.html"><span class="es">← Volver al dashboard</span><span class="en">← Back to dashboard</span></a>
+    <div class="wb-lang" role="group" aria-label="Language">
+      <span class="wb-lang-label"><span class="es">Idioma</span><span class="en">Language</span></span>
+      <button type="button" data-set-lang="es">ES</button>
+      <button type="button" data-set-lang="en">EN</button>
+    </div>
+    <a href="#" onclick="window.print(); return false;"><span class="es">🖨 Imprimir / Guardar PDF</span><span class="en">🖨 Print / Save PDF</span></a>
   </div>
 
   <!-- COVER -->
   <div class="cover">
-    <div class="cover-module-label">Módulo 01 · Glow Flow Method</div>
-    <div class="cover-title">Reset Mental</div>
-    <div class="cover-subtitle">Cuaderno de trabajo personal</div>
+    <div class="cover-module-label"><span class="es">Módulo 01 · Glow Flow Method</span><span class="en">Module 01 · Glow Flow Method</span></div>
+    <div class="cover-title"><span class="es">Reset Mental</span><span class="en">Mental Reset</span></div>
+    <div class="cover-subtitle"><span class="es">Cuaderno de trabajo personal</span><span class="en">Personal workbook</span></div>
 
     <div class="cover-outcome">
-      <strong>Resultado del módulo</strong>
-      Entiende el mecanismo del autosabotaje y construye la estructura que reemplaza la motivación — para que el comportamiento correcto sea el camino de menor resistencia.
+      <strong><span class="es">Resultado del módulo</span><span class="en">Module outcome</span></strong>
+      <span class="es">Entiende el mecanismo del autosabotaje y construye la estructura que reemplaza la motivación, para que el comportamiento correcto sea el camino de menor resistencia.</span>
+      <span class="en">Understand the mechanism of self-sabotage and build the structure that replaces motivation, so the right behavior becomes the path of least resistance.</span>
     </div>
 
     <div class="cover-lessons">
-      <div class="cover-lessons-title">Lecciones del módulo</div>
+      <div class="cover-lessons-title"><span class="es">Lecciones del módulo</span><span class="en">Module lessons</span></div>
       <ul class="lesson-list">
-        <li>L01 — Por qué la estructura supera a la motivación</li>
-        <li>L02 — Cómo funciona realmente el autosabotaje</li>
-        <li>L03 — Intenciones de implementación: el plan si-entonces</li>
-        <li>L04 — Trampas de pensamiento que te mantienen atascada</li>
-        <li>L05 — Diseño del entorno: tu ambiente trabaja para ti o contra ti</li>
-        <li>L06 — Higiene de atención: la guerra por tu mente</li>
-        <li>L07 — Fatiga de decisiones: diseña para decidir menos</li>
-        <li>L08 — Tu primera semana con estructura real</li>
-        <li>Lab 01 — Laboratorio de integración</li>
+        <li><span class="es">L01: Por qué la estructura supera a la motivación</span><span class="en">L01: Why structure beats motivation</span></li>
+        <li><span class="es">L02: Cómo funciona realmente el autosabotaje</span><span class="en">L02: How self-sabotage actually works</span></li>
+        <li><span class="es">L03: Intenciones de implementación: el plan si-entonces</span><span class="en">L03: Implementation intentions: the if-then plan</span></li>
+        <li><span class="es">L04: Trampas de pensamiento que te mantienen atascada</span><span class="en">L04: Thought traps that keep you stuck</span></li>
+        <li><span class="es">L05: Diseño del entorno: tu ambiente trabaja para ti o contra ti</span><span class="en">L05: Environment design: your space works for or against you</span></li>
+        <li><span class="es">L06: Higiene de atención: la guerra por tu mente</span><span class="en">L06: Attention hygiene: the war for your mind</span></li>
+        <li><span class="es">L07: Fatiga de decisiones: diseña para decidir menos</span><span class="en">L07: Decision fatigue: design to decide less</span></li>
+        <li><span class="es">L08: Tu primera semana con estructura real</span><span class="en">L08: Your first week with real structure</span></li>
+        <li><span class="es">Lab 01: Laboratorio de integración</span><span class="en">Lab 01: Integration lab</span></li>
       </ul>
     </div>
   </div>
 
   <!-- SECTION 1: FRAMEWORK RECAPS -->
-  <h2>Marcos clave del módulo</h2>
+  <h2><span class="es">Marcos clave del módulo</span><span class="en">Key frameworks in this module</span></h2>
 
   <div class="framework-box no-break">
-    <div class="framework-box-title">El ciclo del autosabotaje</div>
-    <div class="framework-content">Detonante → Pensamiento automático → Evitación / Procrastinación → Alivio temporal → Refuerzo del patrón. La estructura interrumpe este ciclo antes del pensamiento automático.</div>
+    <div class="framework-box-title"><span class="es">El ciclo del autosabotaje</span><span class="en">The self-sabotage loop</span></div>
+    <div class="framework-content">
+      <span class="es">Detonante → Pensamiento automático → Evitación / Procrastinación → Alivio temporal → Refuerzo del patrón. La estructura interrumpe este ciclo antes del pensamiento automático.</span>
+      <span class="en">Trigger → Automatic thought → Avoidance / procrastination → Short-term relief → Pattern reinforcement. Structure interrupts this loop before the automatic thought.</span>
+    </div>
   </div>
 
   <div class="write-in">
-    <div class="write-in-prompt">Mi detonante principal de autosabotaje es:</div>
+    <div class="write-in-prompt"><span class="es">Mi detonante principal de autosabotaje es:</span><span class="en">My main self-sabotage trigger is:</span></div>
     <div class="write-line"></div>
-    <div class="write-in-prompt">El pensamiento automático que le sigue:</div>
+    <div class="write-in-prompt"><span class="es">El pensamiento automático que le sigue:</span><span class="en">The automatic thought that follows:</span></div>
     <div class="write-line"></div>
-    <div class="write-in-prompt">La estructura que interrumpirá ese ciclo:</div>
+    <div class="write-in-prompt"><span class="es">La estructura que interrumpirá ese ciclo:</span><span class="en">The structure that will interrupt that loop:</span></div>
     <div class="write-line"></div>
-    <div class="write-line"></div>
-  </div>
-
-  <div class="framework-box no-break">
-    <div class="framework-box-title">Intención de implementación (plan si-entonces)</div>
-    <div class="framework-content">Formato: "Si ocurre [situación/hora/señal], entonces haré [comportamiento específico] en [lugar]." Esta técnica multiplica la tasa de seguimiento por 2-3x comparado con los propósitos sin especificar cuándo y cómo.</div>
-  </div>
-
-  <div class="write-in">
-    <div class="write-in-prompt">Mi intención de implementación principal:</div>
-    <div class="write-in-prompt">Si _______________________________________________</div>
-    <div class="write-line"></div>
-    <div class="write-in-prompt">entonces haré ______________________________________</div>
-    <div class="write-line"></div>
-    <div class="write-in-prompt">en (lugar/contexto) ________________________________</div>
     <div class="write-line"></div>
   </div>
 
   <div class="framework-box no-break">
-    <div class="framework-box-title">Diseño de entorno: fricción intencional</div>
-    <div class="framework-content">El comportamiento humano sigue el camino de menor resistencia. Diseña el entorno para que el comportamiento deseado sea el más fácil, y el comportamiento a evitar requiera esfuerzo consciente.</div>
+    <div class="framework-box-title"><span class="es">Intención de implementación (plan si-entonces)</span><span class="en">Implementation intention (if-then plan)</span></div>
+    <div class="framework-content">
+      <span class="es">Formato: "Si ocurre [situación/hora/señal], entonces haré [comportamiento específico] en [lugar]." Esta técnica multiplica la tasa de seguimiento por 2-3x comparado con los propósitos sin especificar cuándo y cómo.</span>
+      <span class="en">Format: "If [situation/time/cue] happens, then I will [specific behavior] at [place]." This technique roughly doubles or triples follow-through compared to goals that don’t specify when and how.</span>
+    </div>
   </div>
 
   <div class="write-in">
-    <div class="write-in-prompt">Comportamientos que quiero hacer más fáciles (eliminar fricción):</div>
+    <div class="write-in-prompt"><span class="es">Mi intención de implementación principal:</span><span class="en">My main implementation intention:</span></div>
+    <div class="write-in-prompt"><span class="es">Si _______________________________________________</span><span class="en">If _______________________________________________</span></div>
+    <div class="write-line"></div>
+    <div class="write-in-prompt"><span class="es">entonces haré ______________________________________</span><span class="en">then I will ______________________________________</span></div>
+    <div class="write-line"></div>
+    <div class="write-in-prompt"><span class="es">en (lugar/contexto) ________________________________</span><span class="en">at (place/context) ________________________________</span></div>
+    <div class="write-line"></div>
+  </div>
+
+  <div class="framework-box no-break">
+    <div class="framework-box-title"><span class="es">Diseño de entorno: fricción intencional</span><span class="en">Environment design: intentional friction</span></div>
+    <div class="framework-content">
+      <span class="es">El comportamiento humano sigue el camino de menor resistencia. Diseña el entorno para que el comportamiento deseado sea el más fácil, y el comportamiento a evitar requiera esfuerzo consciente.</span>
+      <span class="en">Human behavior follows the path of least resistance. Design the environment so desired behavior is easiest, and behavior you want to avoid requires conscious effort.</span>
+    </div>
+  </div>
+
+  <div class="write-in">
+    <div class="write-in-prompt"><span class="es">Comportamientos que quiero hacer más fáciles (eliminar fricción):</span><span class="en">Behaviors I want to make easier (remove friction):</span></div>
     <div class="write-line"></div>
     <div class="write-line"></div>
-    <div class="write-in-prompt">Comportamientos que quiero hacer más difíciles (añadir fricción):</div>
+    <div class="write-in-prompt"><span class="es">Comportamientos que quiero hacer más difíciles (añadir fricción):</span><span class="en">Behaviors I want to make harder (add friction):</span></div>
     <div class="write-line"></div>
     <div class="write-line"></div>
   </div>
@@ -93,42 +110,42 @@
   <div class="page-break"></div>
 
   <!-- SECTION 2: 7-DAY ACTION GRID -->
-  <h2>Plan de acción de 7 días</h2>
-  <p>Usa este espacio para planificar las acciones concretas de la semana. El objetivo es establecer los primeros no-negociables y diseñar el entorno.</p>
+  <h2><span class="es">Plan de acción de 7 días</span><span class="en">7-day action plan</span></h2>
+  <p><span class="es">Usa este espacio para planificar las acciones concretas de la semana. El objetivo es establecer los primeros no-negociables y diseñar el entorno.</span><span class="en">Use this space to plan concrete actions for the week. The goal is to set first non-negotiables and design your environment.</span></p>
 
   <table class="action-grid">
     <thead>
       <tr>
-        <th>Día</th>
-        <th>Acción de estructura</th>
-        <th>Cambio de entorno / ¿Completado?</th>
+        <th><span class="es">Día</span><span class="en">Day</span></th>
+        <th><span class="es">Acción de estructura</span><span class="en">Structure action</span></th>
+        <th><span class="es">Cambio de entorno / ¿Completado?</span><span class="en">Environment change / Done?</span></th>
       </tr>
     </thead>
     <tbody>
-      <tr><td class="day-label">Lunes</td><td class="prompt-cell">Si-entonces del día:</td><td class="done-cell"></td></tr>
-      <tr><td class="day-label">Martes</td><td class="prompt-cell">Un detonante que anticiparé:</td><td class="done-cell"></td></tr>
-      <tr><td class="day-label">Miércoles</td><td class="prompt-cell">Elemento de entorno a cambiar:</td><td class="done-cell"></td></tr>
-      <tr><td class="day-label">Jueves</td><td class="prompt-cell">Trampa de pensamiento observada:</td><td class="done-cell"></td></tr>
-      <tr><td class="day-label">Viernes</td><td class="prompt-cell">Decisión que pre-decidiré hoy:</td><td class="done-cell"></td></tr>
-      <tr><td class="day-label">Sábado</td><td class="prompt-cell">Revisión: ¿qué funcionó?</td><td class="done-cell"></td></tr>
-      <tr><td class="day-label">Domingo</td><td class="prompt-cell">Preparación para la semana siguiente:</td><td class="done-cell"></td></tr>
+      <tr><td class="day-label"><span class="es">Lunes</span><span class="en">Monday</span></td><td class="prompt-cell"><span class="es">Si-entonces del día:</span><span class="en">Today’s if-then:</span></td><td class="done-cell"></td></tr>
+      <tr><td class="day-label"><span class="es">Martes</span><span class="en">Tuesday</span></td><td class="prompt-cell"><span class="es">Un detonante que anticiparé:</span><span class="en">A trigger I’ll anticipate:</span></td><td class="done-cell"></td></tr>
+      <tr><td class="day-label"><span class="es">Miércoles</span><span class="en">Wednesday</span></td><td class="prompt-cell"><span class="es">Elemento de entorno a cambiar:</span><span class="en">Environment tweak to make:</span></td><td class="done-cell"></td></tr>
+      <tr><td class="day-label"><span class="es">Jueves</span><span class="en">Thursday</span></td><td class="prompt-cell"><span class="es">Trampa de pensamiento observada:</span><span class="en">Thought trap I noticed:</span></td><td class="done-cell"></td></tr>
+      <tr><td class="day-label"><span class="es">Viernes</span><span class="en">Friday</span></td><td class="prompt-cell"><span class="es">Decisión que pre-decidiré hoy:</span><span class="en">Decision I’ll pre-decide today:</span></td><td class="done-cell"></td></tr>
+      <tr><td class="day-label"><span class="es">Sábado</span><span class="en">Saturday</span></td><td class="prompt-cell"><span class="es">Revisión: ¿qué funcionó?</span><span class="en">Review: what worked?</span></td><td class="done-cell"></td></tr>
+      <tr><td class="day-label"><span class="es">Domingo</span><span class="en">Sunday</span></td><td class="prompt-cell"><span class="es">Preparación para la semana siguiente:</span><span class="en">Prep for next week:</span></td><td class="done-cell"></td></tr>
     </tbody>
   </table>
 
   <!-- SECTION 3: LAB -->
   <div class="lab-section no-break">
-    <div class="lab-label">Lab 01 · Integración</div>
-    <h3>Checklist del laboratorio</h3>
+    <div class="lab-label"><span class="es">Lab 01 · Integración</span><span class="en">Lab 01 · Integration</span></div>
+    <h3><span class="es">Checklist del laboratorio</span><span class="en">Lab checklist</span></h3>
     <ul class="checklist">
-      <li><span class="check-box"></span> He identificado mis 3 detonantes principales de autosabotaje</li>
-      <li><span class="check-box"></span> Tengo al menos 2 intenciones de implementación escritas</li>
-      <li><span class="check-box"></span> He rediseñado 1 elemento del entorno para reducir fricción</li>
-      <li><span class="check-box"></span> He identificado 1 elemento del entorno para aumentar fricción</li>
-      <li><span class="check-box"></span> He pre-decidido al menos 3 decisiones recurrentes para reducir fatiga</li>
-      <li><span class="check-box"></span> Mi primera semana de estructura está planificada en el calendario</li>
+      <li><span class="check-box"></span> <span class="es">He identificado mis 3 detonantes principales de autosabotaje</span><span class="en">I’ve identified my 3 main self-sabotage triggers</span></li>
+      <li><span class="check-box"></span> <span class="es">Tengo al menos 2 intenciones de implementación escritas</span><span class="en">I have at least 2 implementation intentions written down</span></li>
+      <li><span class="check-box"></span> <span class="es">He rediseñado 1 elemento del entorno para reducir fricción</span><span class="en">I’ve redesigned 1 environment element to reduce friction</span></li>
+      <li><span class="check-box"></span> <span class="es">He identificado 1 elemento del entorno para aumentar fricción</span><span class="en">I’ve identified 1 environment element to increase friction</span></li>
+      <li><span class="check-box"></span> <span class="es">He pre-decidido al menos 3 decisiones recurrentes para reducir fatiga</span><span class="en">I’ve pre-decided at least 3 recurring decisions to reduce fatigue</span></li>
+      <li><span class="check-box"></span> <span class="es">Mi primera semana de estructura está planificada en el calendario</span><span class="en">My first week of structure is scheduled on the calendar</span></li>
     </ul>
     <div class="write-in" style="margin-top:1rem;">
-      <div class="write-in-prompt">Definición de "listo para el Módulo 2" — para mí significa:</div>
+      <div class="write-in-prompt"><span class="es">Definición de "listo para el Módulo 2", para mí significa:</span><span class="en">What “ready for Module 2” means for me:</span></div>
       <div class="write-line"></div>
       <div class="write-line"></div>
     </div>
@@ -136,32 +153,33 @@
 
   <!-- SECTION 4: REVIEW QUESTIONS -->
   <div class="page-break"></div>
-  <h2>Preguntas de revisión</h2>
+  <h2><span class="es">Preguntas de revisión</span><span class="en">Review questions</span></h2>
   <div class="review-questions">
     <ol>
-      <li>¿En qué situación específica la motivación me ha fallado más frecuentemente? ¿Qué estructura podría haber reemplazado esa motivación?
+      <li><span class="es">¿En qué situación específica la motivación me ha fallado más frecuentemente? ¿Qué estructura podría haber reemplazado esa motivación?</span><span class="en">In what specific situation has motivation failed me most often? What structure could have replaced that motivation?</span>
         <div class="answer-space"></div><div class="answer-space"></div>
       </li>
-      <li>¿Cuál es el no-negociable más pequeño que puedo mantener incluso en mi peor semana?
+      <li><span class="es">¿Cuál es el no-negociable más pequeño que puedo mantener incluso en mi peor semana?</span><span class="en">What’s the smallest non-negotiable I can keep even in my worst week?</span>
         <div class="answer-space"></div>
       </li>
-      <li>¿Qué trampa de pensamiento me es más familiar? ¿Cómo la reconozco cuando aparece?
+      <li><span class="es">¿Qué trampa de pensamiento me es más familiar? ¿Cómo la reconozco cuando aparece?</span><span class="en">What thought trap is most familiar to me? How do I recognize it when it shows up?</span>
         <div class="answer-space"></div><div class="answer-space"></div>
       </li>
-      <li>¿Qué decisión recurrente me cuesta más energía? ¿Cómo puedo pre-decidirla?
+      <li><span class="es">¿Qué decisión recurrente me cuesta más energía? ¿Cómo puedo pre-decidirla?</span><span class="en">What recurring decision costs me the most energy? How can I pre-decide it?</span>
         <div class="answer-space"></div>
       </li>
-      <li>¿Qué ladrón de atención tiene mayor impacto en mi día? ¿Qué cambio de entorno lo neutraliza?
+      <li><span class="es">¿Qué ladrón de atención tiene mayor impacto en mi día? ¿Qué cambio de entorno lo neutraliza?</span><span class="en">What attention thief impacts my day the most? What environment change neutralizes it?</span>
         <div class="answer-space"></div><div class="answer-space"></div>
       </li>
-      <li>Al finalizar el módulo: ¿en qué área noto el cambio más grande comparado con antes de empezar?
+      <li><span class="es">Al finalizar el módulo: ¿en qué área noto el cambio más grande comparado con antes de empezar?</span><span class="en">After this module: where do I notice the biggest shift compared to before I started?</span>
         <div class="answer-space"></div><div class="answer-space"></div>
       </li>
     </ol>
   </div>
 
   <div class="pdf-footer">
-    Glow Flow Method · Módulo 01 — Reset Mental · remiclassic.github.io/flow-guide/course/
+    <span class="es">Glow Flow Method · Módulo 01: Reset Mental · remiclassic.github.io/flow-guide/course/</span>
+    <span class="en">Glow Flow Method · Module 01: Mental Reset · remiclassic.github.io/flow-guide/course/</span>
   </div>
 
 </body>

@@ -1,4 +1,4 @@
-/* ── GLOW FLOW METHOD — COURSE LOGIC ── */
+/* ── GLOW FLOW METHOD - COURSE LOGIC ── */
 
 const CURRICULUM = [
   {
@@ -31,11 +31,12 @@ const CURRICULUM = [
       { id: 'mod2-l01', numEs: 'Lección 01', numEn: 'Lesson 01', titleEs: 'El impuesto de la negociación', titleEn: 'The Negotiation Tax', path: 'module-2/lesson-01.html' },
       { id: 'mod2-l02', numEs: 'Lección 02', numEn: 'Lesson 02', titleEs: 'El protocolo de cero negociación', titleEn: 'The Zero-Negotiation Protocol', path: 'module-2/lesson-02.html' },
       { id: 'mod2-l03', numEs: 'Lección 03', numEn: 'Lesson 03', titleEs: 'Diseño de hábitos: el bucle que te define', titleEn: 'Habit Design: The Loop That Defines You', path: 'module-2/lesson-03.html' },
-      { id: 'mod2-l04', numEs: 'Lección 04', numEn: 'Lesson 04', titleEs: 'Ingeniería de fricción: haz lo correcto más fácil', titleEn: 'Friction Engineering: Make the Right Thing Easier', path: 'module-2/lesson-04.html' },
-      { id: 'mod2-l05', numEs: 'Lección 05', numEn: 'Lesson 05', titleEs: 'Acción mínima viable: el sistema a prueba de fallos', titleEn: 'Minimum Viable Action: The Failsafe System', path: 'module-2/lesson-05.html' },
-      { id: 'mod2-l06', numEs: 'Lección 06', numEn: 'Lesson 06', titleEs: 'El calendario como contrato', titleEn: 'Your Calendar as a Contract', path: 'module-2/lesson-06.html' },
-      { id: 'mod2-l07', numEs: 'Lección 07', numEn: 'Lesson 07', titleEs: 'Seguimiento sin espiral de vergüenza', titleEn: 'Tracking Without the Shame Spiral', path: 'module-2/lesson-07.html' },
-      { id: 'mod2-l08', numEs: 'Lección 08', numEn: 'Lesson 08', titleEs: 'Protocolo de recuperación de fallos', titleEn: 'Failure Recovery Protocol', path: 'module-2/lesson-08.html' },
+      { id: 'mod2-friction', numEs: 'Lección 03b', numEn: 'Lesson 03b', titleEs: 'Ingeniería de fricción: haz lo correcto más fácil', titleEn: 'Friction Engineering: Make the Right Thing Easier', path: 'module-2/lesson-04b.html' },
+      { id: 'mod2-l04', numEs: 'Lección 04', numEn: 'Lesson 04', titleEs: 'Acción mínima viable: el sistema a prueba de fallos', titleEn: 'Minimum Viable Action: The Failsafe System', path: 'module-2/lesson-04.html' },
+      { id: 'mod2-l05', numEs: 'Lección 05', numEn: 'Lesson 05', titleEs: 'El calendario como contrato', titleEn: 'Your Calendar as a Contract', path: 'module-2/lesson-05.html' },
+      { id: 'mod2-l06', numEs: 'Lección 06', numEn: 'Lesson 06', titleEs: 'Seguimiento sin espiral de vergüenza', titleEn: 'Tracking Without the Shame Spiral', path: 'module-2/lesson-06.html' },
+      { id: 'mod2-l07', numEs: 'Lección 07', numEn: 'Lesson 07', titleEs: 'Protocolo de recuperación de fallos', titleEn: 'Failure Recovery Protocol', path: 'module-2/lesson-07.html' },
+      { id: 'mod2-l08', numEs: 'Lección 08', numEn: 'Lesson 08', titleEs: 'Disciplina y el entorno social: proteger lo que construyes', titleEn: 'Discipline and the Social Environment: Protecting What You Build', path: 'module-2/lesson-08.html' },
       { id: 'mod2-l09', numEs: 'Laboratorio 02', numEn: 'Lab 02', titleEs: 'Laboratorio de Integración: Módulo 2', titleEn: 'Integration Lab: Module 2', path: 'module-2/lesson-09.html' },
     ]
   },
@@ -75,8 +76,8 @@ const CURRICULUM = [
     id: 'module-5',
     numEs: 'Módulo 05', numEn: 'Module 05',
     titleEs: 'Integración y Sostenibilidad', titleEn: 'Integration & Sustainability',
-    descEs: 'Sostén lo que construiste. Diseña para el largo plazo — no para el sprint.',
-    descEn: 'Sustain what you built. Design for the long term — not the sprint.',
+    descEs: 'Sostén lo que construiste. Diseña para el largo plazo, no para el sprint.',
+    descEn: 'Sustain what you built. Design for the long term, not the sprint.',
     path: 'module-5/',
     lessons: [
       { id: 'mod5-l01', numEs: 'Lección 01', numEn: 'Lesson 01', titleEs: 'Sostener sin momentum: cómo los sistemas sobreviven a los valles', titleEn: 'Sustaining without momentum: how systems survive valleys', path: 'module-5/lesson-01.html' },
@@ -374,7 +375,7 @@ function injectModuleWorkbook(lessonId) {
     '<div class="lesson-workbook-icon">📄</div>' +
     '<div class="lesson-workbook-body">' +
       '<div class="lesson-workbook-label"><span class="es">Cuaderno de trabajo del módulo</span><span class="en">Module workbook</span></div>' +
-      '<p class="lesson-workbook-title"><span class="es">' + mod.numEs + ' — ' + mod.titleEs + '</span><span class="en">' + mod.numEn + ' — ' + mod.titleEn + '</span></p>' +
+      '<p class="lesson-workbook-title"><span class="es">' + mod.numEs + ': ' + mod.titleEs + '</span><span class="en">' + mod.numEn + ': ' + mod.titleEn + '</span></p>' +
       '<p class="lesson-workbook-desc"><span class="es">Marcos clave, espacios para escribir, plan de 7 días y preguntas de revisión de este módulo.</span><span class="en">Key frameworks, writing spaces, 7-day action plan, and review questions for this module.</span></p>' +
     '</div>' +
     '<a href="' + pdfUrl + '" target="_blank" rel="noopener" class="lesson-workbook-btn">' +
