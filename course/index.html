@@ -4,6 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Glow Flow Method — Dashboard del Curso</title>
+  <script>
+    (function () {
+      var p = location.pathname || '';
+      var needle = '/course/';
+      var idx = p.lastIndexOf(needle);
+      var base = '/course/';
+      if (idx !== -1) base = p.slice(0, idx + needle.length);
+      else if (p.endsWith('/course')) base = p + '/';
+      else {
+        var j = p.indexOf('/course');
+        if (j !== -1) base = p.slice(0, j + '/course'.length) + '/';
+      }
+      document.write('<base href="' + base + '">');
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
