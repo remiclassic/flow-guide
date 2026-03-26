@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>M02·L04: Acción Mínima Viable — GFM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body class="lang-es" data-lesson-id="mod2-l04">
+<div id="progress-bar"></div><div id="sidebar-overlay"></div>
+<nav id="course-nav">
+  <div class="nav-left"><a href="../index.html" class="nav-back">← Dashboard</a><span class="nav-sep">|</span><span class="nav-logo">GFM</span><span class="nav-sep">|</span><span class="nav-context">M02·L04</span></div>
+  <div class="nav-right"><button class="btn-sidebar-toggle">☰</button><button class="btn-lang" onclick="toggleLang()"><span class="es">🇺🇸 EN</span><span class="en">🇪🇸 ES</span></button></div>
+</nav>
+<div class="course-shell">
+  <aside id="sidebar"><div class="sidebar-header"><div class="sidebar-progress-label"><span class="es">Progreso</span><span class="en">Progress</span></div><div class="sidebar-progress-bar-wrap"><div class="sidebar-progress-fill"></div></div><div class="sidebar-progress-pct"></div></div><div class="sidebar-modules" id="sidebar-modules-container"></div></aside>
+  <main id="main-content">
+    <div class="content-inner">
+      <div class="lesson-hero">
+        <div class="lesson-tag"><span class="es">Módulo 02 · Lección 04</span><span class="en">Module 02 · Lesson 04</span></div>
+        <h1><span class="es">Acción mínima viable: el sistema a prueba de fallos</span><span class="en">Minimum Viable Action: The Failsafe System</span></h1>
+        <p class="lead"><span class="es">El perfeccionismo mata la consistencia. Los mínimos la protegen. Esta lección te enseña a definir el piso de cada comportamiento importante — la versión más reducida que todavía cuenta — para que nunca tengas una excusa válida para saltar completamente.</span><span class="en">Perfectionism kills consistency. Minimums protect it. This lesson teaches you to define the floor of each important behavior — the most reduced version that still counts — so you never have a valid excuse to skip completely.</span></p>
+        <div class="lesson-meta-row"><span class="meta-item"><span class="meta-icon">📖</span><span class="es">~18 min</span><span class="en">~18 min</span></span><span class="meta-item"><span class="meta-icon">🎥</span><span class="es">Script incluido</span><span class="en">Script included</span></span></div>
+      </div>
+
+      <div class="outcomes-box">
+        <h5><span class="es">Al terminar esta lección</span><span class="en">By the end of this lesson</span></h5>
+        <ul class="outcomes-list">
+          <li><span class="es">Entenderás por qué los mínimos superan a los máximos en términos de consistencia a largo plazo</span><span class="en">You'll understand why minimums outperform maximums in terms of long-term consistency</span></li>
+          <li><span class="es">Aprenderás a definir tu acción mínima viable para cada área importante</span><span class="en">You'll learn to define your minimum viable action for each important area</span></li>
+          <li><span class="es">Tendrás un "stack de mínimos" que te protege incluso en las peores semanas</span><span class="en">You'll have a "minimum stack" that protects you even in the worst weeks</span></div>
+        </ul>
+      </div>
+
+      <div class="lesson-section">
+        <h2><span class="es">El problema con el enfoque de máximos</span><span class="en">The problem with the maximum approach</span></h2>
+        <p><span class="es">La mayoría de personas diseñan sus hábitos desde el máximo: "voy a entrenar 5 veces por semana, 60 minutos cada vez." Eso es el ideal. El problema es que cuando la semana es difícil — y las semanas difíciles llegan — el estándar de 60 minutos activa el pensamiento todo-o-nada: "si no puedo hacer los 60 minutos, no voy." Y el resultado es cero en lugar de algo.</span><span class="en">Most people design their habits from the maximum: "I'm going to work out 5 times a week, 60 minutes each time." That's the ideal. The problem is that when the week is difficult — and difficult weeks come — the 60-minute standard activates all-or-nothing thinking: "if I can't do the 60 minutes, I'm not going." And the result is zero instead of something.</span></p>
+        <p><span class="es">La alternativa no es bajar el estándar aspiracional — es añadir un estándar mínimo. El máximo sigue siendo el ideal al que apuntas. El mínimo es lo que ocurre sin excepción, incluso en los peores días. Este enfoque de piso-no-techo es lo que convierte los hábitos aspiracionales en comportamientos realmente consistentes.</span><span class="en">The alternative isn't to lower the aspirational standard — it's to add a minimum standard. The maximum is still the ideal you aim for. The minimum is what happens without exception, even on the worst days. This floor-not-ceiling approach is what turns aspirational habits into genuinely consistent behaviors.</span></p>
+      </div>
+
+      <div class="lesson-section">
+        <h2><span class="es">Qué es una acción mínima viable (AMV)</span><span class="en">What is a minimum viable action (MVA)</span></h2>
+        <p><span class="es">Una AMV es la versión más reducida de un comportamiento que todavía produce el efecto deseado — o al menos mantiene el hábito activo y la identidad reforzada. Tiene tres características:</span><span class="en">An MVA is the most reduced version of a behavior that still produces the desired effect — or at least keeps the habit active and identity reinforced. It has three characteristics:</span></p>
+        <p><span class="es"><strong>1. Es inequívocamente ejecutable en cualquier condición:</strong> En tu peor día, con el menos tiempo disponible, con el menor nivel de energía — puedes hacerlo. Si en tu peor día no puedes hacerlo, no es tu mínimo real.</span><span class="en"><strong>1. It's unequivocally executable in any condition:</strong> On your worst day, with the least available time, with the lowest energy level — you can do it. If on your worst day you can't do it, it's not your real minimum.</span></p>
+        <p><span class="es"><strong>2. Mantiene el hábito activo:</strong> Una AMV de 10 minutos de movimiento mantiene el hábito de ejercicio activo, aunque no produzca el mismo efecto fisiológico que 60 minutos. El hábito activo es infinitamente mejor que el hábito abandonado.</span><span class="en"><strong>2. It keeps the habit active:</strong> An MVA of 10 minutes of movement keeps the exercise habit active, even though it doesn't produce the same physiological effect as 60 minutes. An active habit is infinitely better than an abandoned one.</span></p>
+        <p><span class="es"><strong>3. Refuerza la identidad correcta:</strong> "Soy alguien que se mueve todos los días" se refuerza con 10 minutos tanto como con 60. La identidad no evalúa la duración — evalúa la presencia.</span><span class="en"><strong>3. It reinforces the correct identity:</strong> "I'm someone who moves every day" is reinforced by 10 minutes as much as by 60. Identity doesn't evaluate duration — it evaluates presence.</span></p>
+
+        <div class="framework-box">
+          <div class="framework-label"><span class="es">Ejemplos de AMV por área</span><span class="en">MVA examples by area</span></div>
+          <h4><span class="es">El piso que nunca puedes cruzar hacia abajo</span><span class="en">The floor you can never cross downward</span></h4>
+          <ul class="framework-steps">
+            <li><div class="step-num">1</div><div><strong><span class="es">Ejercicio:</span><span class="en">Exercise:</span></strong> <span class="es">10 minutos de caminata o cualquier movimiento intencional. Estándar aspiracional: 45–60 minutos de entrenamiento estructurado.</span><span class="en">10 minutes of walking or any intentional movement. Aspirational standard: 45–60 minutes of structured training.</span></div></li>
+            <li><div class="step-num">2</div><div><strong><span class="es">Trabajo en prioridades:</span><span class="en">Priority work:</span></strong> <span class="es">25 minutos de trabajo profundo en tu proyecto más importante. Estándar aspiracional: 2–4 horas de trabajo profundo.</span><span class="en">25 minutes of deep work on your most important project. Aspirational standard: 2–4 hours of deep work.</span></div></li>
+            <li><div class="step-num">3</div><div><strong><span class="es">Lectura/aprendizaje:</span><span class="en">Reading/learning:</span></strong> <span class="es">5 páginas o 10 minutos. Estándar aspiracional: 30–60 minutos.</span><span class="en">5 pages or 10 minutes. Aspirational standard: 30–60 minutes.</span></div></li>
+            <li><div class="step-num">4</div><div><strong><span class="es">Alimentación:</span><span class="en">Eating:</span></strong> <span class="es">Al menos 1 comida completa bien elegida. Estándar aspiracional: todas las comidas del plan.</span><span class="en">At least 1 complete, well-chosen meal. Aspirational standard: all meals on the plan.</span></div></li>
+            <li><div class="step-num">5</div><div><strong><span class="es">Cuidado personal:</span><span class="en">Personal care:</span></strong> <span class="es">La rutina básica mínima. Estándar aspiracional: rutina completa.</span><span class="en">The basic minimum routine. Aspirational standard: complete routine.</span></div></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="lesson-section">
+        <h2><span class="es">El stack de mínimos</span><span class="en">The minimum stack</span></h2>
+        <p><span class="es">Tu "stack de mínimos" es la lista de tus AMVs para cada área no-negociable. Es el conjunto de comportamientos que defines como el suelo de tu semana difícil — lo que ocurre incluso cuando todo lo demás falla. Tener este stack definido de antemano significa que en los días más difíciles no tienes que decidir nada nuevo — solo ejecutar el mínimo.</span><span class="en">Your "minimum stack" is the list of your MVAs for each non-negotiable area. It's the set of behaviors you define as the floor of your difficult week — what happens even when everything else fails. Having this stack defined in advance means that on the hardest days you don't have to decide anything new — just execute the minimum.</span></p>
+      </div>
+
+      <div class="lesson-quote">"<span class="es">No es el máximo lo que construye<br>la persona que quieres ser.<br>Es el <em>mínimo que nunca cruzas.</em></span><span class="en">It's not the maximum that builds<br>the person you want to be.<br>It's the <em>minimum you never cross.</em></span>"</div>
+
+      <div class="exercise-block">
+        <div class="exercise-header">
+          <div class="exercise-icon">✍️</div>
+          <div><div class="exercise-label"><span class="es">Ejercicio</span><span class="en">Exercise</span></div><h4><span class="es">Define tu stack de mínimos</span><span class="en">Define your minimum stack</span></h4></div>
+        </div>
+        <ol class="exercise-steps">
+          <li><div class="ex-step-num">1</div><div><strong><span class="es">Para cada uno de tus 5 no-negociables:</span><span class="en">For each of your 5 non-negotiables:</span></strong> <span class="es">Escribe la AMV — la forma más reducida que todavía cuentas como "lo hice."</span><span class="en">Write the MVA — the most reduced form that still counts as "I did it."</span></div></li>
+          <li><div class="ex-step-num">2</div><div><strong><span class="es">Escribe también tu estándar aspiracional:</span><span class="en">Also write your aspirational standard:</span></strong> <span class="es">Lo que haces cuando las condiciones son ideales.</span><span class="en">What you do when conditions are ideal.</span></div></li>
+          <li><div class="ex-step-num">3</div><div><strong><span class="es">Prueba de la AMV:</span><span class="en">MVA test:</span></strong> <span class="es">¿Podrías hacer esta AMV si llegas a casa a las 10pm después de un día agotador? Si la respuesta es no, reduce más.</span><span class="en">Could you do this MVA if you get home at 10pm after an exhausting day? If the answer is no, reduce further.</span></div></li>
+          <li><div class="ex-step-num">4</div><div><strong><span class="es">Escribe la frase de tu stack de mínimos:</span><span class="en">Write your minimum stack phrase:</span></strong><br><span class="es">"En semana difícil, mi mínimo irrompible es: [lista de AMVs]. Eso es suficiente. Eso es éxito para la semana."</span><span class="en">"In a difficult week, my unbreakable minimum is: [list of MVAs]. That's enough. That's success for the week."</span></div></li>
+        </ol>
+        <div class="exercise-success">
+          <div class="exercise-success-label"><span class="es">Sabrás que funcionó cuando...</span><span class="en">You'll know it worked when...</span></div>
+          <p><span class="es">En tu próxima semana difícil, ejecutes tu stack de mínimos sin drama y sin sentirte fracasado(a). Y la semana siguiente, vuelvas al estándar aspiracional.</span><span class="en">In your next difficult week, you execute your minimum stack without drama and without feeling like a failure. And the following week, you return to the aspirational standard.</span></p>
+        </div>
+      </div>
+
+      <div class="reflection-block">
+        <div class="reflection-label"><span class="es">Reflexión</span><span class="en">Reflection</span></div>
+        <ul class="reflection-list">
+          <li><span class="es">¿Hay hábitos que has "roto" en el pasado que podrían haberse salvado con un mínimo mejor definido?</span><span class="en">Are there habits you've "broken" in the past that could have been saved with a better-defined minimum?</span></li>
+          <li><span class="es">¿Tu mínimo actual te parece "demasiado poco"? ¿Por qué? ¿Es el perfeccionismo hablando?</span><span class="en">Does your current minimum seem "too little"? Why? Is that perfectionism talking?</span></li>
+          <li><span class="es">¿Qué semana difícil típica se ve igual en tu vida? ¿Qué AMVs serían las más importantes en ese contexto?</span><span class="en">What does a typical difficult week look like in your life? What MVAs would be most important in that context?</span></li>
+        </ul>
+      </div>
+
+      <details class="video-script">
+        <summary><div class="script-icon">🎥</div><div class="script-meta"><div class="script-title">Script — M02·L04</div><div class="script-time"><span class="es">~9 minutos</span><span class="en">~9 minutes</span></div></div><span class="script-caret">▼</span></summary>
+        <div class="script-body">
+          <div class="script-section">
+            <div class="script-section-head"><span class="script-beat-label">HOOK</span><span class="script-time-badge">0:00–0:45</span></div>
+            <div class="script-text es">"¿Cuántas veces has dicho 'si no puedo hacerlo bien, mejor no hago nada'? Eso es el perfeccionismo matando tu consistencia. Y hoy te voy a dar la herramienta que lo contrarresta: la acción mínima viable. El piso que no cruzas. La versión más pequeña que todavía cuenta."</div>
+            <div class="script-text en" style="display:none;">"How many times have you said 'if I can't do it right, I'd better do nothing'? That's perfectionism killing your consistency. And today I'm going to give you the tool that counters it: the minimum viable action. The floor you don't cross. The smallest version that still counts."</div>
+          </div>
+          <hr class="script-divider">
+          <div class="script-section">
+            <div class="script-section-head"><span class="script-beat-label">EL CONCEPTO</span><span class="script-time-badge">0:45–6:00</span></div>
+            <div class="script-text es">"El error es diseñar los hábitos solo desde el máximo. El ideal. El estándar aspiracional. Y cuando el día no coopera — cuando llegas cansado a las 9pm — el estándar máximo activa el pensamiento todo-o-nada: si no puedo hacer los 60 minutos, no voy. Resultado: cero."
+            <br><br>"La solución es añadir un piso. Tu AMV — acción mínima viable — es lo más pequeño que puedes hacer que todavía cuenta. 10 minutos de caminata. 5 páginas. 25 minutos de trabajo en tu prioridad. En tu peor día, con el menor tiempo disponible, eso es ejecutable. Y ejecutarlo refuerza la identidad: 'soy alguien que hace X todos los días.' La identidad no evalúa la duración — evalúa la presencia."
+            <br><br>"Tu stack de mínimos es la lista de todas tus AMVs. Lo que ocurre incluso cuando todo lo demás falla. Tenlo escrito antes de que llegue la semana difícil — porque en la semana difícil ya no tienes energía cognitiva para diseñar."</div>
+            <div class="script-text en" style="display:none;">"The mistake is designing habits only from the maximum. The ideal. The aspirational standard. And when the day doesn't cooperate — when you arrive tired at 9pm — the maximum standard activates all-or-nothing thinking: if I can't do the 60 minutes, I'm not going. Result: zero."
+            <br><br>"The solution is to add a floor. Your MVA — minimum viable action — is the smallest thing you can do that still counts. 10 minutes of walking. 5 pages. 25 minutes of work on your priority. On your worst day, with the least available time, that's executable. And executing it reinforces the identity: 'I'm someone who does X every day.' Identity doesn't evaluate duration — it evaluates presence."
+            <br><br>"Your minimum stack is the list of all your MVAs. What happens even when everything else fails. Have it written before the difficult week comes — because during the difficult week you don't have cognitive energy to design."</div>
+          </div>
+          <hr class="script-divider">
+          <div class="script-section">
+            <div class="script-section-head"><span class="script-beat-label">CIERRE</span><span class="script-time-badge">6:00–9:00</span></div>
+            <div class="script-text es">"Tu ejercicio hoy: para cada uno de tus 5 no-negociables, define tu AMV. Y escribe la frase de tu stack de mínimos. Eso es tu red de seguridad. No es abandonar los estándares — es proteger la consistencia cuando las condiciones no son ideales."</div>
+            <div class="script-text en" style="display:none;">"Your exercise today: for each of your 5 non-negotiables, define your MVA. And write your minimum stack phrase. That's your safety net. It's not lowering standards — it's protecting consistency when conditions aren't ideal."</div>
+          </div>
+        </div>
+      </details>
+
+      <div class="lesson-nav">
+        <a href="lesson-03.html" class="btn-lesson-nav">← L03</a>
+        <a href="lesson-05.html" class="btn-lesson-nav next"><div><div class="nav-direction"><span class="es">Siguiente</span><span class="en">Next</span></div><div class="nav-title"><span class="es">El Calendario como Contrato →</span><span class="en">Calendar as Contract →</span></div></div></a>
+      </div>
+    </div>
+    <div class="mark-complete-bar"><span class="mark-complete-text"><span class="es">¿Terminaste?</span><span class="en">Finished?</span></span><button class="btn-complete" id="btn-complete"><span class="es">Marcar como completada</span><span class="en">Mark as complete</span></button></div>
+  </main>
+</div>
+<script src="../assets/course.js"></script>
+</body>
+</html>

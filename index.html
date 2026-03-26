@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Glow Flow Method — Dejar de sabotearte y empezar a construirte</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0a;
+      --bg-2: #101010;
+      --bg-3: #171717;
+      --bg-4: #1e1e1e;
+      --text: #f0ede8;
+      --text-muted: #888;
+      --text-dim: #444;
+      --accent: #c9a96e;
+      --accent-light: #e8d5b0;
+      --accent-dark: #9a7540;
+      --border: rgba(255,255,255,0.07);
+      --border-accent: rgba(201,169,110,0.25);
+      --radius: 12px;
+      --radius-lg: 20px;
+      --max-w: 900px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── LANGUAGE SYSTEM ── */
+    .en { display: none; }
+    body.lang-en .es { display: none !important; }
+    body.lang-en .en { display: revert !important; }
+
+    /* ── TYPOGRAPHY ── */
+    h1 { font-size: clamp(2.8rem, 7vw, 5.5rem); line-height: 1.0; letter-spacing: -0.03em; font-weight: 900; }
+    h2 { font-size: clamp(1.9rem, 4vw, 3rem); line-height: 1.1; letter-spacing: -0.025em; font-weight: 800; }
+    h3 { font-size: clamp(1.2rem, 2.5vw, 1.7rem); line-height: 1.2; font-weight: 700; letter-spacing: -0.015em; }
+    h4 { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.01em; }
+    p { margin-bottom: 1rem; }
+    p:last-child { margin-bottom: 0; }
+
+    /* ── LAYOUT ── */
+    .wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 1.5rem; }
+    section { padding: 5.5rem 0; }
+
+    /* ── PROGRESS BAR ── */
+    #progress-bar {
+      position: fixed; top: 0; left: 0; height: 2px;
+      background: linear-gradient(90deg, var(--accent-dark), var(--accent), var(--accent-light));
+      z-index: 300; transition: width 0.1s linear; width: 0%;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      padding: 1.1rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(10,10,10,0.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      transition: transform 0.3s ease;
+    }
+    .nav-logo {
+      font-size: 0.85rem; font-weight: 800; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--accent); text-decoration: none;
+    }
+    .nav-right { display: flex; align-items: center; gap: 0.75rem; }
+    .btn-lang {
+      background: transparent; border: 1px solid var(--border-accent);
+      color: var(--accent); padding: 0.4rem 1rem; border-radius: 100px;
+      font-size: 0.8rem; font-weight: 600; cursor: pointer;
+      transition: background 0.2s; font-family: inherit; letter-spacing: 0.02em;
+    }
+    .btn-lang:hover { background: var(--border-accent); }
+    .btn-nav-cta {
+      background: var(--accent); color: #000; padding: 0.5rem 1.3rem;
+      border-radius: 100px; font-size: 0.82rem; font-weight: 700;
+      text-decoration: none; transition: background 0.2s, transform 0.2s;
+      letter-spacing: 0.02em;
+    }
+    .btn-nav-cta:hover { background: var(--accent-light); transform: translateY(-1px); }
+
+    /* ── SHARED ATOMS ── */
+    .label {
+      display: inline-block; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent);
+      margin-bottom: 1.2rem;
+    }
+    .divider { width: 36px; height: 2px; background: var(--accent); margin: 1.4rem 0; }
+    .divider.center { margin-left: auto; margin-right: auto; }
+    .btn-primary {
+      display: inline-block; background: var(--accent); color: #000;
+      padding: 1rem 2.5rem; border-radius: 100px; font-size: 1rem;
+      font-weight: 700; text-decoration: none; transition: background 0.2s, transform 0.2s;
+      letter-spacing: 0.03em;
+    }
+    .btn-primary:hover { background: var(--accent-light); transform: translateY(-2px); }
+    .btn-ghost {
+      display: inline-block; background: transparent; color: var(--text);
+      padding: 1rem 2.5rem; border-radius: 100px; font-size: 1rem;
+      font-weight: 500; text-decoration: none; border: 1px solid var(--border);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+    .cta-group { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .quote-block {
+      font-size: clamp(1.25rem, 2.5vw, 1.65rem); font-weight: 700;
+      color: var(--text); text-align: center;
+      padding: 2.5rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      margin: 2.5rem 0; line-height: 1.4; letter-spacing: -0.01em;
+    }
+    .quote-block em { color: var(--accent); font-style: normal; }
+    .accent-border {
+      background: rgba(201,169,110,0.05); border-left: 3px solid var(--accent);
+      border-radius: 0 var(--radius) var(--radius) 0; padding: 1.5rem 1.75rem; margin: 1.75rem 0;
+    }
+    .accent-border .kc-label {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem;
+    }
+    .accent-border p { color: var(--text); font-size: 0.95rem; font-weight: 500; margin: 0; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh; display: flex; align-items: center;
+      padding-top: 6rem; position: relative; overflow: hidden; text-align: center;
+    }
+    #hero::before {
+      content: ''; position: absolute; top: -20%; left: 50%; transform: translateX(-50%);
+      width: 900px; height: 900px;
+      background: radial-gradient(circle, rgba(201,169,110,0.055) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-inner { max-width: 820px; margin: 0 auto; padding: 0 1.5rem; }
+    .hero-tag {
+      display: inline-block; font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent);
+      border: 1px solid var(--border-accent); padding: 0.4rem 1.1rem;
+      border-radius: 100px; margin-bottom: 3rem;
+    }
+    .hero-headline { margin-bottom: 1.5rem; }
+    .hero-headline .glow { color: var(--accent); }
+    .hero-sub {
+      font-size: clamp(1rem, 2.2vw, 1.25rem); color: var(--text-muted);
+      max-width: 600px; margin: 0 auto 1.5rem; font-weight: 300; line-height: 1.75;
+    }
+    .hero-hook {
+      font-size: 1rem; color: var(--text); font-weight: 400;
+      max-width: 520px; margin: 0 auto 3rem; line-height: 1.75; opacity: 0.85;
+    }
+    .hero-cta { justify-content: center; }
+    .hero-scroll {
+      margin-top: 5rem; font-size: 0.72rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--text-dim);
+    }
+
+    /* ── WHAT IS ── */
+    #what-is { background: var(--bg-2); }
+    .what-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+      align-items: start; margin-top: 3rem;
+    }
+    .what-text p { font-size: 1.05rem; color: var(--text-muted); margin-bottom: 1.25rem; }
+    .big-quote {
+      font-size: clamp(1.15rem, 2vw, 1.45rem); font-weight: 700; line-height: 1.4;
+      color: var(--accent-light); font-style: italic;
+      padding-left: 1.75rem; border-left: 3px solid var(--accent); margin: 2.5rem 0;
+    }
+    .tag-card {
+      background: var(--bg-3); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 2rem; margin-bottom: 1.25rem;
+    }
+    .tag-card h4 {
+      font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--text-muted); margin-bottom: 1.25rem; font-weight: 600;
+    }
+    .plain-list { list-style: none; }
+    .plain-list li {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      padding: 0.6rem 0; font-size: 0.9rem; color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+    }
+    .plain-list li:last-child { border-bottom: none; }
+    .plain-list.dash li::before { content: '—'; color: var(--text-dim); flex-shrink: 0; }
+    .plain-list.check li::before { content: '✓'; color: var(--accent); font-weight: 700; flex-shrink: 0; }
+
+    /* ── FOR WHO ── */
+    #for-who { background: var(--bg); }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.75rem; margin-top: 3rem; }
+    .fw-card {
+      background: var(--bg-3); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 2.5rem;
+    }
+    .fw-card.yes { border-color: rgba(201,169,110,0.2); }
+    .fw-card h3 { font-size: 1rem; margin-bottom: 1.5rem; letter-spacing: 0.04em; }
+    .fw-list { list-style: none; }
+    .fw-list li {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      padding: 0.65rem 0; font-size: 0.92rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .fw-list li:last-child { border-bottom: none; }
+    .fw-list.yes li::before { content: '✓'; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: 0.05rem; }
+    .fw-list.no li::before { content: '✕'; color: var(--text-dim); font-weight: 700; flex-shrink: 0; margin-top: 0.05rem; }
+    .fw-list.yes li { color: var(--text); }
+    .fw-list.no li { color: var(--text-muted); }
+
+    /* ── PHILOSOPHY ── */
+    #philosophy { background: var(--bg-2); text-align: center; }
+    .phil-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; margin-top: 3rem; }
+    .phil-card {
+      background: var(--bg-3); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 2.5rem 2rem; text-align: left;
+    }
+    .phil-num { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; color: var(--accent); margin-bottom: 1.25rem; }
+    .phil-main { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.02em; }
+    .phil-over { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); margin: 0.4rem 0; }
+    .phil-vs { font-size: 0.95rem; color: var(--text-dim); text-decoration: line-through; }
+    .phil-desc { font-size: 0.88rem; color: var(--text-muted); margin-top: 1.25rem; line-height: 1.7; }
+
+    /* ── TRANSFORMATION ── */
+    #transformation { background: var(--bg); }
+    .before-after { display: grid; grid-template-columns: 1fr 1fr; gap: 1.75rem; margin-top: 3rem; }
+    .ba-card { border-radius: var(--radius-lg); padding: 2.5rem; }
+    .ba-card.before { background: var(--bg-2); border: 1px solid var(--border); }
+    .ba-card.after { background: rgba(201,169,110,0.04); border: 1px solid var(--border-accent); }
+    .ba-card h3 { font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; margin-bottom: 1.5rem; }
+    .ba-card.before h3 { color: var(--text-dim); }
+    .ba-card.after h3 { color: var(--accent); }
+    .ba-list { list-style: none; }
+    .ba-list li {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      padding: 0.7rem 0; font-size: 0.92rem; border-bottom: 1px solid var(--border);
+    }
+    .ba-list li:last-child { border-bottom: none; }
+    .before .ba-list li { color: var(--text-muted); }
+    .before .ba-list li::before { content: '·'; color: var(--text-dim); }
+    .after .ba-list li { color: var(--text); }
+    .after .ba-list li::before { content: '→'; color: var(--accent); font-weight: 700; }
+
+    /* ── MODULE OVERVIEW ── */
+    #modules-overview { background: var(--bg-2); }
+    .mod-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 1.25rem; margin-top: 3rem; }
+    .mod-card {
+      background: var(--bg-3); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 2rem;
+      transition: border-color 0.2s, transform 0.2s; cursor: pointer;
+    }
+    .mod-card:hover { border-color: var(--border-accent); transform: translateY(-2px); }
+    .mod-num { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em; color: var(--accent); margin-bottom: 1rem; }
+    .mod-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .mod-card p { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1rem; }
+    .mod-result { font-size: 0.8rem; color: var(--accent); font-weight: 600; }
+
+    /* ── FULL MODULES ── */
+    .mod-full { padding: 5.5rem 0; border-bottom: 1px solid var(--border); }
+    .mod-full.bg-alt { background: var(--bg-2); }
+    .mod-full.bg-def { background: var(--bg); }
+    .mod-header { margin-bottom: 3.5rem; }
+    .mod-tag {
+      display: inline-block; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent);
+      border: 1px solid var(--border-accent); padding: 0.35rem 0.9rem;
+      border-radius: 100px; margin-bottom: 1.5rem;
+    }
+    .mod-intro { font-size: 1.05rem; color: var(--text-muted); max-width: 680px; margin-top: 0.75rem; }
+
+    /* ── VIDEO LESSON ── */
+    .lesson {
+      background: var(--bg-3); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 2.5rem; margin-bottom: 1.5rem;
+    }
+    .lesson-head {
+      display: flex; align-items: center; gap: 1rem; margin-bottom: 1.75rem;
+    }
+    .play-icon {
+      width: 42px; height: 42px; background: rgba(201,169,110,0.1);
+      border: 1px solid var(--border-accent); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem; flex-shrink: 0; color: var(--accent);
+    }
+    .lesson-meta .lesson-num {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 0.2rem;
+    }
+    .lesson-meta h4 { font-size: 1.05rem; letter-spacing: -0.01em; }
+    .lesson-body { font-size: 0.93rem; color: var(--text-muted); line-height: 1.85; }
+    .lesson-body p { margin-bottom: 1rem; }
+    .lesson-body p:last-child { margin-bottom: 0; }
+
+    /* ── EXERCISE BLOCK ── */
+    .ex-block {
+      background: var(--bg-4); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.75rem; margin-top: 1.75rem;
+    }
+    .ex-label {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 1rem;
+    }
+    .ex-list { list-style: none; }
+    .ex-list li {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      padding: 0.55rem 0; font-size: 0.88rem; color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+    }
+    .ex-list li:last-child { border-bottom: none; }
+    .ex-list li::before { content: '→'; color: var(--accent); flex-shrink: 0; margin-top: 0.1rem; }
+
+    /* ── WORKBOOK ── */
+    .workbook {
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 3rem; margin-top: 3rem;
+    }
+    .wb-label {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem;
+    }
+    .workbook > h3 { margin-bottom: 0.5rem; }
+    .workbook > .wb-desc { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 2rem; }
+    .wb-part {
+      border-bottom: 1px solid var(--border); padding-bottom: 1.75rem; margin-bottom: 1.75rem;
+    }
+    .wb-part:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .wb-part h4 { margin-bottom: 0.6rem; }
+    .wb-part p { font-size: 0.9rem; color: var(--text-muted); }
+
+    /* ── TRACKER ── */
+    .tracker { margin-top: 1.75rem; }
+    .tr-row {
+      display: grid; grid-template-columns: 60px 1fr 24px;
+      gap: 1rem; align-items: center;
+      padding: 0.75rem 1rem; background: var(--bg-3); border: 1px solid var(--border);
+      border-radius: 8px; margin-bottom: 0.5rem; font-size: 0.85rem;
+    }
+    .tr-day { font-weight: 700; color: var(--accent); font-size: 0.75rem; letter-spacing: 0.05em; }
+    .tr-task { color: var(--text-muted); }
+    .tr-box { width: 20px; height: 20px; border: 1px solid var(--border); border-radius: 4px; }
+
+    /* ── 7-DAY CHALLENGE ── */
+    #challenge { background: var(--bg-2); }
+    .challenge-rules {
+      background: var(--bg-3); border: 1px solid var(--border-accent);
+      border-radius: var(--radius-lg); padding: 2.5rem; margin: 3rem 0;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+    }
+    .rule-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+    .rule-text { font-size: 0.88rem; color: var(--text-muted); }
+    .day-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 1rem; }
+    .day-card {
+      background: var(--bg-3); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.5rem 1rem; text-align: center;
+    }
+    .day-n { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+    .day-t { font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; }
+
+    /* ── WHAT YOU GET ── */
+    #what-you-get { background: var(--bg); }
+    .get-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+    .get-card {
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 2rem;
+    }
+    .get-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+    .get-card h4 { margin-bottom: 0.5rem; }
+    .get-card p { font-size: 0.85rem; color: var(--text-muted); }
+
+    /* ── PRICING ── */
+    #pricing { background: var(--bg-2); text-align: center; }
+    .pricing-card {
+      background: var(--bg); border: 1px solid var(--border-accent);
+      border-radius: var(--radius-lg); padding: 4rem 3rem;
+      max-width: 520px; margin: 3rem auto 0;
+    }
+    .pr-tag { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; }
+    .pr-price { font-size: clamp(3.5rem, 7vw, 5rem); font-weight: 900; line-height: 1; color: var(--text); margin-bottom: 0.4rem; letter-spacing: -0.03em; }
+    .pr-currency { font-size: 1.8rem; vertical-align: top; margin-top: 0.75rem; display: inline-block; }
+    .pr-note { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 2.5rem; }
+    .pr-list { text-align: left; margin-bottom: 2.5rem; list-style: none; }
+    .pr-list li {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.6rem 0; font-size: 0.9rem; border-bottom: 1px solid var(--border);
+    }
+    .pr-list li:last-child { border-bottom: none; }
+    .pr-list li::before { content: '✓'; color: var(--accent); font-weight: 700; flex-shrink: 0; }
+    .btn-buy {
+      display: block; background: var(--accent); color: #000;
+      padding: 1.1rem 2rem; border-radius: 100px; font-size: 1rem;
+      font-weight: 700; text-decoration: none; transition: background 0.2s, transform 0.2s;
+      letter-spacing: 0.03em;
+    }
+    .btn-buy:hover { background: var(--accent-light); transform: translateY(-2px); }
+    .pr-fine { font-size: 0.75rem; color: var(--text-dim); margin-top: 1rem; }
+
+    /* ── FINAL CTA ── */
+    #final-cta { background: var(--bg); padding: 8rem 0; text-align: center; }
+    .final-inner { max-width: 720px; margin: 0 auto; padding: 0 1.5rem; }
+    .choice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.75rem; margin: 3.5rem 0; text-align: left; }
+    .choice-card { background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; }
+    .choice-card h4 { font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.75rem; }
+    .choice-card.no h4 { color: var(--text-dim); }
+    .choice-card.yes h4 { color: var(--accent); }
+    .choice-card p { font-size: 0.88rem; color: var(--text-muted); }
+    .final-quote { font-size: clamp(1.4rem, 2.8vw, 1.9rem); font-weight: 700; line-height: 1.4; margin: 3rem 0; letter-spacing: -0.02em; }
+    .final-quote em { color: var(--accent); font-style: normal; }
+    .final-cta-btns { justify-content: center; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg-2); border-top: 1px solid var(--border);
+      padding: 2rem 1.5rem; text-align: center;
+    }
+    footer p { font-size: 0.78rem; color: var(--text-dim); }
+    footer span { color: var(--accent); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      section { padding: 3.5rem 0; }
+      .what-grid, .two-col, .before-after, .choice-grid { grid-template-columns: 1fr; }
+      .phil-grid { grid-template-columns: 1fr; }
+      .challenge-rules { grid-template-columns: 1fr; }
+      .day-grid { grid-template-columns: repeat(4, 1fr); }
+      .btn-nav-cta { display: none; }
+      .lesson { padding: 1.75rem; }
+      .workbook { padding: 2rem; }
+      .pricing-card { padding: 2.5rem 1.75rem; }
+      #final-cta { padding: 5rem 0; }
+    }
+    @media (max-width: 480px) {
+      .day-grid { grid-template-columns: repeat(2, 1fr); }
+      .cta-group { flex-direction: column; align-items: stretch; }
+      .btn-primary, .btn-ghost { text-align: center; }
+    }
+  </style>
+</head>
+<body class="lang-es">
+
+<div id="progress-bar"></div>
+
+<!-- ════════════════════════ NAV ════════════════════════ -->
+<nav id="main-nav">
+  <a href="#hero" class="nav-logo">Glow Flow Method</a>
+  <div class="nav-right">
+    <button class="btn-lang" onclick="toggleLang()">
+      <span class="es">🇺🇸 English</span>
+      <span class="en">🇪🇸 Español</span>
+    </button>
+    <a href="course/index.html" class="btn-nav-cta" style="background:rgba(201,169,110,0.15);border:1px solid rgba(201,169,110,0.4);color:var(--accent);">
+      <span class="es">Acceder al curso →</span>
+      <span class="en">Access course →</span>
+    </a>
+    <a href="#pricing" class="btn-nav-cta">
+      <span class="es">Comenzar ahora</span>
+      <span class="en">Start Now</span>
+    </a>
+  </div>
+</nav>
+
+<!-- ════════════════════════ HERO ════════════════════════ -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">
+      <span class="es">Método Digital de Transformación Personal</span>
+      <span class="en">Digital Personal Transformation Method</span>
+    </div>
+    <h1 class="hero-headline">
+      <span class="es">Deja de<br><span class="glow">sabotearte.</span><br>Empieza a<br>construirte.</span>
+      <span class="en">Stop<br><span class="glow">self-sabotaging.</span><br>Start building<br>yourself.</span>
+    </h1>
+    <p class="hero-sub">
+      <span class="es">Un sistema real para salir del desorden mental, desarrollar disciplina sin depender de emociones, y convertirte en la persona que siempre quisiste ser.</span>
+      <span class="en">A real system to escape mental chaos, build discipline without depending on your emotions, and become the person you've always intended to be.</span>
+    </p>
+    <p class="hero-hook">
+      <span class="es">El problema no es que no sepas qué hacer.<br>Es que no estás siendo la persona que lo sostiene.</span>
+      <span class="en">The problem isn't that you don't know what to do.<br>It's that you're not yet the person who follows through.</span>
+    </p>
+    <div class="cta-group hero-cta">
+      <a href="#pricing" class="btn-primary">
+        <span class="es">Quiero empezar →</span>
+        <span class="en">I want to start →</span>
+      </a>
+      <a href="#modules-overview" class="btn-ghost">
+        <span class="es">Ver el método</span>
+        <span class="en">See the method</span>
+      </a>
+    </div>
+    <p class="hero-scroll">
+      <span class="es">Desplázate para explorar</span>
+      <span class="en">Scroll to explore</span>
+    </p>
+  </div>
+</section>
+
+<!-- ════════════════════════ WHAT IS ════════════════════════ -->
+<section id="what-is">
+  <div class="wrap">
+    <div class="label">
+      <span class="es">¿Qué es?</span>
+      <span class="en">What is it?</span>
+    </div>
+    <h2>Glow Flow Method</h2>
+    <div class="what-grid">
+      <div class="what-text">
+        <p>
+          <span class="es">Glow Flow Method es un método digital de transformación personal diseñado para ayudarte a dejar el autosabotaje, salir de una vida sin estructura y convertirte en una persona disciplinada, enfocada y en control de sí misma.</span>
+          <span class="en">Glow Flow Method is a digital personal transformation method designed to help you stop self-sabotaging, break free from a structureless life, and become a disciplined, focused person who is in full control of themselves.</span>
+        </p>
+        <p>
+          <span class="es">No nace desde la perfección. Nace desde alguien que también ha vivido sin estructura, que ha querido cambiar y no lograba sostenerlo. Que entendió algo que lo cambia todo:</span>
+          <span class="en">It wasn't born from perfection. It was born from someone who has also lived without structure — who wanted to change but couldn't sustain it. Who understood something that changes everything:</span>
+        </p>
+        <p>
+          <span class="es">Ya tienes suficiente información. Lo que necesitas es convertirte en alguien diferente.</span>
+          <span class="en">You already have enough information. What you need is to become someone different.</span>
+        </p>
+        <blockquote class="big-quote">
+          <span class="es">"El problema no es que no sepas qué hacer. Es que no lo estás ejecutando."</span>
+          <span class="en">"The problem is not that you don't know what to do. The problem is that you're not doing it."</span>
+        </blockquote>
+      </div>
+      <div>
+        <div class="tag-card">
+          <h4><span class="es">Esto NO es</span><span class="en">This is NOT</span></h4>
+          <ul class="plain-list dash">
+            <li><span class="es">Un programa fitness</span><span class="en">A fitness program</span></li>
+            <li><span class="es">Motivación vacía</span><span class="en">Empty motivation</span></li>
+            <li><span class="es">Otro curso de hábitos que no vas a sostener</span><span class="en">Another habit course you won't stick to</span></li>
+            <li><span class="es">Teoría sin aplicación real</span><span class="en">Theory without real application</span></li>
+            <li><span class="es">Contenido genérico para cualquier persona</span><span class="en">Generic content for everyone</span></li>
+          </ul>
+        </div>
+        <div class="tag-card">
+          <h4><span class="es">Esto SÍ es</span><span class="en">This IS</span></h4>
+          <ul class="plain-list check">
+            <li><span class="es">Un sistema que transforma cómo piensas y actúas</span><span class="en">A system that transforms how you think and act</span></li>
+            <li><span class="es">Un método que cambia quién eres, no solo lo que haces</span><span class="en">A method that changes who you are, not just what you do</span></li>
+            <li><span class="es">Ejercicios reales que aplicas desde hoy</span><span class="en">Real exercises you apply starting today</span></li>
+            <li><span class="es">Confrontación honesta + dirección clara</span><span class="en">Honest confrontation + clear direction</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════ FOR WHO ════════════════════════ -->
+<section id="for-who">
+  <div class="wrap">
+    <div class="label">
+      <span class="es">¿Para quién?</span>
+      <span class="en">Who is this for?</span>
+    </div>
+    <h2>
+      <span class="es">Hecho para ti si...</span>
+      <span class="en">Made for you if...</span>
+    </h2>
+    <div class="two-col">
+      <div class="fw-card yes">
+        <h3 style="color:var(--accent);">
+          <span class="es">✓ Es para ti si...</span>
+          <span class="en">✓ This is for you if...</span>
+        </h3>
+        <ul class="fw-list yes">
+          <li><span class="es">Sientes que estás viviendo sin estructura</span><span class="en">You feel like you're living without structure</span></li>
+          <li><span class="es">Te saboteas constantemente sin entender por qué</span><span class="en">You constantly self-sabotage without understanding why</span></li>
+          <li><span class="es">Empiezas cosas con energía y las abandonas</span><span class="en">You start things with energy and then abandon them</span></li>
+          <li><span class="es">Quieres disciplina pero no sabes cómo sostenerla</span><span class="en">You want discipline but don't know how to sustain it</span></li>
+          <li><span class="es">Quieres cambiar tu vida, tu cuerpo y tu mentalidad</span><span class="en">You want to change your life, your body, and your mindset</span></li>
+          <li><span class="es">Sabes que puedes ser más, pero no estás actuando como esa versión</span><span class="en">You know you can be more, but you're not acting like that version yet</span></li>
+          <li><span class="es">Estás listo(a) para confrontarte con honestidad</span><span class="en">You're ready to confront yourself honestly</span></li>
+        </ul>
+      </div>
+      <div class="fw-card">
+        <h3 style="color:var(--text-dim);">
+          <span class="es">✕ No es para ti si...</span>
+          <span class="en">✕ This is NOT for you if...</span>
+        </h3>
+        <ul class="fw-list no">
+          <li><span class="es">Buscas resultados rápidos sin esfuerzo real</span><span class="en">You're looking for fast results without real effort</span></li>
+          <li><span class="es">Solo quieres motivación momentánea</span><span class="en">You only want a temporary motivational boost</span></li>
+          <li><span class="es">No estás dispuesto(a) a confrontarte</span><span class="en">You're not willing to confront yourself</span></li>
+          <li><span class="es">Crees que con más información vas a cambiar</span><span class="en">You believe that more information alone will change you</span></li>
+          <li><span class="es">Esperas que alguien venga a cambiar tu vida por ti</span><span class="en">You're waiting for someone to come change your life for you</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════ PHILOSOPHY ════════════════════════ -->
+<section id="philosophy">
+  <div class="wrap">
+    <div class="label" style="display:block; text-align:center;">
+      <span class="es">Filosofía Central</span>
+      <span class="en">Core Philosophy</span>
+    </div>
+    <h2 style="text-align:center;">
+      <span class="es">La idea que lo cambia todo</span>
+      <span class="en">The idea that changes everything</span>
+    </h2>
+    <p style="text-align:center; color:var(--text-muted); font-size:1rem; max-width:560px; margin: 0.75rem auto 0;">
+      <span class="es">Tres verdades que nadie te dice. Pero que, una vez que las entiendes, todo cambia.</span>
+      <span class="en">Three truths nobody tells you. But once you understand them, everything changes.</span>
+    </p>
+    <div class="phil-grid">
+      <div class="phil-card">
+        <div class="phil-num">01</div>
+        <div class="phil-main"><span class="es">Estructura</span><span class="en">Structure</span></div>
+        <div class="phil-over"><span class="es">sobre</span><span class="en">over</span></div>
+        <div class="phil-vs"><span class="es">motivación</span><span class="en">motivation</span></div>
+        <div class="phil-desc">
+          <span class="es">No necesitas sentirte listo(a). Necesitas un sistema que funcione incluso cuando no tienes ganas. La motivación es temporal. La estructura es permanente.</span>
+          <span class="en">You don't need to feel ready. You need a system that works even when you don't feel like it. Motivation is temporary. Structure is permanent.</span>
+        </div>
+      </div>
+      <div class="phil-card">
+        <div class="phil-num">02</div>
+        <div class="phil-main"><span class="es">Ejecución</span><span class="en">Execution</span></div>
+        <div class="phil-over"><span class="es">sobre</span><span class="en">over</span></div>
+        <div class="phil-vs"><span class="es">información</span><span class="en">information</span></div>
+        <div class="phil-desc">
+          <span class="es">Ya tienes suficiente información. El problema no es saber más. El problema es ejecutar lo que ya sabes. Pasar del conocimiento a la acción es el único salto que importa.</span>
+          <span class="en">You already have enough information. The problem isn't knowing more. The problem is executing what you already know. Going from knowledge to action is the only leap that matters.</span>
+        </div>
+      </div>
+      <div class="phil-card">
+        <div class="phil-num">03</div>
+        <div class="phil-main"><span class="es">Identidad</span><span class="en">Identity</span></div>
+        <div class="phil-over"><span class="es">sobre</span><span class="en">over</span></div>
+        <div class="phil-vs"><span class="es">intención</span><span class="en">intention</span></div>
+        <div class="phil-desc">
+          <span class="es">No necesitas otra versión de ti. Necesitas convertirte en ella. El cambio real no es lo que haces — es en quién te conviertes mientras lo haces.</span>
+          <span class="en">You don't need another version of yourself. You need to become it. Real change isn't what you do — it's who you become in the process of doing it.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════ TRANSFORMATION ════════════════════════ -->
+<section id="transformation">
+  <div class="wrap">
+    <div class="label">
+      <span class="es">Transformación</span>
+      <span class="en">Transformation</span>
+    </div>
+    <h2>
+      <span class="es">Antes y después de Glow Flow</span>
+      <span class="en">Before and after Glow Flow</span>
+    </h2>
+    <div class="before-after">
+      <div class="ba-card before">
+        <h3><span class="es">Antes</span><span class="en">Before</span></h3>
+        <ul class="ba-list">
+          <li><span class="es">Vives dependiendo de cómo te sientes cada día</span><span class="en">You live depending on how you feel each day</span></li>
+          <li><span class="es">Te saboteas sin entender por qué</span><span class="en">You self-sabotage without understanding why</span></li>
+          <li><span class="es">Empiezas cosas con energía y las abandonas</span><span class="en">You start things with energy and abandon them</span></li>
+          <li><span class="es">Negocias contigo todos los días</span><span class="en">You negotiate with yourself every single day</span></li>
+          <li><span class="es">Tu identidad no sostiene la vida que quieres</span><span class="en">Your identity doesn't support the life you want</span></li>
+          <li><span class="es">Sientes que siempre estás en el mismo lugar</span><span class="en">You feel like you're always in the same place</span></li>
+        </ul>
+      </div>
+      <div class="ba-card after">
+        <h3><span class="es">Después</span><span class="en">After</span></h3>
+        <ul class="ba-list">
+          <li><span class="es">Tienes estructura que funciona sin depender de ganas</span><span class="en">You have structure that works regardless of how you feel</span></li>
+          <li><span class="es">Entiendes tu autosabotaje y sabes cómo cortarlo</span><span class="en">You understand your self-sabotage and know how to stop it</span></li>
+          <li><span class="es">Cumples lo que decides, aunque no tengas ganas</span><span class="en">You follow through on decisions, even without motivation</span></li>
+          <li><span class="es">Dejas de negociar contigo y empiezas a ejecutar</span><span class="en">You stop negotiating with yourself and start executing</span></li>
+          <li><span class="es">Tu identidad está alineada con tus acciones</span><span class="en">Your identity is aligned with your actions</span></li>
+          <li><span class="es">Tomas decisiones con claridad y avanzas en línea recta</span><span class="en">You make clear decisions and move forward in a straight line</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════ MODULES OVERVIEW ════════════════════════ -->
+<section id="modules-overview">
+  <div class="wrap">
+    <div class="label">
+      <span class="es">El Método</span>
+      <span class="en">The Method</span>
+    </div>
+    <h2>
+      <span class="es">5 módulos. Una transformación.</span>
+      <span class="en">5 modules. One transformation.</span>
+    </h2>
+    <p style="color:var(--text-muted); font-size:1rem; max-width:580px; margin-top:0.75rem;">
+      <span class="es">Cada módulo está diseñado para llevarte a través de una transformación profunda y sostenible. No es teoría. Es un proceso real.</span>
+      <span class="en">Each module is designed to take you through a deep, sustainable transformation. Not theory. A real process.</span>
+    </p>
+    <div class="mod-grid">
+      <div class="mod-card" onclick="scrollTo('module-1')">
+        <div class="mod-num">MÓDULO 01</div>
+        <h3><span class="es">Reset Mental</span><span class="en">Mental Reset</span></h3>
+        <p><span class="es">Romper el autosabotaje y el desorden mental. Entender por qué no ejecutas y cómo detenerlo para siempre.</span><span class="en">Break self-sabotage and mental disorder. Understand why you don't execute and how to stop it for good.</span></p>
+        <div class="mod-result"><span class="es">→ Claridad + fin del autosabotaje</span><span class="en">→ Clarity + end of self-sabotage</span></div>
+      </div>
+      <div class="mod-card" onclick="scrollTo('module-2')">
+        <div class="mod-num">MÓDULO 02</div>
+        <h3><span class="es">Disciplina Real</span><span class="en">Real Discipline</span></h3>
+        <p><span class="es">Dejar de negociar contigo y ejecutar sin depender de emociones. La disciplina sin ganas.</span><span class="en">Stop negotiating with yourself and execute without depending on emotions. Discipline without mood.</span></p>
+        <div class="mod-result"><span class="es">→ Ejecución sin negociación</span><span class="en">→ Execution without negotiation</span></div>
+      </div>
+      <div class="mod-card" onclick="scrollTo('module-3')">
+        <div class="mod-num">MÓDULO 03</div>
+        <h3><span class="es">Identidad y Consistencia</span><span class="en">Identity & Consistency</span></h3>
+        <p><span class="es">Convertirte en alguien que sostiene hábitos. Cambiar quién eres, no solo lo que haces.</span><span class="en">Become someone who sustains habits. Change who you are, not just what you do.</span></p>
+        <div class="mod-result"><span class="es">→ Identidad que sostiene</span><span class="en">→ Identity that holds</span></div>
+      </div>
+      <div class="mod-card" onclick="scrollTo('module-4')">
+        <div class="mod-num">MÓDULO 04</div>
+        <h3><span class="es">Cuerpo, Hábitos y Glow Up</span><span class="en">Body, Habits & Glow Up</span></h3>
+        <p><span class="es">Llevar la disciplina a tu físico, rutina y energía. Tu cuerpo refleja exactamente cómo te estás tratando.</span><span class="en">Take discipline to your body, routine, and energy. Your body reflects exactly how you treat yourself.</span></p>
+        <div class="mod-result"><span class="es">→ Cuerpo + energía alineados</span><span class="en">→ Body + energy aligned</span></div>
+      </div>
+      <div class="mod-card" onclick="scrollTo('module-5')">
+        <div class="mod-num">MÓDULO 05</div>
+        <h3><span class="es">Estilo de Vida y Mantenimiento</span><span class="en">Lifestyle & Maintenance</span></h3>
+        <p><span class="es">Sostener resultados sin recaer. El punto donde dejas de intentar y empiezas a ser.</span><span class="en">Sustain results without relapsing. The point where you stop trying and start being.</span></p>
+        <div class="mod-result"><span class="es">→ Resultados definitivos</span><span class="en">→ Definitive results</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════ MODULE 1 ════════════════════════ -->
+<div class="mod-full bg-def" id="module-1">
+  <div class="wrap">
+    <div class="mod-header">
+      <div class="mod-tag"><span class="es">Módulo 01</span><span class="en">Module 01</span></div>
+      <h2><span class="es">Reset Mental</span><span class="en">Mental Reset</span></h2>
+      <p class="mod-intro">
+        <span class="es">Este módulo no es para motivarte. Es para confrontarte. Aquí vas a entender por qué te saboteas, por qué sientes que vives sin estructura, y qué necesitas cambiar para tomar control real sobre tu vida.</span>
+        <span class="en">This module isn't here to motivate you. It's here to confront you. Here you'll understand why you self-sabotage, why you feel like you live without structure, and what you need to change to take real control of your life.</span>
+      </p>
+    </div>
+
+    <!-- Lesson 1 -->
+    <div class="lesson">
+      <div class="lesson-head">
+        <div class="play-icon">▶</div>
+        <div class="lesson-meta">
+          <div class="lesson-num"><span class="es">Lección 1</span><span class="en">Lesson 1</span></div>
+          <h4><span class="es">No te falta disciplina — te falta estructura</span><span class="en">You don't lack discipline — you lack structure</span></h4>
+        </div>
+      </div>
+      <div class="lesson-body">
+        <p><span class="es">La primera verdad que necesitas entender: no eres indisciplinado(a). Estás desordenado(a). Y esa diferencia cambia todo. Cuando no tienes estructura, todo en tu vida depende de cómo te sientes ese día. Si tienes ganas, haces las cosas. Si no tienes ganas, no haces nada. Y así... es imposible cambiar.</span><span class="en">The first truth you need to understand: you're not undisciplined. You're disordered. And that difference changes everything. When you have no structure, everything in your life depends on how you feel that day. If you feel like it, you do things. If you don't feel like it, you do nothing. And that's why change becomes impossible.</span></p>
+        <p><span class="es">Porque entonces no estás tomando decisiones — estás reaccionando a tu estado emocional. Y eso es exactamente lo que te tiene en el mismo lugar. No es falta de información. Tú ya sabes lo que tienes que hacer. Sabes que deberías organizarte, moverte, cuidarte, cumplir contigo. Pero no lo haces. ¿Por qué?</span><span class="en">Because you're not making decisions — you're reacting to your emotional state. And that is exactly what's keeping you in the same place. It's not lack of information. You already know what you need to do. You know you should organize yourself, move, take care of yourself, follow through. But you don't. Why?</span></p>
+        <div class="accent-border">
+          <div class="kc-label"><span class="es">Concepto clave</span><span class="en">Key concept</span></div>
+          <p><span class="es">Tu vida no tiene estructura. Y cuando no hay estructura, tu mente toma el control. Y tu mente siempre va a elegir lo fácil. Siempre. La disciplina no nace de la motivación — nace de tener una estructura que no depende de cómo te sientes.</span><span class="en">Your life has no structure. And when there's no structure, your mind takes over. And your mind will always choose the easy path. Always. Discipline doesn't come from motivation — it comes from having a structure that doesn't depend on how you feel.</span></p>
+        </div>
+      </div>
+      <div class="quote-block">"<span class="es">No eres indisciplinado(a)...<br><em>estás desordenado(a).</em></span><span class="en">You're not undisciplined...<br><em>you're disordered.</em></span>"</div>
+      <div class="ex-block">
+        <div class="ex-label"><span class="es">Ejercicio</span><span class="en">Exercise</span></div>
+        <ul class="ex-list">
+          <li><span class="es">¿En qué áreas de tu vida estás viviendo sin estructura?</span><span class="en">In what areas of your life are you living without structure?</span></li>
+          <li><span class="es">¿Qué cosas sabes que tienes que hacer pero no estás haciendo?</span><span class="en">What things do you know you need to do but aren't doing?</span></li>
+          <li><span class="es">¿Qué pasa cuando no tienes ganas? ¿Qué decides?</span><span class="en">What happens when you don't feel like it? What do you decide?</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Lesson 2 -->
+    <div class="lesson">
+      <div class="lesson-head">
+        <div class="play-icon">▶</div>
+        <div class="lesson-meta">
+          <div class="lesson-num"><span class="es">Lección 2</span><span class="en">Lesson 2</span></div>
+          <h4><span class="es">Así funciona tu autosabotaje</span><span class="en">This is how your self-sabotage works</span></h4>
+        </div>
+      </div>
+      <div class="lesson-body">
+        <p><span class="es">Tu mente siempre va a elegir lo fácil. No es flojera — es biología. El cerebro humano está diseñado para conservar energía y evitar el dolor. La procrastinación no es debilidad de carácter. Es protección automática. Tu mente interpreta el cambio, el esfuerzo, la incomodidad como amenazas — y automáticamente busca la salida más cómoda.</span><span class="en">Your mind will always choose the easy path. It's not laziness — it's biology. The human brain is designed to conserve energy and avoid pain. Procrastination isn't a character weakness. It's automatic protection. Your mind interprets change, effort, and discomfort as threats — and automatically seeks the most comfortable exit.</span></p>
+        <p><span class="es">Por eso empiezas y te detienes. Por eso sabes lo que tienes que hacer y no lo haces. No porque no puedas — sino porque tu sistema de protección mental lo hace más cómodo no hacerlo que hacerlo. Y mientras no tengas estructura que contrarreste eso, el autosabotaje siempre va a ganar.</span><span class="en">That's why you start and stop. That's why you know what to do and don't do it. Not because you can't — but because your mental protection system makes it more comfortable to not do it than to do it. And as long as you have no structure to counteract that, self-sabotage will always win.</span></p>
+        <div class="accent-border">
+          <div class="kc-label"><span class="es">La verdad incómoda</span><span class="en">The uncomfortable truth</span></div>
+          <p><span class="es">Reconocer tu autosabotaje no es suficiente. Tienes que construir un sistema que lo haga más difícil sabotearte que simplemente hacer las cosas.</span><span class="en">Recognizing your self-sabotage isn't enough. You have to build a system that makes it harder to self-sabotage than to just do the thing.</span></p>
+        </div>
+      </div>
+      <div class="ex-block">
+        <div class="ex-label"><span class="es">Ejercicio</span><span class="en">Exercise</span></div>
+        <ul class="ex-list">
+          <li><span class="es">Escribe 3 formas en las que te saboteas todos los días</span><span class="en">Write down 3 ways you self-sabotage every single day</span></li>
+          <li><span class="es">¿Qué excusas te dices a ti mismo(a) para justificarlo?</span><span class="en">What excuses do you tell yourself to justify it?</span></li>
+          <li><span class="es">¿Qué estás evitando realmente detrás de esas excusas?</span><span class="en">What are you really avoiding behind those excuses?</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Lesson 3 -->
+    <div class="lesson">
+      <div class="lesson-head">
+        <div class="play-icon">▶</div>
+        <div class="lesson-meta">
+          <div class="lesson-num"><span class="es">Lección 3</span><span class="en">Lesson 3</span></div>
+          <h4><span class="es">Vivir sin estructura te está costando tu vida</span><span class="en">Living without structure is costing you your life</span></h4>
+        </div>
+      </div>
+      <div class="lesson-body">
+        <p><span class="es">No tener estructura no es neutral. Tiene consecuencias reales. Cada día sin dirección no es un día perdido — es un día que se acumula en la dirección equivocada. No decidir también es una decisión. Y te mantiene exactamente en el mismo lugar.</span><span class="en">Having no structure isn't neutral. It has real consequences. Every day without direction isn't a lost day — it's a day accumulating in the wrong direction. Not deciding is also a decision. And it keeps you exactly in the same place.</span></p>
+        <p><span class="es">Falta de rutina significa falta de avance. Cada semana termina igual que empezó. Miras atrás en 6 meses y te das cuenta de que nada cambió — no porque no quisieras, sino porque no tenías estructura que te llevara hacia donde querías ir. Eso tiene un costo. Un costo real.</span><span class="en">Lack of routine means lack of progress. Every week ends the same as it started. You look back in 6 months and realize nothing changed — not because you didn't want it to, but because you had no structure carrying you toward where you wanted to go. That has a cost. A real cost.</span></p>
+      </div>
+      <div class="quote-block">"<span class="es">No es que no estés avanzando...<br><em>es que te estás quedando atrás.</em></span><span class="en">It's not that you're not moving forward...<br><em>you're falling behind.</em></span>"</div>
+      <div class="ex-block">
+        <div class="ex-label"><span class="es">Ejercicio</span><span class="en">Exercise</span></div>
+        <ul class="ex-list">
+          <li><span class="es">¿Cómo se ve tu vida actualmente sin estructura?</span><span class="en">What does your life look like right now without structure?</span></li>
+          <li><span class="es">Si sigues exactamente igual 6 meses más, ¿cómo te vas a sentir?</span><span class="en">If you stay exactly the same for 6 more months, how will you feel?</span></li>
+          <li><span class="es">¿Qué estás perdiendo concretamente por no cambiar ahora?</span><span class="en">What specifically are you losing by not changing right now?</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Lesson 4 -->
+    <div class="lesson">
+      <div class="lesson-head">
+        <div class="play-icon">▶</div>
+        <div class="lesson-meta">
+          <div class="lesson-num"><span class="es">Lección 4</span><span class="en">Lesson 4</span></div>
+          <h4><span class="es">La identidad que no te deja cambiar</span><span class="en">The identity that won't let you change</span></h4>
+        </div>
+      </div>
+      <div class="lesson-body">
+        <p><span class="es">No cambias porque sigues siendo la misma persona. Quieres disciplina, pero no te ves como alguien disciplinado(a). Sigues actuando desde tu versión actual. Y tu versión actual no sostiene los hábitos de la persona en la que quieres convertirte. No porque no puedas — sino porque tu identidad no lo sostiene.</span><span class="en">You don't change because you're still the same person. You want discipline, but you don't see yourself as a disciplined person. You keep acting from your current version. And your current version can't sustain the habits of the person you want to become. Not because you can't — but because your identity doesn't support it.</span></p>
+        <p><span class="es">Tu identidad define tus acciones. Si te identificas como "alguien que no puede ser constante", vas a seguir siendo inconstante. Si te identificas como "alguien que siempre empieza pero no termina", vas a seguir repitiendo ese patrón. Porque actúas en coherencia con quien crees que eres. Siempre.</span><span class="en">Your identity defines your actions. If you identify as "someone who can't be consistent," you'll keep being inconsistent. If you identify as "someone who always starts but never finishes," you'll keep repeating that pattern. Because you always act in alignment with who you believe you are. Always.</span></p>
+        <div class="accent-border">
+          <div class="kc-label"><span class="es">El cambio que importa</span><span class="en">The change that matters</span></div>
+          <p><span class="es">El cambio real empieza cuando cambias quién eres — no cuando cambias lo que haces. Los hábitos siguen a la identidad, no al revés.</span><span class="en">Real change starts when you change who you are — not when you change what you do. Habits follow identity, not the other way around.</span></p>
+        </div>
+      </div>
+      <div class="ex-block">
+        <div class="ex-label"><span class="es">Ejercicio de Identidad</span><span class="en">Identity Exercise</span></div>
+        <ul class="ex-list">
+          <li><span class="es">¿Quién eres hoy? (sé brutalmente honesto(a))</span><span class="en">Who are you today? (be brutally honest)</span></li>
+          <li><span class="es">¿Quién decides ser a partir de este momento?</span><span class="en">Who do you decide to be from this moment forward?</span></li>
+          <li><span class="es">¿Qué hace diferente a esa versión en el día a día?</span><span class="en">What does that version do differently in their daily life?</span></li>
+          <li><span class="es">¿Qué estás haciendo hoy que esa versión jamás haría?</span><span class="en">What are you doing today that that version would never do?</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Lesson 5 -->
+    <div class="lesson">
+      <div class="lesson-head">
+        <div class="play-icon">▶</div>
+        <div class="lesson-meta">
+          <div class="lesson-num"><span class="es">Lección 5</span><span class="en">Lesson 5</span></div>
+          <h4><span class="es">Tu reset empieza aquí</span><span class="en">Your reset starts here</span></h4>
+        </div>
+      </div>
+      <div class="lesson-body">
+        <p><span class="es">Este es el punto donde decides. Nadie va a venir a cambiar tu vida. No necesitas más información — necesitas empezar. No necesitas sentirte listo(a) — necesitas dejar de negociar contigo. El reset no es un momento de inspiración. Es una decisión.</span><span class="en">This is the moment where you decide. Nobody is coming to change your life for you. You don't need more information — you need to start. You don't need to feel ready — you need to stop negotiating with yourself. The reset is not a moment of inspiration. It's a decision.</span></p>
+        <p><span class="es">Una decisión de dejar de permitirte lo que ya sabes que no quieres repetir. De empezar a actuar en coherencia con la persona que decides ser. Aunque no tengas ganas. Aunque se sienta difícil. Especialmente entonces. Porque la disciplina que necesitas no viene antes de actuar. Viene después.</span><span class="en">A decision to stop allowing yourself what you already know you don't want to repeat. To start acting in alignment with the person you decide to be. Even when you don't feel like it. Even when it feels hard. Especially then. Because the discipline you need doesn't come before acting. It comes after.</span></p>
+      </div>
+      <div class="quote-block">"<span class="es">Dejar de sabotearte es el primer paso<br>para convertirte en <em>quien decides ser.</em></span><span class="en">Stopping self-sabotage is the first step<br>toward becoming <em>who you decide to be.</em></span>"</div>
+      <div class="ex-block">
+        <div class="ex-label"><span class="es">Ejercicio Final — Módulo 1</span><span class="en">Final Exercise — Module 1</span></div>
+        <ul class="ex-list">
+          <li><span class="es">¿Qué vas a empezar a hacer desde hoy, sin excusas?</span><span class="en">What are you going to start doing today, no excuses?</span></li>
+          <li><span class="es">¿Qué vas a dejar de permitirte a partir de ahora?</span><span class="en">What are you going to stop allowing yourself from now on?</span></li>
+          <li><span class="es">¿Por qué esta vez sí va a ser diferente?</span><span class="en">Why is this time actually going to be different?</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Workbook -->
+    <div class="workbook">
+      <div class="wb-label"><span class="es">Workbook — Módulo 1</span><span class="en">Workbook — Module 1</span></div>
+      <h3><span class="es">Mini Reto: Reset de 7 Días</span><span class="en">Mini Challenge: 7-Day Reset</span></h3>
+      <p class="wb-desc">
+        <span class="es">Durante los próximos 7 días: haces 1 acción incómoda diaria, no negocias contigo, cumples aunque no tengas ganas. Sin excepciones.</span>
+        <span class="en">For the next 7 days: do 1 uncomfortable action daily, don't negotiate with yourself, follow through even without motivation. No exceptions.</span>
+      </p>
+      <div class="tracker">
+        <div class="tr-row"><div class="tr-day">DÍA 1</div><div class="tr-task"><span class="es">Levantarte más temprano de lo habitual. Sin negociar.</span><span class="en">Wake up earlier than usual. No negotiating.</span></div><div class="tr-box"></div></div>
+        <div class="tr-row"><div class="tr-day">DÍA 2</div><div class="tr-task"><span class="es">Organizar tu día por escrito antes de empezar.</span><span class="en">Write out your full day plan before it starts.</span></div><div class="tr-box"></div></div>
+        <div class="tr-row"><div class="tr-day">DÍA 3</div><div class="tr-task"><span class="es">Completar una tarea que llevas postergando.</span><span class="en">Complete a task you've been postponing.</span></div><div class="tr-box"></div></div>
+        <div class="tr-row"><div class="tr-day">DÍA 4</div><div class="tr-task"><span class="es">Entrenar o moverte aunque no tengas ganas.</span><span class="en">Exercise or move your body even without motivation.</span></div><div class="tr-box"></div></div>
+        <div class="tr-row"><div class="tr-day">DÍA 5</div><div class="tr-task"><span class="es">Eliminar 1 hábito que sabes que te frena.</span><span class="en">Eliminate 1 habit you know is holding you back.</span></div><div class="tr-box"></div></div>
+        <div class="tr-row"><div class="tr-day">DÍA 6</div><div class="tr-task"><span class="es">Cumplir todo lo que te prometiste ese día.</span><span class="en">Honor every promise you made to yourself that day.</span></div><div class="tr-box"></div></div>
+        <div class="tr-row"><div class="tr-day">DÍA 7</div><div class="tr-task"><span class="es">Revisar y decidir: ¿quién eres a partir de hoy?</span><span class="en">Review and decide: who are you from today forward?</span></div><div class="tr-box"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════ MODULE 2 ════════════════════════ -->
+<div class="mod-full bg-alt" id="module-2">
+  <div class="wrap">
+    <div class="mod-header">
+      <div class="mod-tag"><span class="es">Módulo 02</span><span class="en">Module 02</span></div>
+      <h2><span class="es">La Disciplina Real</span><span class="en">Real Discipline</span></h2>
+      <p class="mod-intro">
+        <span class="es">La disciplina no es lo que crees que es. No es sentirte listo(a). No es motivación. Es hacer lo que dijiste que ibas a hacer, incluso cuando no tienes ganas. Y para eso, tienes que dejar de negociar contigo.</span>
+        <span class="en">Discipline isn't what you think it is. It's not feeling ready. It's not motivation. It's doing what you said you were going to do, even when you don't feel like it. And for that, you have to stop negotiating with yourself.</span>
+      </p>
+    </div>
+
+    <!-- Lesson 1 -->
+    <div class="lesson">
+      <div class="lesson-head">
+        <div class="play-icon">▶</div>
+        <div class="lesson-meta">
+          <div class="lesson-num"><span class="es">Lección 1</span><span class="en">Lesson 1</span></div>
+          <h4><span class="es">La disciplina no es lo que crees</span><span class="en">Discipline is not what you think</span></h4>
+        </div>
+      </div>
+      <div class="lesson-body">
+        <p><span class="es">Te hicieron creer que la disciplina es sentirte organizado(a), constante, motivado(a). Y no. La disciplina es incómoda. Es repetitiva. Y muchas veces no se siente bien. Por eso sientes que no eres disciplinado(a) — porque estás esperando sentirte listo(a) para actuar. Pero nadie se siente listo. La gente disciplinada tampoco.</span><span class="en">You were taught to believe discipline is feeling organized, consistent, motivated. It's not. Discipline is uncomfortable. It's repetitive. And most of the time it doesn't feel good. That's why you feel undisciplined — because you're waiting to feel ready before acting. But nobody feels ready. Not even disciplined people.</span></p>
+        <p><span class="es">La diferencia es que ellos no negocian consigo mismos. Tú sí negocias contigo todos los días: "Hoy no porque estoy cansado(a)... mañana empiezo... solo hoy no pasa nada..." Y ese "solo hoy" es exactamente lo que te tiene en el mismo lugar. No es un día. Es un patrón que se repite y que destruye la confianza que tienes contigo mismo(a).</span><span class="en">The difference is that they don't negotiate with themselves. You negotiate with yourself every single day: "Not today because I'm tired... I'll start tomorrow... just this once it won't matter..." And that "just this once" is exactly what's keeping you in the same place. It's not just one day. It's a repeating pattern that destroys the trust you have with yourself.</span></p>
+        <div class="accent-border">
+          <div class="kc-label"><span class="es">La nueva regla</span><span class="en">The new rule</span></div>
+          <p><span class="es">No necesitas sentirte bien para hacerlo. Necesitas hacerlo. Y después sentirte bien por haberlo hecho. La acción precede a la motivación — no al revés.</span><span class="en">You don't need to feel good to do it. You need to do it. And then feel good for having done it. Action precedes motivation — not the other way around.</span></p>
+        </div>
+      </div>
+      <div class="quote-block">"<span class="es">La disciplina empieza<br>cuando <em>dejas de negociar contigo.</em></span><span class="en">Discipline starts<br>when <em>you stop negotiating with yourself.</em></span>"</div>
+    </div>
+
+    <!-- Lesson 2 -->
+    <div class="lesson">
+      <div class="lesson-head">
+        <div class="play-icon">▶</div>
+        <div class="lesson-meta">
+          <div class="lesson-num"><span class="es">Lección 2</span><span class="en">Lesson 2</span></div>
+          <h4><span class="es">El patrón que te tiene estancado(a)</span><span class="en">The pattern that's keeping you stuck</span></h4>
+        </div>
+      </div>
+      <div class="lesson-body">
+        <p><span class="es">No te falta disciplina. Te falta consistencia en tus decisiones. Cada vez que pospones lo que sabes que tienes que hacer, estás reforzando el hábito de fallarte. Y ese hábito se acumula. No es un día — es un patrón. Y ese patrón tiene un nombre: cero compromiso contigo.</span><span class="en">You don't lack discipline. You lack consistency in your decisions. Every time you postpone what you know you need to do, you're reinforcing the habit of letting yourself down. And that habit accumulates. It's not just one day — it's a pattern. And that pattern has a name: zero commitment to yourself.</span></p>
+        <p><span class="es">¿En qué momento del día te fallas más? ¿Qué excusa repites constantemente? ¿Qué es lo primero que abandonas cuando no tienes ganas? Esas respuestas revelan el patrón exacto que tienes que romper. Y no se rompe con más motivación — se rompe tomando decisiones diferentes en ese momento exacto.</span><span class="en">At what point in the day do you fail yourself most? What excuse do you repeat constantly? What's the first thing you abandon when you don't feel like it? Those answers reveal the exact pattern you need to break. And it doesn't break with more motivation — it breaks by making different decisions in that exact moment.</span></p>
+      </div>
+      <div class="ex-block">
+        <div class="ex-label"><span class="es">Ejercicio: Detecta tu patrón</span><span class="en">Exercise: Detect your pattern</span></div>
+        <ul class="ex-list">
+          <li><span class="es">¿Cuántas veces a la semana pospones lo que sabes que tienes que hacer?</span><span class="en">How many times a week do you postpone what you know you need to do?</span></li>
+          <li><span class="es">¿En qué momento del día te fallas más frecuentemente?</span><span class="en">At what point in the day do you most frequently fail yourself?</span></li>
+          <li><span class="es">¿Qué excusa repites constantemente para justificarlo?</span><span class="en">What excuse do you constantly repeat to justify it?</span></li>
+          <li><span class="es">¿Qué es lo primero que abandonas cuando no tienes ganas?</span><span class="en">What's the first thing you abandon when you don't feel like it?</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Lesson 3 -->
+    <div class="lesson">
+      <div class="lesson-head">
+        <div class="play-icon">▶</div>
+        <div class="lesson-meta">
+          <div class="lesson-num"><span class="es">Lección 3</span><span class="en">Lesson 3</span></div>
+          <h4><span class="es">Reprogramación: Cero Negociación</span><span class="en">Reprogramming: Zero Negotiation</span></h4>
+        </div>
+      </div>
+      <div class="lesson-body">
+        <p><span class="es">A partir de hoy, cambias una sola regla interna. Antes: "Hago las cosas si tengo ganas." Ahora: "Hago las cosas porque dije que lo iba a hacer." Sin negociar. Sin justificar. Sin posponer. Esa regla nueva es simple. Pero aplicarla va a ser lo más difícil que hayas hecho.</span><span class="en">From today, you change one internal rule. Before: "I do things if I feel like it." Now: "I do things because I said I was going to." Without negotiating. Without justifying. Without postponing. That new rule is simple. But applying it will be the hardest thing you've done.</span></p>
+        <p><span class="es">Porque la disciplina no se trata de emociones. Se trata de decisiones repetidas. Y cada decisión que cumples reconstruye la confianza contigo. Cada vez que te fallas, la destruyes. Tú decides qué estás construyendo — o destruyendo — con cada pequeña decisión del día.</span><span class="en">Because discipline isn't about emotions. It's about repeated decisions. And every decision you honor rebuilds trust with yourself. Every time you let yourself down, you destroy it. You decide what you're building — or destroying — with every small decision of the day.</span></p>
+      </div>
+      <div class="quote-block">"<span class="es">No te falta disciplina...<br><em>te sobra negociación contigo.</em></span><span class="en">You don't lack discipline...<br><em>you have too much negotiation with yourself.</em></span>"</div>
+    </div>
+
+    <div class="workbook">
+      <div class="wb-label"><span class="es">Mini Reto — Módulo 2</span><span class="en">Mini Challenge — Module 2</span></div>
+      <h3><span class="es">Cero Negociación: 3 Días</span><span class="en">Zero Negotiation: 3 Days</span></h3>
+      <p class="wb-desc"><span class="es">Simple pero incómodo. Ahí es exactamente donde empieza el cambio real.</span><span class="en">Simple but uncomfortable. That's exactly where real change begins.</span></p>
+      <div class="wb-part">
+        <h4><span class="es">Día 1</span><span class="en">Day 1</span></h4>
+        <p><span class="es">Haz 1 cosa que dijiste que ibas a hacer — aunque no tengas ganas. Sin excepción. Sin negociación.</span><span class="en">Do 1 thing you said you would do — even without wanting to. No exception. No negotiation.</span></p>
+      </div>
+      <div class="wb-part">
+        <h4><span class="es">Día 2</span><span class="en">Day 2</span></h4>
+        <p><span class="es">Haz 2 cosas sin negociar contigo. Sin excusas. Sin posponer. Hazlo y punto.</span><span class="en">Do 2 things without negotiating with yourself. No excuses. No postponing. Just do it.</span></p>
+      </div>
+      <div class="wb-part">
+        <h4><span class="es">Día 3</span><span class="en">Day 3</span></h4>
+        <p><span class="es">Cumple todo lo que te prometiste ese día. Sin importar cómo te sientas. La regla es simple: lo que dijiste, lo haces.</span><span class="en">Honor everything you promised yourself that day. Regardless of how you feel. The rule is simple: what you said, you do.</span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════ MODULE 3 ════════════════════════ -->
+<div class="mod-full bg-def" id="module-3">
+  <div class="wrap">
+    <div class="mod-header">
+      <div class="mod-tag"><span class="es">Módulo 03</span><span class="en">Module 03</span></div>
+      <h2><span class="es">Identidad y Consistencia</span><span class="en">Identity & Consistency</span></h2>
+      <p class="mod-intro">
+        <span class="es">No son tus hábitos los que te fallan. Eres tú, actuando desde tu versión actual. Hasta que cambies quién eres, todo lo que intentes construir eventualmente se derrumba.</span>
+        <span class="en">It's not your habits failing you. It's you, acting from your current version. Until you change who you are, everything you try to build eventually collapses.</span>
+      </p>
+    </div>
+
+    <div class="lesson">
+      <div class="lesson-head">
+        <div class="play-icon">▶</div>
+        <div class="lesson-meta">
+          <div class="lesson-num"><span class="es">Lección 1</span><span class="en">Lesson 1</span></div>
+          <h4><span class="es">No haces lo que quieres — haces lo que eres</span><span class="en">You don't do what you want — you do what you are</span></h4>
+        </div>
+      </div>
+      <div class="lesson-body">
+        <p><span class="es">Puedes tener el plan perfecto. La rutina perfecta. La intención correcta. Y aún así fallarte. Porque si tu identidad no cambia, todo lo que empiezas eventualmente lo abandonas. No porque seas débil — sino porque sigues siendo la misma persona. Y la misma persona toma las mismas decisiones.</span><span class="en">You can have the perfect plan. The perfect routine. The right intention. And still let yourself down. Because if your identity doesn't change, everything you start you eventually abandon. Not because you're weak — but because you're still the same person. And the same person makes the same decisions.</span></p>
+        <p><span class="es">Si eres una persona que se posterga, vas a seguir postergando. Si eres una persona que se falla, vas a seguir fallándote. No porque no puedas cambiar — sino porque tus acciones siempre van a seguir a tu identidad. Y eso cambia todo. Todo.</span><span class="en">If you're a person who procrastinates, you'll keep procrastinating. If you're a person who lets themselves down, you'll keep letting yourself down. Not because you can't change — but because your actions will always follow your identity. And that changes everything. Everything.</span></p>
+      </div>
+      <div class="quote-block">"<span class="es">No haces lo que quieres...<br><em>haces lo que eres.</em></span><span class="en">You don't do what you want...<br><em>you do what you are.</em></span>"</div>
+    </div>
+
+    <div class="lesson">
+      <div class="lesson-head">
+        <div class="play-icon">▶</div>
+        <div class="lesson-meta">
+          <div class="lesson-num"><span class="es">Lección 2</span><span class="en">Lesson 2</span></div>
+          <h4><span class="es">El ciclo que repites</span><span class="en">The cycle you keep repeating</span></h4>
+        </div>
+      </div>
+      <div class="lesson-body">
+        <p><span class="es">Te emocionas. Empiezas. Lo haces unos días. Te cuesta. Te detienes. Te fallas. Vuelves a empezar. Y repites. No es falta de disciplina — es que sigues siendo la misma persona que empezó. Y la misma persona siempre va a tomar la misma decisión en el momento difícil.</span><span class="en">You get excited. You start. You do it for a few days. It gets hard. You stop. You let yourself down. You start again. And repeat. It's not a lack of discipline — it's that you're still the same person who started. And the same person will always make the same decision in the hard moment.</span></p>
+        <p><span class="es">Ese ciclo no se rompe con más motivación. No se rompe con una mejor rutina. Se rompe cuando cambias quién eres en el proceso. Cuando dejas de actuar según cómo te sientes y empiezas a actuar según la persona que decidiste ser.</span><span class="en">That cycle doesn't break with more motivation. It doesn't break with a better routine. It breaks when you change who you are in the process. When you stop acting according to how you feel and start acting according to the person you decided to be.</span></p>
+        <div class="accent-border">
+          <div class="kc-label"><span class="es">El corte real</span><span class="en">The real break</span></div>
+          <p><span class="es">La gente constante no es más fuerte. Solo ya decidió quién es. Y actúa desde ahí. Sin negociación. Sin cuestionarse. Sin volver atrás.</span><span class="en">Consistent people aren't stronger. They've simply decided who they are. And they act from that place. Without negotiation. Without questioning. Without going back.</span></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson">
+      <div class="lesson-head">
+        <div class="play-icon">▶</div>
+        <div class="lesson-meta">
+          <div class="lesson-num"><span class="es">Lección 3</span><span class="en">Lesson 3</span></div>
+          <h4><span class="es">Cambio de identidad: quien decides ser</span><span class="en">Identity shift: who you decide to be</span></h4>
+        </div>
+      </div>
+      <div class="lesson-body">
+        <p><span class="es">El cambio real no empieza en lo que haces. Empieza en quién decides ser. Dejas de decir "voy a intentar hacerlo" y empiezas a decir "soy una persona que cumple." "Soy una persona constante." "Soy una persona que no se abandona." Y empiezas a actuar en coherencia con eso — porque eso es lo que eres.</span><span class="en">Real change doesn't start in what you do. It starts in who you decide to be. You stop saying "I'll try to do it" and start saying "I'm someone who follows through." "I'm a consistent person." "I'm someone who doesn't abandon themselves." And you start acting in alignment with that — because that's what you are.</span></p>
+        <p><span class="es">Cuando cambias tu identidad, ya no dependes de motivación. Tus acciones dejan de ser esfuerzo y se vuelven una extensión de quién eres. Y ahí es cuando todo cambia. Porque no estás tratando de cambiar — ya cambiaste.</span><span class="en">When you change your identity, you no longer depend on motivation. Your actions stop being effort and become an extension of who you are. And that's when everything changes. Because you're not trying to change — you already have.</span></p>
+      </div>
+      <div class="quote-block">"<span class="es">Cuando cambias tu identidad...<br><em>ya no necesitas motivarte.</em></span><span class="en">When you change your identity...<br><em>you no longer need to motivate yourself.</em></span>"</div>
+      <div class="ex-block">
+        <div class="ex-label"><span class="es">Ejercicio de Cambio de Identidad</span><span class="en">Identity Change Exercise</span></div>
+        <ul class="ex-list">
+          <li><span class="es">Define quién estás siendo hoy (con total honestidad)</span><span class="en">Define who you are being today (with complete honesty)</span></li>
+          <li><span class="es">Define quién decides ser a partir de ahora — específicamente</span><span class="en">Define who you decide to be from now on — specifically</span></li>
+          <li><span class="es">¿Cómo actuaría esa versión en el momento más difícil del día?</span><span class="en">How would that version act in the hardest moment of the day?</span></li>
+          <li><span class="es">¿Qué dejarías de hacer inmediatamente si ya fueras esa versión?</span><span class="en">What would you immediately stop doing if you were already that version?</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="workbook">
+      <div class="wb-label"><span class="es">Mini Reto — Módulo 3</span><span class="en">Mini Challenge — Module 3</span></div>
+      <h3><span class="es">Reto de Identidad: 3 Días</span><span class="en">Identity Challenge: 3 Days</span></h3>
+      <p class="wb-desc"><span class="es">No es un reto de hábitos. Es un reto de quién decides ser.</span><span class="en">This isn't a habit challenge. It's a challenge of who you decide to be.</span></p>
+      <div class="wb-part">
+        <h4><span class="es">Día 1 — Define</span><span class="en">Day 1 — Define</span></h4>
+        <p><span class="es">Escribe claramente quién estás siendo hoy y quién decides ser a partir de ahora. Sin suavizarlo. Sin negociarlo. Escríbelo.</span><span class="en">Write clearly who you are being today and who you decide to be from now on. Without softening it. Without negotiating it. Write it down.</span></p>
+      </div>
+      <div class="wb-part">
+        <h4><span class="es">Día 2 — Actúa</span><span class="en">Day 2 — Act</span></h4>
+        <p><span class="es">Actúa 1 vez como esa nueva versión aunque no tengas ganas. Solo una vez. Eso es suficiente para empezar a construir la evidencia de quién eres.</span><span class="en">Act once as that new version even without motivation. Just once. That's enough to start building evidence of who you are.</span></p>
+      </div>
+      <div class="wb-part">
+        <h4><span class="es">Día 3 — Sé</span><span class="en">Day 3 — Be</span></h4>
+        <p><span class="es">Actúa todo el día como esa persona. Sin excepciones. Sin negociación. Sin volver a tu versión anterior. Todo el día.</span><span class="en">Act all day as that person. No exceptions. No negotiation. No reverting to your previous version. All day.</span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════ MODULE 4 ════════════════════════ -->
+<div class="mod-full bg-alt" id="module-4">
+  <div class="wrap">
+    <div class="mod-header">
+      <div class="mod-tag"><span class="es">Módulo 04</span><span class="en">Module 04</span></div>
+      <h2><span class="es">Cuerpo, Hábitos y Glow Up</span><span class="en">Body, Habits & Glow Up</span></h2>
+      <p class="mod-intro">
+        <span class="es">Tu cuerpo no miente. Expone exactamente cómo te estás tratando. No es el problema — es el reflejo. Y cuando cambias cómo te tratas, cambia lo que refleja.</span>
+        <span class="en">Your body doesn't lie. It exposes exactly how you've been treating yourself. It's not the problem — it's the reflection. And when you change how you treat yourself, what it reflects changes too.</span>
+      </p>
+    </div>
+
+    <div class="lesson">
+      <div class="lesson-head">
+        <div class="play-icon">▶</div>
+        <div class="lesson-meta">
+          <div class="lesson-num"><span class="es">Lección 1</span><span class="en">Lesson 1</span></div>
+          <h4><span class="es">Tu cuerpo no es el problema — es lo que estás tolerando</span><span class="en">Your body isn't the problem — it's what you're tolerating</span></h4>
+        </div>
+      </div>
+      <div class="lesson-body">
+        <p><span class="es">Crees que cambiar tu cuerpo es cuestión de hacer más. Pero no. Tu cuerpo no cambia por lo que intentas — cambia por lo que permites. La forma en que te tratas a ti mismo(a) se refleja. Se refleja en tu energía. En cómo te paras. En cómo entras a un lugar. En cómo te miras.</span><span class="en">You think changing your body is about doing more. But it's not. Your body doesn't change because of what you try — it changes because of what you allow. The way you treat yourself shows. It shows in your energy. In how you carry yourself. In how you enter a room. In how you look at yourself.</span></p>
+        <p><span class="es">Tu cuerpo no responde a lo que haces por ratos. Responde a cómo te tratas de forma consistente. Y si por dentro no estás bien contigo, eso se refleja — sin importar cuánto hagas por fuera. El problema nunca fue tu cuerpo. Fue la relación que tienes contigo.</span><span class="en">Your body doesn't respond to what you do occasionally. It responds to how you consistently treat yourself. And if you're not at peace with yourself on the inside, it shows — no matter how much you do on the outside. The problem was never your body. It was the relationship you have with yourself.</span></p>
+        <div class="accent-border">
+          <div class="kc-label"><span class="es">El reflejo real</span><span class="en">The real reflection</span></div>
+          <p><span class="es">No se trata de hacer más. Se trata de dejar de estar en conflicto contigo. Cuando te empiezas a cuidar desde respeto — no desde presión — todo cambia.</span><span class="en">It's not about doing more. It's about stopping the internal conflict with yourself. When you start taking care of yourself from respect — not from pressure — everything changes.</span></p>
+        </div>
+      </div>
+      <div class="quote-block">"<span class="es">Tu cuerpo no miente...<br><em>expone cómo te estás tratando.</em></span><span class="en">Your body doesn't lie...<br><em>it exposes how you've been treating yourself.</em></span>"</div>
+    </div>
+
+    <div class="lesson">
+      <div class="lesson-head">
+        <div class="play-icon">▶</div>
+        <div class="lesson-meta">
+          <div class="lesson-num"><span class="es">Lección 2</span><span class="en">Lesson 2</span></div>
+          <h4><span class="es">Desconexión contigo mismo(a)</span><span class="en">Disconnection from yourself</span></h4>
+        </div>
+      </div>
+      <div class="lesson-body">
+        <p><span class="es">El problema no es falta de disciplina — es que estás desconectado(a) de ti. Puedes hacer muchas cosas por fuera: arreglarte, entrenar, comer mejor. Pero si no estás bien contigo internamente, nada de eso se sostiene. Vuelves al mismo lugar porque el problema nunca fue lo que hacías — era cómo te relacionabas contigo.</span><span class="en">The problem isn't lack of discipline — it's that you're disconnected from yourself. You can do a lot of things on the outside: dress well, train, eat better. But if you're not okay with yourself internally, none of it sticks. You return to the same place because the problem was never what you were doing — it was how you related to yourself.</span></p>
+        <p><span class="es">Tu energía habla antes que tú. La forma en que te paras, en que te mueves, en que te presentas — todo eso refleja cómo estás contigo. Y cuando cambias esa relación, cuando te empiezas a tratar como alguien que vale, eso también se refleja. En todo.</span><span class="en">Your energy speaks before you do. The way you stand, the way you move, the way you show up — all of it reflects how you are with yourself. And when you change that relationship, when you start treating yourself like someone worth caring for, that shows too. In everything.</span></p>
+      </div>
+    </div>
+
+    <div class="lesson">
+      <div class="lesson-head">
+        <div class="play-icon">▶</div>
+        <div class="lesson-meta">
+          <div class="lesson-num"><span class="es">Lección 3</span><span class="en">Lesson 3</span></div>
+          <h4><span class="es">Cuidarte desde respeto, no desde presión</span><span class="en">Taking care of yourself from respect, not pressure</span></h4>
+        </div>
+      </div>
+      <div class="lesson-body">
+        <p><span class="es">Cuando te dejas de tratar mal, tu cuerpo deja de reflejarlo. No es un proceso solo físico — es un proceso de reconexión contigo. Empiezas a cuidarte no porque "deberías", sino porque eres una persona que se respeta. Que se cuida. Que no se abandona. Esa diferencia lo cambia todo.</span><span class="en">When you stop treating yourself badly, your body stops reflecting it. It's not just a physical process — it's a process of reconnecting with yourself. You start taking care of yourself not because you "should," but because you're someone who respects themselves. Who takes care of themselves. Who doesn't abandon themselves. That difference changes everything.</span></p>
+        <p><span class="es">Y cuando cambias cómo te habitas — no solo cambia cómo te ves. Cambia cómo te sientes. Cómo te mueves. Cómo te presentas al mundo. Cambia todo. Porque el glow up real no es solo físico — es la forma en que empiezas a habitarte.</span><span class="en">And when you change how you inhabit yourself — it's not just how you look that changes. It's how you feel. How you move. How you show up to the world. Everything changes. Because the real glow up isn't just physical — it's the way you start inhabiting yourself.</span></p>
+      </div>
+      <div class="quote-block">"<span class="es">Tu cuerpo empieza a cambiar<br>cuando cambias <em>la forma en que te tratas.</em></span><span class="en">Your body starts to change<br>when you change <em>the way you treat yourself.</em></span>"</div>
+      <div class="ex-block">
+        <div class="ex-label"><span class="es">Ejercicio</span><span class="en">Exercise</span></div>
+        <ul class="ex-list">
+          <li><span class="es">¿Cómo te estás tratando actualmente? (sé completamente honesto(a))</span><span class="en">How are you treating yourself right now? (be completely honest)</span></li>
+          <li><span class="es">¿Qué hábito físico estás evitando que sabes que te haría bien?</span><span class="en">What physical habit are you avoiding that you know would help you?</span></li>
+          <li><span class="es">¿Cómo se vería tu versión que sí se cuida — qué hace diferente?</span><span class="en">What would the version of you who takes care of themselves look like — what do they do differently?</span></li>
+          <li><span class="es">¿Actúas desde respeto a ti mismo(a) o desde presión y culpa?</span><span class="en">Do you act from self-respect or from pressure and guilt?</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="workbook">
+      <div class="wb-label"><span class="es">Mini Reto — Módulo 4</span><span class="en">Mini Challenge — Module 4</span></div>
+      <h3><span class="es">Reto de Cuerpo: 3 Días</span><span class="en">Body Challenge: 3 Days</span></h3>
+      <p class="wb-desc"><span class="es">No desde presión. Desde respeto. Desde ser alguien que se cuida.</span><span class="en">Not from pressure. From respect. From being someone who takes care of themselves.</span></p>
+      <div class="wb-part">
+        <h4><span class="es">Día 1</span><span class="en">Day 1</span></h4>
+        <p><span class="es">Haz algo por tu cuerpo aunque no tengas ganas. Muévete. Come mejor. Descansa. Solo hazlo — desde respeto, no desde presión.</span><span class="en">Do something for your body even without motivation. Move. Eat better. Rest. Just do it — from respect, not pressure.</span></p>
+      </div>
+      <div class="wb-part">
+        <h4><span class="es">Día 2</span><span class="en">Day 2</span></h4>
+        <p><span class="es">Repite aunque te cueste. Sin negociar. Solo hazlo porque eres una persona que se cuida. Esa es la razón suficiente.</span><span class="en">Repeat even when it's hard. Without negotiating. Just do it because you're someone who takes care of themselves. That's reason enough.</span></p>
+      </div>
+      <div class="wb-part">
+        <h4><span class="es">Día 3</span><span class="en">Day 3</span></h4>
+        <p><span class="es">Cumple sin negociar contigo. Todo el día. Y al final del día, nota cómo te sientes al haberte tratado bien.</span><span class="en">Follow through without negotiating. All day. And at the end of the day, notice how you feel from having treated yourself well.</span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════ MODULE 5 ════════════════════════ -->
+<div class="mod-full bg-def" id="module-5">
+  <div class="wrap">
+    <div class="mod-header">
+      <div class="mod-tag"><span class="es">Módulo 05</span><span class="en">Module 05</span></div>
+      <h2><span class="es">Estilo de Vida y Mantenimiento</span><span class="en">Lifestyle & Maintenance</span></h2>
+      <p class="mod-intro">
+        <span class="es">Aquí no se trata de mejorar otra vez. Se trata de decidir que ya no vas a volver atrás. El punto donde el ciclo termina. El punto donde empieza tu vida real.</span>
+        <span class="en">This isn't about improving again. It's about deciding you're not going back. The point where the cycle ends. The point where your real life begins.</span>
+      </p>
+    </div>
+
+    <div class="lesson">
+      <div class="lesson-head">
+        <div class="play-icon">▶</div>
+        <div class="lesson-meta">
+          <div class="lesson-num"><span class="es">Lección 1</span><span class="en">Lesson 1</span></div>
+          <h4><span class="es">Tu problema no es que no empieces — es que nunca lo haces definitivo</span><span class="en">Your problem isn't that you don't start — it's that you never make it definitive</span></h4>
+        </div>
+      </div>
+      <div class="lesson-body">
+        <p><span class="es">No te falta disciplina. No te falta ganas. Lo que nunca has tomado es una decisión definitiva. Siempre ha sido "voy a intentar", "voy a ver si ahora sí", "voy a empezar otra vez." Pero nunca: "Hasta aquí. Esto ya no es una opción." Y mientras esa puerta siga abierta, siempre vas a volver.</span><span class="en">You don't lack discipline. You don't lack desire. What you've never taken is a definitive decision. It's always been "I'll try," "maybe this time," "I'll start again." But never: "This is it. That's no longer an option." And as long as that door remains open, you'll always go back.</span></p>
+        <p><span class="es">Hay momentos donde sí cumples, donde sí te enfocas, donde sí haces las cosas bien. Pero no lo sostienes como una decisión — lo haces como una etapa. Y cuando la etapa pasa, vuelves. Eso es lo que tiene que cambiar. No la disciplina. No los hábitos. La decisión.</span><span class="en">There are moments where you do follow through, where you do focus, where you do things right. But you don't sustain it as a decision — you do it as a phase. And when the phase passes, you go back. That's what needs to change. Not the discipline. Not the habits. The decision.</span></p>
+        <div class="accent-border">
+          <div class="kc-label"><span class="es">La diferencia que lo cambia todo</span><span class="en">The difference that changes everything</span></div>
+          <p><span class="es">No es cuestión de intentarlo otra vez. Es cuestión de que ya no sea una opción fallarte. Eso es diferente. Eso es definitivo.</span><span class="en">It's not about trying again. It's about making it no longer an option to fail yourself. That's different. That's definitive.</span></p>
+        </div>
+      </div>
+      <div class="quote-block">"<span class="es">Tu vida no cambia cuando mejoras...<br><em>cambia cuando decides.</em></span><span class="en">Your life doesn't change when you improve...<br><em>it changes when you decide.</em></span>"</div>
+    </div>
+
+    <div class="lesson">
+      <div class="lesson-head">
+        <div class="play-icon">▶</div>
+        <div class="lesson-meta">
+          <div class="lesson-num"><span class="es">Lección 2</span><span class="en">Lesson 2</span></div>
+          <h4><span class="es">El corte real</span><span class="en">The real cut</span></h4>
+        </div>
+      </div>
+      <div class="lesson-body">
+        <p><span class="es">Aquí no mejoras. Aquí no ajustas. Aquí cortas. Cortas con lo que ya no quieres repetir. Cortas con la versión que te mantiene en el mismo ciclo. No lo suavizas. No lo negocias. Lo defines. Y esa definición tiene que ser tan clara que no haya espacio para dudar.</span><span class="en">Here you don't improve. Here you don't adjust. Here you cut. You cut from what you don't want to repeat. You cut from the version that keeps you in the same cycle. You don't soften it. You don't negotiate it. You define it. And that definition has to be clear enough that there's no room to doubt.</span></p>
+        <p><span class="es">Dejas de preguntarte si lo vas a hacer. Dejas de dudar. Dejas de buscar la motivación. Y simplemente lo cumples. Porque cuando algo se vuelve definitivo, deja de depender de cómo te sientes. Y ahí es cuando tu vida deja de ser un intento y se convierte en una decisión.</span><span class="en">You stop asking yourself whether you're going to do it. You stop doubting. You stop searching for motivation. And you simply follow through. Because when something becomes definitive, it stops depending on how you feel. And that's when your life stops being an attempt and becomes a decision.</span></p>
+      </div>
+    </div>
+
+    <div class="lesson">
+      <div class="lesson-head">
+        <div class="play-icon">▶</div>
+        <div class="lesson-meta">
+          <div class="lesson-num"><span class="es">Lección 3</span><span class="en">Lesson 3</span></div>
+          <h4><span class="es">Sostener sin recaer — la decisión final</span><span class="en">Sustaining without relapsing — the final decision</span></h4>
+        </div>
+      </div>
+      <div class="lesson-body">
+        <p><span class="es">El resultado no depende de cómo empiezas. Depende de qué tan constante te vuelves. Y la constancia no es un estado de ánimo — es una decisión que repites todos los días hasta que deja de ser un esfuerzo y se convierte en quien eres. Ese es el objetivo final.</span><span class="en">Your result doesn't depend on how you start. It depends on how consistent you become. And consistency isn't a mood — it's a decision you repeat every day until it stops being an effort and becomes who you are. That's the final objective.</span></p>
+        <p><span class="es">Aquí es donde todo cambia. Porque ya no estás intentando mejorar. Estás dejando de permitir lo mismo. Y eso cambia completamente tu dirección. Este es el punto donde dejas de moverte en círculos y empiezas a avanzar en línea recta.</span><span class="en">This is where everything changes. Because you're no longer trying to improve. You're no longer allowing the same things. And that completely changes your direction. This is the point where you stop moving in circles and start moving in a straight line.</span></p>
+      </div>
+      <div class="quote-block">"<span class="es">El cambio real empieza<br>cuando ya no te das la opción de <em>fallarte.</em></span><span class="en">Real change begins<br>when you no longer give yourself the option of <em>failing yourself.</em></span>"</div>
+      <div class="ex-block">
+        <div class="ex-label"><span class="es">Ejercicio Final</span><span class="en">Final Exercise</span></div>
+        <ul class="ex-list">
+          <li><span class="es">¿Qué ya no vas a repetir? (sin suavizarlo, sin negociarlo)</span><span class="en">What are you no longer going to repeat? (without softening it, without negotiating it)</span></li>
+          <li><span class="es">¿En qué momento normalmente regresas a lo anterior?</span><span class="en">At what moment do you normally go back to your old ways?</span></li>
+          <li><span class="es">¿Qué harás diferente en ese momento exacto?</span><span class="en">What will you do differently in that exact moment?</span></li>
+          <li><span class="es">¿Cuál es tu decisión definitiva a partir de hoy?</span><span class="en">What is your definitive decision from today forward?</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="workbook">
+      <div class="wb-label"><span class="es">Reto Final — Módulo 5</span><span class="en">Final Challenge — Module 5</span></div>
+      <h3><span class="es">Reto de Decisión: 3 Días</span><span class="en">Decision Challenge: 3 Days</span></h3>
+      <p class="wb-desc"><span class="es">Este no es un reto de disciplina. No es un reto de hábitos. Es un reto de decisión real.</span><span class="en">This isn't a discipline challenge. It's not a habit challenge. It's a real decision challenge.</span></p>
+      <div class="wb-part">
+        <h4><span class="es">Día 1 — Define qué cortas</span><span class="en">Day 1 — Define what you cut</span></h4>
+        <p><span class="es">Define claramente qué ya no vas a repetir. Sin negociarlo. Sin suavizarlo. Escríbelo. Fírmalo si hace falta.</span><span class="en">Clearly define what you're no longer going to repeat. Without negotiating. Without softening it. Write it down. Sign it if you need to.</span></p>
+      </div>
+      <div class="wb-part">
+        <h4><span class="es">Día 2 — Detecta y corta</span><span class="en">Day 2 — Detect and cut</span></h4>
+        <p><span class="es">Detecta el momento en el que normalmente regresas a lo anterior. Y corta ahí. En ese momento exacto. Antes de que la negociación empiece.</span><span class="en">Detect the moment when you normally go back to your old ways. And cut there. At that exact moment. Before the negotiation starts.</span></p>
+      </div>
+      <div class="wb-part">
+        <h4><span class="es">Día 3 — Esa versión anterior ya no existe</span><span class="en">Day 3 — That previous version no longer exists</span></h4>
+        <p><span class="es">Actúa como si la versión anterior no existiera. No es mejorar. No es ajustar. Es actuar desde quien ya decidiste ser.</span><span class="en">Act as if the previous version no longer exists. Not improving. Not adjusting. Acting from who you've already decided to be.</span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════ 7-DAY CHALLENGE ════════════════════════ -->
+<section id="challenge">
+  <div class="wrap">
+    <div class="label">
+      <span class="es">El Reto</span>
+      <span class="en">The Challenge</span>
+    </div>
+    <h2>
+      <span class="es">Reto de 7 Días</span>
+      <span class="en">7-Day Challenge</span>
+    </h2>
+    <p style="color:var(--text-muted); font-size:1rem; max-width:580px; margin-top:0.75rem;">
+      <span class="es">Esto es lo que hace que el método FUNCIONE. No lo lees. No lo entiendes. Lo vives. Durante 7 días, una acción incómoda por día. Sin negociar. Sin excusas. Sin volver atrás.</span>
+      <span class="en">This is what makes the method WORK. You don't read it. You don't understand it. You live it. For 7 days, one uncomfortable action per day. No negotiating. No excuses. No going back.</span>
+    </p>
+    <div class="challenge-rules">
+      <div>
+        <div class="rule-label"><span class="es">Regla 1</span><span class="en">Rule 1</span></div>
+        <div class="rule-text"><span class="es">Haces 1 cosa incómoda diaria. Sin excepción. Sin importar cómo te sientas.</span><span class="en">You do 1 uncomfortable thing daily. No exception. Regardless of how you feel.</span></div>
+      </div>
+      <div>
+        <div class="rule-label"><span class="es">Regla 2</span><span class="en">Rule 2</span></div>
+        <div class="rule-text"><span class="es">No negocias contigo. Ni un día. Ni una excusa. Ni un "solo hoy".</span><span class="en">You don't negotiate with yourself. Not one day. Not one excuse. Not one "just today."</span></div>
+      </div>
+      <div>
+        <div class="rule-label"><span class="es">Regla 3</span><span class="en">Rule 3</span></div>
+        <div class="rule-text"><span class="es">Cumples aunque no tengas ganas. Especialmente cuando no tienes ganas.</span><span class="en">You follow through even without motivation. Especially when you have no motivation.</span></div>
+      </div>
+    </div>
+    <div class="day-grid">
+      <div class="day-card"><div class="day-n"><span class="es">Día 1</span><span class="en">Day 1</span></div><div class="day-t"><span class="es">Levántate más temprano. Sin negociar.</span><span class="en">Wake up earlier. No negotiating.</span></div></div>
+      <div class="day-card"><div class="day-n"><span class="es">Día 2</span><span class="en">Day 2</span></div><div class="day-t"><span class="es">Organiza tu día por escrito antes de empezar.</span><span class="en">Write out your full day before it starts.</span></div></div>
+      <div class="day-card"><div class="day-n"><span class="es">Día 3</span><span class="en">Day 3</span></div><div class="day-t"><span class="es">Muévete aunque no tengas ganas. Cualquier forma.</span><span class="en">Move your body even without motivation.</span></div></div>
+      <div class="day-card"><div class="day-n"><span class="es">Día 4</span><span class="en">Day 4</span></div><div class="day-t"><span class="es">Completa algo que llevas postergando.</span><span class="en">Complete something you've been postponing.</span></div></div>
+      <div class="day-card"><div class="day-n"><span class="es">Día 5</span><span class="en">Day 5</span></div><div class="day-t"><span class="es">Elimina 1 hábito que sabes que te frena.</span><span class="en">Eliminate 1 habit you know holds you back.</span></div></div>
+      <div class="day-card"><div class="day-n"><span class="es">Día 6</span><span class="en">Day 6</span></div><div class="day-t"><span class="es">Cumple todo lo que te prometiste ese día.</span><span class="en">Honor every promise you made yourself.</span></div></div>
+      <div class="day-card"><div class="day-n"><span class="es">Día 7</span><span class="en">Day 7</span></div><div class="day-t"><span class="es">Decide quién eres a partir de hoy.</span><span class="en">Decide who you are from today forward.</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════ WHAT YOU GET ════════════════════════ -->
+<section id="what-you-get">
+  <div class="wrap">
+    <div class="label">
+      <span class="es">¿Qué incluye?</span>
+      <span class="en">What's included?</span>
+    </div>
+    <h2>
+      <span class="es">Todo lo que obtienes</span>
+      <span class="en">Everything you get</span>
+    </h2>
+    <div class="get-grid">
+      <div class="get-card">
+        <div class="get-icon">🎥</div>
+        <h4><span class="es">5 Módulos en Video</span><span class="en">5 Video Modules</span></h4>
+        <p><span class="es">Videos cortos, directos y consumibles. Sin relleno. Solo lo esencial para ejecutar y transformarte.</span><span class="en">Short, direct, consumable videos. No filler. Only what you need to execute and transform.</span></p>
+      </div>
+      <div class="get-card">
+        <div class="get-icon">📄</div>
+        <h4><span class="es">Workbook Completo PDF</span><span class="en">Complete PDF Workbook</span></h4>
+        <p><span class="es">Ejercicios escritos, espacios de reflexión y trackers para cada módulo. Lo que convierte el aprendizaje en transformación.</span><span class="en">Written exercises, reflection spaces, and trackers for each module. What turns learning into real transformation.</span></p>
+      </div>
+      <div class="get-card">
+        <div class="get-icon">⚡</div>
+        <h4><span class="es">Sistema de Ejecución</span><span class="en">Execution System</span></h4>
+        <p><span class="es">Un sistema que funciona incluso cuando no tienes ganas. Estructura real para tu vida real. Sin excusas.</span><span class="en">A system that works even when you don't feel like it. Real structure for your real life. No excuses.</span></p>
+      </div>
+      <div class="get-card">
+        <div class="get-icon">🔥</div>
+        <h4><span class="es">Reto de 7 Días</span><span class="en">7-Day Challenge</span></h4>
+        <p><span class="es">Acción inmediata para romper el autosabotaje desde el primer día. No lo piensas — lo haces.</span><span class="en">Immediate action to break self-sabotage from day one. You don't think about it — you do it.</span></p>
+      </div>
+      <div class="get-card">
+        <div class="get-icon">🧠</div>
+        <h4><span class="es">Mini Retos por Módulo</span><span class="en">Mini Challenges per Module</span></h4>
+        <p><span class="es">Cada módulo incluye un reto de 3 días aplicable desde el momento en que lo terminas.</span><span class="en">Each module includes a 3-day challenge you can apply the moment you finish it.</span></p>
+      </div>
+      <div class="get-card">
+        <div class="get-icon">✨</div>
+        <h4><span class="es">Transformación Real</span><span class="en">Real Transformation</span></h4>
+        <p><span class="es">No solo aprendes. Te construyes. El método está diseñado para que seas diferente cuando salgas de él.</span><span class="en">You don't just learn. You build yourself. The method is designed so you come out the other side different.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════ PRICING ════════════════════════ -->
+<section id="pricing">
+  <div class="wrap">
+    <div class="label" style="display:block; text-align:center;">
+      <span class="es">Inversión</span>
+      <span class="en">Investment</span>
+    </div>
+    <h2 style="text-align:center;">
+      <span class="es">Empieza hoy</span>
+      <span class="en">Start today</span>
+    </h2>
+    <p style="text-align:center; color:var(--text-muted); font-size:1rem; max-width:480px; margin: 0.75rem auto 0;">
+      <span class="es">Una sola inversión. Un sistema completo. Una transformación que dura.</span>
+      <span class="en">One investment. One complete system. A transformation that lasts.</span>
+    </p>
+    <div class="pricing-card">
+      <div class="pr-tag">GLOW FLOW METHOD</div>
+      <div class="pr-price"><span class="pr-currency">$</span>97</div>
+      <p class="pr-note">
+        <span class="es">Acceso inmediato y completo</span>
+        <span class="en">Immediate and complete access</span>
+      </p>
+      <ul class="pr-list">
+        <li><span class="es">5 Módulos en Video — acceso de por vida</span><span class="en">5 Video Modules — lifetime access</span></li>
+        <li><span class="es">Workbook Completo en PDF</span><span class="en">Complete PDF Workbook</span></li>
+        <li><span class="es">Sistema de ejecución paso a paso</span><span class="en">Step-by-step execution system</span></li>
+        <li><span class="es">Reto de 7 Días incluido</span><span class="en">7-Day Challenge included</span></li>
+        <li><span class="es">Mini reto aplicable por cada módulo</span><span class="en">Applicable mini-challenge for each module</span></li>
+        <li><span class="es">Acceso inmediato después del pago</span><span class="en">Immediate access after payment</span></li>
+      </ul>
+      <a href="#" class="btn-buy">
+        <span class="es">Quiero acceso ahora →</span>
+        <span class="en">I want access now →</span>
+      </a>
+      <p class="pr-fine">
+        <span class="es">Pago seguro · Acceso inmediato · Sin suscripción</span>
+        <span class="en">Secure payment · Immediate access · No subscription</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════ FINAL CTA ════════════════════════ -->
+<section id="final-cta">
+  <div class="final-inner">
+    <div class="label">
+      <span class="es">El momento de decidir</span>
+      <span class="en">The moment to decide</span>
+    </div>
+    <h2>
+      <span class="es">Nadie va a venir a cambiar tu vida.</span>
+      <span class="en">Nobody is coming to change your life.</span>
+    </h2>
+    <div class="choice-grid">
+      <div class="choice-card no">
+        <h4><span class="es">Seguir igual</span><span class="en">Stay the same</span></h4>
+        <p><span class="es">Sigues viviendo sin estructura. Sigues saboteándote. Sigues siendo la misma persona en 6 meses. El ciclo continúa.</span><span class="en">You keep living without structure. You keep self-sabotaging. You're the same person in 6 months. The cycle continues.</span></p>
+      </div>
+      <div class="choice-card yes">
+        <h4><span class="es">Empezar a construirte</span><span class="en">Start building yourself</span></h4>
+        <p><span class="es">Decides quién vas a ser. Construyes estructura real. Dejas de negociar contigo. Te conviertes en la persona que siempre quisiste ser.</span><span class="en">You decide who you're going to be. You build real structure. You stop negotiating with yourself. You become the person you always intended to be.</span></p>
+      </div>
+    </div>
+    <p class="final-quote">
+      <span class="es">"O te sigues saboteando...<br>o empiezas a <em>construirte.</em><br>Glow Flow Method es ese punto<br>donde decides."</span>
+      <span class="en">"Either you keep self-sabotaging...<br>or you start <em>building yourself.</em><br>Glow Flow Method is the point<br>where you decide."</span>
+    </p>
+    <div class="cta-group final-cta-btns">
+      <a href="#pricing" class="btn-primary" style="font-size:1.05rem; padding:1.1rem 3rem;">
+        <span class="es">Quiero empezar ahora →</span>
+        <span class="en">I want to start now →</span>
+      </a>
+      <a href="course/index.html" class="btn-ghost" style="font-size:1.05rem; padding:1.1rem 3rem;">
+        <span class="es">Ya tengo acceso → Ir al curso</span>
+        <span class="en">I have access → Go to course</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════ FOOTER ════════════════════════ -->
+<footer>
+  <p>
+    <span>GLOW FLOW METHOD</span> &nbsp;·&nbsp;
+    <span class="es">Dejar de sabotearte y empezar a construirte</span>
+    <span class="en">Stop self-sabotaging and start building yourself</span>
+  </p>
+</footer>
+
+<script>
+  // ── LANGUAGE TOGGLE ──
+  let lang = 'es';
+  function toggleLang() {
+    lang = lang === 'es' ? 'en' : 'es';
+    document.body.className = 'lang-' + lang;
+    document.documentElement.lang = lang;
+  }
+
+  // ── SCROLL PROGRESS ──
+  window.addEventListener('scroll', () => {
+    const top = window.scrollY;
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    document.getElementById('progress-bar').style.width = (top / total * 100) + '%';
+  }, { passive: true });
+
+  // ── NAV HIDE ON SCROLL DOWN ──
+  const nav = document.getElementById('main-nav');
+  let lastY = 0;
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    nav.style.transform = (y > lastY && y > 80) ? 'translateY(-100%)' : 'translateY(0)';
+    lastY = y;
+  }, { passive: true });
+
+  // ── MODULE CARD SCROLL ──
+  function scrollTo(id) {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>

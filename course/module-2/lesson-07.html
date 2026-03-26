@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>M02·L07: Protocolo de Recuperación de Fallos — GFM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body class="lang-es" data-lesson-id="mod2-l07">
+<div id="progress-bar"></div><div id="sidebar-overlay"></div>
+<nav id="course-nav">
+  <div class="nav-left"><a href="../index.html" class="nav-back">← Dashboard</a><span class="nav-sep">|</span><span class="nav-logo">GFM</span><span class="nav-sep">|</span><span class="nav-context">M02·L07</span></div>
+  <div class="nav-right"><button class="btn-sidebar-toggle">☰</button><button class="btn-lang" onclick="toggleLang()"><span class="es">🇺🇸 EN</span><span class="en">🇪🇸 ES</span></button></div>
+</nav>
+<div class="course-shell">
+  <aside id="sidebar"><div class="sidebar-header"><div class="sidebar-progress-label"><span class="es">Progreso</span><span class="en">Progress</span></div><div class="sidebar-progress-bar-wrap"><div class="sidebar-progress-fill"></div></div><div class="sidebar-progress-pct"></div></div><div class="sidebar-modules" id="sidebar-modules-container"></div></aside>
+  <main id="main-content">
+    <div class="content-inner">
+      <div class="lesson-hero">
+        <div class="lesson-tag"><span class="es">Módulo 02 · Lección 07</span><span class="en">Module 02 · Lesson 07</span></div>
+        <h1><span class="es">Protocolo de recuperación de fallos</span><span class="en">Failure Recovery Protocol</span></h1>
+        <p class="lead"><span class="es">Los fallos no son el problema. El problema es cómo respondes a los fallos. Esta lección te da el sistema exacto para convertir cualquier caída en datos útiles — y volver al sistema al día siguiente, sin drama, sin discursos de motivación y sin la necesidad de "empezar de cero."</span><span class="en">Failures are not the problem. The problem is how you respond to failures. This lesson gives you the exact system to convert any setback into useful data — and return to the system the next day, without drama, without motivational speeches, and without needing to "start over."</span></p>
+        <div class="lesson-meta-row"><span class="meta-item"><span class="meta-icon">📖</span><span class="es">~18 min</span><span class="en">~18 min</span></span><span class="meta-item"><span class="meta-icon">🎥</span><span class="es">Script incluido</span><span class="en">Script included</span></span></div>
+      </div>
+
+      <div class="outcomes-box">
+        <h5><span class="es">Al terminar esta lección</span><span class="en">By the end of this lesson</span></h5>
+        <ul class="outcomes-list">
+          <li><span class="es">Entenderás por qué fallar una vez duplica el riesgo de fallar de nuevo — y qué hace eso con tu protocolo</span><span class="en">You'll understand why failing once doubles the risk of failing again — and what that means for your protocol</span></li>
+          <li><span class="es">Aprenderás a ver los fallos como datos en lugar de como evidencia de identidad</span><span class="en">You'll learn to see failures as data rather than identity evidence</span></li>
+          <li><span class="es">Tendrás tu protocolo personal de recuperación escrito</span><span class="en">You'll have your personal recovery protocol written</span></li>
+        </ul>
+      </div>
+
+      <div class="lesson-section">
+        <h2><span class="es">El ciclo de fallo-recaída y cómo funciona</span><span class="en">The failure-relapse cycle and how it works</span></h2>
+        <p><span class="es">La investigación sobre comportamiento muestra algo importante: fallar una vez en un hábito duplica las probabilidades de fallar de nuevo la próxima vez. No porque seas más débil después de un fallo — sino por el mecanismo de <strong>abstinence violation effect</strong> (efecto de violación de abstinencia): cuando rompes un hábito que identificas como importante, la ruptura activa una respuesta emocional negativa (culpa, vergüenza, frustración) que a su vez activa el ciclo de evitación, que produce más incumplimiento.</span><span class="en">Behavioral research shows something important: failing once in a habit doubles the likelihood of failing again next time. Not because you're weaker after a failure — but because of the <strong>abstinence violation effect</strong>: when you break a habit you identify as important, the break activates a negative emotional response (guilt, shame, frustration) that in turn activates the avoidance cycle, which produces more non-compliance.</span></p>
+        <p><span class="es">El "todo está perdido" también juega un papel: una vez que el estándar se ha violado, hay una tendencia a pensar "ya lo arruiné, tanto da." Y esa lógica produce el mayor daño — no el fallo original, sino la respuesta al fallo.</span><span class="en">The "all is lost" effect also plays a role: once the standard has been violated, there's a tendency to think "I already ruined it, might as well." And that logic produces the most damage — not the original failure, but the response to the failure.</span></p>
+
+        <div class="callout warning">
+          <div class="callout-label"><span class="es">La regla crítica</span><span class="en">The critical rule</span></div>
+          <p><span class="es">Un fallo no tiene por qué destruir el hábito. Dos fallos seguidos sí. <strong>Nunca falles dos veces seguidas.</strong> Un día es un accidente. Dos días en fila es el inicio de un patrón. Todo tu protocolo de recuperación apunta a esta regla.</span><span class="en">One failure doesn't have to destroy the habit. Two failures in a row do. <strong>Never fail twice in a row.</strong> One day is an accident. Two days in a row is the beginning of a pattern. Your entire recovery protocol points to this rule.</span></p>
+        </div>
+      </div>
+
+      <div class="lesson-section">
+        <h2><span class="es">Fallo como datos, no como identidad</span><span class="en">Failure as data, not identity</span></h2>
+        <p><span class="es">La distinción más importante en la recuperación de fallos es si ves el fallo como <strong>información</strong> o como <strong>evidencia de quién eres</strong>. Fallo como información: "No fui al gimnasio ayer. ¿Qué pasó? Llegué tarde del trabajo y no tenía ropa lista. La semana que viene preparo la ropa la noche anterior y me ajusto al horario de las 7pm en lugar de las 7am." Fallo como identidad: "No fui al gimnasio ayer. Soy una persona sin disciplina. Siempre igual."</span><span class="en">The most important distinction in failure recovery is whether you see the failure as <strong>information</strong> or as <strong>evidence of who you are</strong>. Failure as information: "I didn't go to the gym yesterday. What happened? I got home late from work and didn't have clothes ready. Next week I'll prepare clothes the night before and adjust to a 7pm schedule instead of 7am." Failure as identity: "I didn't go to the gym yesterday. I'm a person without discipline. Always the same."</span></p>
+        <p><span class="es">El primero produce aprendizaje y ajuste. El segundo produce vergüenza y más evitación. El mismo fallo, dos respuestas completamente diferentes, dos resultados completamente diferentes.</span><span class="en">The first produces learning and adjustment. The second produces shame and more avoidance. The same failure, two completely different responses, two completely different outcomes.</span></p>
+      </div>
+
+      <div class="lesson-section">
+        <h2><span class="es">El protocolo de recuperación en 4 pasos</span><span class="en">The 4-step recovery protocol</span></h2>
+
+        <div class="framework-box">
+          <div class="framework-label"><span class="es">El protocolo</span><span class="en">The protocol</span></div>
+          <h4><span class="es">Lo que haces en las 24 horas siguientes a un fallo</span><span class="en">What you do in the 24 hours following a failure</span></h4>
+          <ul class="framework-steps">
+            <li><div class="step-num">1</div><div><strong><span class="es">Nombrarlo sin drama:</span><span class="en">Name it without drama:</span></strong> <span class="es">"No cumplí con X ayer." Una declaración de hecho, sin elaboración emocional, sin espiral de culpa. Solo el hecho.</span><span class="en">"I didn't fulfill X yesterday." A statement of fact, without emotional elaboration, without guilt spiral. Just the fact.</span></div></li>
+            <li><div class="step-num">2</div><div><strong><span class="es">Extraer el dato:</span><span class="en">Extract the data:</span></strong> <span class="es">"¿Qué factor llevó a que no ocurriera? ¿Era previsible? ¿Hay un ajuste de sistema que lo prevenga la próxima vez?" No "¿por qué soy así?" — "¿qué pasó?"</span><span class="en">"What factor led to it not happening? Was it foreseeable? Is there a system adjustment that would prevent it next time?" Not "why am I like this?" — "what happened?"</span></div></li>
+            <li><div class="step-num">3</div><div><strong><span class="es">Confirmar el no-dos-veces:</span><span class="en">Confirm the no-twice rule:</span></strong> <span class="es">"Mañana, sin excepción, vuelvo al sistema. No con intensidad adicional — simplemente con el mínimo si es necesario." El día siguiente es la única oportunidad de recuperación que importa.</span><span class="en">"Tomorrow, without exception, I return to the system. Not with additional intensity — simply with the minimum if necessary." The next day is the only recovery opportunity that matters.</span></div></li>
+            <li><div class="step-num">4</div><div><strong><span class="es">Hacer el ajuste de sistema si aplica:</span><span class="en">Make the system adjustment if applicable:</span></strong> <span class="es">Si el fallo reveló un problema de diseño (el horario no es realista, el entorno no está preparado, la AMV es demasiado alta), ajusta. Si fue circunstancial, no ajustes — solo regresa.</span><span class="en">If the failure revealed a design problem (the schedule isn't realistic, the environment isn't prepared, the MVA is too high), adjust. If it was circumstantial, don't adjust — just return.</span></div></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="lesson-section">
+        <h2><span class="es">La autocompasión como herramienta de rendimiento</span><span class="en">Self-compassion as a performance tool</span></h2>
+        <p><span class="es">La investigadora Kristin Neff ha documentado extensamente que la autocompasión — tratarte con la misma amabilidad que tratarías a un buen amigo que falló — produce <em>mejor</em> recuperación y adherencia que la autocrítica. No porque sea "más fácil" — sino porque la autocrítica activa el sistema de amenaza que produce más evitación, mientras que la autocompasión activa el sistema de motivación de aprendizaje.</span><span class="en">Researcher Kristin Neff has extensively documented that self-compassion — treating yourself with the same kindness you'd show a good friend who failed — produces <em>better</em> recovery and adherence than self-criticism. Not because it's "easier" — but because self-criticism activates the threat system that produces more avoidance, while self-compassion activates the learning motivation system.</span></p>
+        <p><span class="es">La frase de recuperación: "Esto es difícil. Fallé hoy. Es normal cometer errores cuando intentas cambiar. Mañana vuelvo." Eso es autocompasión funcional. No excusa el fallo — simplemente no añade vergüenza encima del fallo, que es lo que hace más daño.</span><span class="en">The recovery phrase: "This is hard. I failed today. It's normal to make mistakes when trying to change. Tomorrow I return." That's functional self-compassion. It doesn't excuse the failure — it simply doesn't add shame on top of the failure, which is what does the most damage.</span></p>
+      </div>
+
+      <div class="lesson-quote">"<span class="es">No es el fallo lo que destruye<br>la consistencia.<br>Es la <em>respuesta al fallo.</em><br>Diseña esa respuesta también.</span><span class="en">It's not failure that destroys<br>consistency.<br>It's the <em>response to failure.</em><br>Design that response too.</span>"</div>
+
+      <div class="exercise-block">
+        <div class="exercise-header">
+          <div class="exercise-icon">✍️</div>
+          <div><div class="exercise-label"><span class="es">Ejercicio</span><span class="en">Exercise</span></div><h4><span class="es">Escribe tu protocolo personal de recuperación</span><span class="en">Write your personal recovery protocol</span></h4></div>
+        </div>
+        <ol class="exercise-steps">
+          <li><div class="ex-step-num">1</div><div><strong><span class="es">Escribe la declaración de recuperación:</span><span class="en">Write the recovery statement:</span></strong><br><span class="es">"Cuando falle en [no-negociable], haré esto en las siguientes 24 horas: [pasos 1–4 del protocolo personalizados]."</span><span class="en">"When I fail at [non-negotiable], I will do this in the next 24 hours: [personalized steps 1–4 of the protocol]."</span></div></li>
+          <li><div class="ex-step-num">2</div><div><strong><span class="es">Escribe tu frase de autocompasión de recuperación:</span><span class="en">Write your recovery self-compassion phrase:</span></strong><br><span class="es">La frase que usarás en el momento del fallo — antes de que el ciclo de vergüenza se active.</span><span class="en">The phrase you'll use in the moment of failure — before the shame cycle activates.</span></div></li>
+          <li><div class="ex-step-num">3</div><div><strong><span class="es">Identifica tus factores de riesgo de fallo:</span><span class="en">Identify your failure risk factors:</span></strong><br><span class="es">¿En qué situaciones, horarios o estados es más probable que falles? ¿Qué ajuste de sistema reduces ese riesgo?</span><span class="en">In what situations, times, or states are you most likely to fail? What system adjustment reduces that risk?</span></div></li>
+          <li><div class="ex-step-num">4</div><div><strong><span class="es">Practica la regla de nunca dos veces:</span><span class="en">Practice the never-twice rule:</span></strong><br><span class="es">Escríbela donde la puedas ver: "Un fallo es un accidente. Dos fallos seguidos son un patrón. Mañana vuelvo, sin excepción."</span><span class="en">Write it where you can see it: "One failure is an accident. Two failures in a row are a pattern. Tomorrow I return, without exception."</span></div></li>
+        </ol>
+        <div class="exercise-success">
+          <div class="exercise-success-label"><span class="es">Resultado esperado</span><span class="en">Expected result</span></div>
+          <p><span class="es">La próxima vez que falles en un no-negociable, tendrás un protocolo ya diseñado en lugar de reaccionar desde la vergüenza. Esa diferencia es la que determina si el hábito sobrevive o muere.</span><span class="en">The next time you fail at a non-negotiable, you'll have a pre-designed protocol instead of reacting from shame. That difference is what determines whether the habit survives or dies.</span></p>
+        </div>
+      </div>
+
+      <div class="reflection-block">
+        <div class="reflection-label"><span class="es">Reflexión</span><span class="en">Reflection</span></div>
+        <ul class="reflection-list">
+          <li><span class="es">¿Cómo has respondido históricamente a los fallos en hábitos importantes? ¿Ha sido más "dato" o más "juicio de identidad"?</span><span class="en">How have you historically responded to failures in important habits? Has it been more "data" or more "identity judgment"?</span></li>
+          <li><span class="es">¿Cuál es tu patrón de "todo está perdido"? ¿En qué momento exacto suele activarse?</span><span class="en">What's your "all is lost" pattern? At what exact moment does it usually activate?</span></li>
+          <li><span class="es">¿Qué te dirías a un buen amigo que falló en algo importante que estaba intentando cambiar? ¿Te dices lo mismo a ti?</span><span class="en">What would you say to a good friend who failed at something important they were trying to change? Do you say the same thing to yourself?</span></li>
+        </ul>
+      </div>
+
+      <details class="video-script">
+        <summary><div class="script-icon">🎥</div><div class="script-meta"><div class="script-title">Script — M02·L07</div><div class="script-time"><span class="es">~10 minutos</span><span class="en">~10 minutes</span></div></div><span class="script-caret">▼</span></summary>
+        <div class="script-body">
+          <div class="script-section">
+            <div class="script-section-head"><span class="script-beat-label">HOOK</span><span class="script-time-badge">0:00–0:45</span></div>
+            <div class="script-text es">"Vas a fallar. No porque seas débil — porque eres humano. La pregunta no es si va a pasar. La pregunta es qué harás las siguientes 24 horas. Porque eso — no el fallo — es lo que determina si el hábito sobrevive o muere."</div>
+            <div class="script-text en" style="display:none;">"You're going to fail. Not because you're weak — because you're human. The question isn't whether it will happen. The question is what you'll do in the next 24 hours. Because that — not the failure — is what determines whether the habit survives or dies."</div>
+          </div>
+          <hr class="script-divider">
+          <div class="script-section">
+            <div class="script-section-head"><span class="script-beat-label">LA CIENCIA</span><span class="script-time-badge">0:45–5:00</span></div>
+            <div class="script-text es">"Hay algo que se llama el efecto de violación de abstinencia. Cuando rompes un hábito que te importa, la ruptura activa culpa y vergüenza. Y esa culpa activa el ciclo de evitación — que produce más incumplimiento. Un fallo lleva a otro. No porque seas más débil — porque la respuesta emocional al primero predice el segundo."
+            <br><br>"La regla: nunca falles dos veces seguidas. Un día es un accidente. Dos días en fila es el inicio de un patrón. Todo tu protocolo de recuperación tiene un solo objetivo: garantizar que mañana vuelves, sin excepción."</div>
+            <div class="script-text en" style="display:none;">"There's something called the abstinence violation effect. When you break a habit you care about, the break activates guilt and shame. And that guilt activates the avoidance cycle — which produces more non-compliance. One failure leads to another. Not because you're weaker — because the emotional response to the first one predicts the second."
+            <br><br>"The rule: never fail twice in a row. One day is an accident. Two days in a row is the beginning of a pattern. Your entire recovery protocol has one objective: guarantee that tomorrow you return, without exception."</div>
+          </div>
+          <hr class="script-divider">
+          <div class="script-section">
+            <div class="script-section-head"><span class="script-beat-label">EL PROTOCOLO</span><span class="script-time-badge">5:00–8:30</span></div>
+            <div class="script-text es">"4 pasos para las 24 horas siguientes a un fallo. Uno: nombrarlo sin drama. Un hecho, no un juicio. Dos: extraer el dato — ¿qué factor llevó a que no ocurriera? No '¿por qué soy así?' — '¿qué pasó?'. Tres: confirmar que mañana vuelves. Sin intensidad adicional — con el mínimo si necesario. Cuatro: ajustar el sistema solo si el fallo reveló un problema de diseño."
+            <br><br>"Y un principio de la investigadora Kristin Neff: la autocompasión produce mejor recuperación que la autocrítica. No porque sea más fácil — sino porque la autocrítica activa más evitación y la autocompasión activa el aprendizaje. 'Esto es difícil, fallé hoy, mañana vuelvo.' Eso."</div>
+            <div class="script-text en" style="display:none;">"4 steps for the 24 hours following a failure. One: name it without drama. A fact, not a judgment. Two: extract the data — what factor led to it not happening? Not 'why am I like this?' — 'what happened?'. Three: confirm you return tomorrow. No additional intensity — with the minimum if necessary. Four: adjust the system only if the failure revealed a design problem."
+            <br><br>"And a principle from researcher Kristin Neff: self-compassion produces better recovery than self-criticism. Not because it's easier — but because self-criticism activates more avoidance and self-compassion activates learning. 'This is hard, I failed today, tomorrow I return.' That."</div>
+          </div>
+          <hr class="script-divider">
+          <div class="script-section">
+            <div class="script-section-head"><span class="script-beat-label">CIERRE</span><span class="script-time-badge">8:30–10:00</span></div>
+            <div class="script-text es">"Tu ejercicio hoy: escribe tu protocolo personal de recuperación. Lo que harás en las siguientes 24 horas cuando falles. Tu frase de recuperación. Tus factores de riesgo. Eso está en el workbook. Y ponlo donde puedas verlo — porque lo vas a necesitar, y quieres tenerlo ya diseñado cuando llegue ese momento."</div>
+            <div class="script-text en" style="display:none;">"Your exercise today: write your personal recovery protocol. What you'll do in the next 24 hours when you fail. Your recovery phrase. Your risk factors. That's in the workbook. And put it where you can see it — because you're going to need it, and you want it already designed when that moment comes."</div>
+          </div>
+        </div>
+      </details>
+
+      <div class="lesson-nav">
+        <a href="lesson-06.html" class="btn-lesson-nav">← L06</a>
+        <a href="lesson-08.html" class="btn-lesson-nav next"><div><div class="nav-direction"><span class="es">Siguiente</span><span class="en">Next</span></div><div class="nav-title"><span class="es">Fronteras Sociales →</span><span class="en">Social Boundaries →</span></div></div></a>
+      </div>
+    </div>
+    <div class="mark-complete-bar"><span class="mark-complete-text"><span class="es">¿Terminaste?</span><span class="en">Finished?</span></span><button class="btn-complete" id="btn-complete"><span class="es">Marcar como completada</span><span class="en">Mark as complete</span></button></div>
+  </main>
+</div>
+<script src="../assets/course.js"></script>
+</body>
+</html>

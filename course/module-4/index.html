@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 04 — GFM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body class="lang-es">
+<div id="progress-bar"></div><div id="sidebar-overlay"></div>
+<nav id="course-nav">
+  <div class="nav-left"><a href="../index.html" class="nav-back">← Dashboard</a><span class="nav-sep">|</span><span class="nav-logo">GFM</span><span class="nav-sep">|</span><span class="nav-context"><span class="es">Módulo 04</span><span class="en">Module 04</span></span></div>
+  <div class="nav-right"><button class="btn-sidebar-toggle">☰</button><button class="btn-lang" onclick="toggleLang()"><span class="es">🇺🇸 EN</span><span class="en">🇪🇸 ES</span></button></div>
+</nav>
+<div class="course-shell">
+  <aside id="sidebar"><div class="sidebar-header"><div class="sidebar-progress-label"><span class="es">Progreso</span><span class="en">Progress</span></div><div class="sidebar-progress-bar-wrap"><div class="sidebar-progress-fill"></div></div><div class="sidebar-progress-pct"></div></div><div class="sidebar-modules" id="sidebar-modules-container"></div></aside>
+  <main id="main-content">
+    <div class="content-inner">
+      <div class="module-hero">
+        <div class="module-num"><span class="es">Módulo 04</span><span class="en">Module 04</span></div>
+        <h1><span class="es">Enfoque Profundo</span><span class="en">Deep Focus</span></h1>
+        <p class="lead"><span class="es">La disciplina te hace presentarte. El enfoque determina qué haces cuando estás presente. Este módulo construye la capacidad de concentración sostenida — la habilidad que separa el trabajo ordinario del extraordinario.</span><span class="en">Discipline gets you to show up. Focus determines what you do when you're there. This module builds the capacity for sustained concentration — the skill that separates ordinary work from extraordinary.</span></p>
+        <a href="lesson-01.html" class="btn-primary"><span class="es">Comenzar módulo</span><span class="en">Start module</span></a>
+      </div>
+      <div class="module-outcomes">
+        <h5><span class="es">Lo que dominarás</span><span class="en">What you'll master</span></h5>
+        <ul class="outcomes-list">
+          <li><span class="es">La neurociencia del enfoque y por qué la atención es finita y recuperable</span><span class="en">The neuroscience of focus and why attention is finite and recoverable</span></li>
+          <li><span class="es">El estado de flujo: condiciones, catalizadores e inhibidores</span><span class="en">The flow state: conditions, catalysts and inhibitors</span></li>
+          <li><span class="es">Diseño de sesiones de trabajo profundo con protocolos probados</span><span class="en">Deep work session design with proven protocols</span></li>
+          <li><span class="es">Gestión de la distracción digital desde neurociencia — no desde fuerza de voluntad</span><span class="en">Digital distraction management from neuroscience — not from willpower</span></li>
+          <li><span class="es">Recuperación de la atención: el descanso como parte del sistema</span><span class="en">Attention recovery: rest as part of the system</span></li>
+          <li><span class="es">Integración: tu protocolo personal de trabajo profundo</span><span class="en">Integration: your personal deep work protocol</span></li>
+        </ul>
+      </div>
+      <div class="module-lessons-list">
+        <h5><span class="es">Lecciones del módulo</span><span class="en">Module lessons</span></h5>
+        <div id="module-lessons-dynamic"></div>
+      </div>
+    </div>
+    <script src="../assets/course.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const m = CURRICULUM.find(x => x.id === 'module-4');
+        if (!m) return;
+        const el = document.getElementById('module-lessons-dynamic');
+        const completed = getCompleted();
+        el.innerHTML = m.lessons.map((l, i) => {
+          const done = completed.includes(l.id);
+          return `<a href="${lessonUrl(l.path)}" class="module-lesson-row ${done ? 'done' : ''}">
+            <div class="lesson-row-left"><span class="lesson-row-num">${i+1}</span><div><div class="lesson-row-title"><span class="es">${l.titleEs}</span><span class="en">${l.titleEn}</span></div></div></div>
+            <span class="lesson-row-status">${done ? '✓' : '→'}</span></a>`;
+        }).join('');
+      });
+    </script>
+  </main>
+</div>
+</body>
+</html>

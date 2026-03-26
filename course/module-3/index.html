@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 03 — GFM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body class="lang-es">
+<div id="progress-bar"></div><div id="sidebar-overlay"></div>
+<nav id="course-nav">
+  <div class="nav-left"><a href="../index.html" class="nav-back">← Dashboard</a><span class="nav-sep">|</span><span class="nav-logo">GFM</span><span class="nav-sep">|</span><span class="nav-context"><span class="es">Módulo 03</span><span class="en">Module 03</span></span></div>
+  <div class="nav-right"><button class="btn-sidebar-toggle">☰</button><button class="btn-lang" onclick="toggleLang()"><span class="es">🇺🇸 EN</span><span class="en">🇪🇸 ES</span></button></div>
+</nav>
+<div class="course-shell">
+  <aside id="sidebar"><div class="sidebar-header"><div class="sidebar-progress-label"><span class="es">Progreso</span><span class="en">Progress</span></div><div class="sidebar-progress-bar-wrap"><div class="sidebar-progress-fill"></div></div><div class="sidebar-progress-pct"></div></div><div class="sidebar-modules" id="sidebar-modules-container"></div></aside>
+  <main id="main-content">
+    <div class="content-inner">
+      <div class="module-hero">
+        <div class="module-num"><span class="es">Módulo 03</span><span class="en">Module 03</span></div>
+        <h1><span class="es">Identidad</span><span class="en">Identity</span></h1>
+        <p class="lead"><span class="es">Los sistemas funcionan. Pero la persona que los sostiene en el tiempo no es alguien que "usa sistemas" — es alguien que se ha convertido en esa persona. Este módulo construye la identidad desde adentro.</span><span class="en">Systems work. But the person who sustains them over time isn't someone who "uses systems" — it's someone who has become that person. This module builds identity from the inside out.</span></p>
+        <a href="lesson-01.html" class="btn-primary"><span class="es">Comenzar módulo</span><span class="en">Start module</span></a>
+      </div>
+      <div class="module-outcomes">
+        <h5><span class="es">Lo que dominarás</span><span class="en">What you'll master</span></h5>
+        <ul class="outcomes-list">
+          <li><span class="es">Cómo la identidad se forma y cómo reformarla deliberadamente</span><span class="en">How identity forms and how to deliberately reform it</span></li>
+          <li><span class="es">Conversación interna y cómo el lenguaje de auto-descripción te limita o te libera</span><span class="en">Internal conversation and how self-description language limits or frees you</span></li>
+          <li><span class="es">El proceso de "actuar como si" y sus límites psicológicos reales</span><span class="en">The "act as if" process and its real psychological limits</span></li>
+          <li><span class="es">Cómo construir evidencia de identidad con consistencia de bajo umbral</span><span class="en">How to build identity evidence with low-threshold consistency</span></li>
+          <li><span class="es">Manejo de la identidad en transición: el duelo de quien eras</span><span class="en">Managing identity in transition: grieving who you were</span></li>
+          <li><span class="es">Integración: el perfil completo de identidad en movimiento</span><span class="en">Integration: the complete moving identity profile</span></li>
+        </ul>
+      </div>
+      <div class="module-lessons-list">
+        <h5><span class="es">Lecciones del módulo</span><span class="en">Module lessons</span></h5>
+        <div id="module-lessons-dynamic"></div>
+      </div>
+    </div>
+    <script src="../assets/course.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const m = CURRICULUM.find(x => x.id === 'module-3');
+        if (!m) return;
+        const el = document.getElementById('module-lessons-dynamic');
+        const completed = getCompleted();
+        el.innerHTML = m.lessons.map((l, i) => {
+          const done = completed.includes(l.id);
+          return `<a href="${lessonUrl(l.path)}" class="module-lesson-row ${done ? 'done' : ''}">
+            <div class="lesson-row-left"><span class="lesson-row-num">${i+1}</span><div><div class="lesson-row-title"><span class="es">${l.titleEs}</span><span class="en">${l.titleEn}</span></div></div></div>
+            <span class="lesson-row-status">${done ? '✓' : '→'}</span></a>`;
+        }).join('');
+      });
+    </script>
+  </main>
+</div>
+</body>
+</html>

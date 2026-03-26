@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L03: Intenciones de Implementación — GFM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body class="lang-es" data-lesson-id="mod1-l03">
+<div id="progress-bar"></div><div id="sidebar-overlay"></div>
+<nav id="course-nav">
+  <div class="nav-left"><a href="../index.html" class="nav-back">← Dashboard</a><span class="nav-sep">|</span><span class="nav-logo">GFM</span><span class="nav-sep">|</span><span class="nav-context"><span class="es">Módulo 01 · Lección 03</span><span class="en">Module 01 · Lesson 03</span></span></div>
+  <div class="nav-right"><button class="btn-sidebar-toggle">☰</button><button class="btn-lang" onclick="toggleLang()"><span class="es">🇺🇸 EN</span><span class="en">🇪🇸 ES</span></button></div>
+</nav>
+<div class="course-shell">
+  <aside id="sidebar"><div class="sidebar-header"><div class="sidebar-progress-label"><span class="es">Progreso total</span><span class="en">Total progress</span></div><div class="sidebar-progress-bar-wrap"><div class="sidebar-progress-fill"></div></div><div class="sidebar-progress-pct"></div></div><div class="sidebar-modules" id="sidebar-modules-container"></div></aside>
+  <main id="main-content">
+    <div class="content-inner">
+
+      <div class="lesson-hero">
+        <div class="lesson-tag"><span class="es">Módulo 01 · Lección 03</span><span class="en">Module 01 · Lesson 03</span></div>
+        <h1><span class="es">Intenciones de implementación: el plan si-entonces</span><span class="en">Implementation Intentions: The If-Then Plan</span></h1>
+        <p class="lead"><span class="es">La diferencia entre una intención que se ejecuta y una que no está en el nivel de especificidad del plan. Esta lección te da la técnica más validada por la ciencia conductual para convertir "quiero hacer X" en "hago X."</span><span class="en">The difference between an intention that gets executed and one that doesn't lies in the level of plan specificity. This lesson gives you the most behaviorally validated technique for converting "I want to do X" into "I do X."</span></p>
+        <div class="lesson-meta-row"><span class="meta-item"><span class="meta-icon">📖</span><span class="es">~18 min lectura</span><span class="en">~18 min read</span></span><span class="meta-item"><span class="meta-icon">🎥</span><span class="es">Script incluido</span><span class="en">Script included</span></span><span class="meta-item"><span class="meta-icon">✍️</span><span class="es">1 ejercicio</span><span class="en">1 exercise</span></span></div>
+      </div>
+
+      <div class="outcomes-box">
+        <h5><span class="es">Al terminar esta lección</span><span class="en">By the end of this lesson</span></h5>
+        <ul class="outcomes-list">
+          <li><span class="es">Entenderás por qué los planes vagos fallan y los planes específicos funcionan</span><span class="en">You'll understand why vague plans fail and specific plans work</span></li>
+          <li><span class="es">Sabrás construir intenciones de implementación correctas para cualquier comportamiento</span><span class="en">You'll know how to build correct implementation intentions for any behavior</span></li>
+          <li><span class="es">Tendrás 5 intenciones de implementación escritas para tus no-negociables de la semana</span><span class="en">You'll have 5 written implementation intentions for your non-negotiables of the week</span></li>
+        </ul>
+      </div>
+
+      <div class="lesson-section">
+        <h2><span class="es">Por qué las intenciones solas fallan</span><span class="en">Why intentions alone fail</span></h2>
+        <p><span class="es">Si las intenciones fueran suficientes, todos los que alguna vez dijeron "voy a comer mejor este año" estarían comiendo mejor. Todos los que se propusieron "hacer más ejercicio" estarían haciéndolo. Pero hay una brecha enorme entre la intención y la ejecución — una brecha que la psicología conductual ha estudiado en detalle y para la que tiene una solución específica.</span><span class="en">If intentions were enough, everyone who ever said "I'm going to eat better this year" would be eating better. Everyone who resolved to "exercise more" would be doing it. But there's an enormous gap between intention and execution — a gap that behavioral psychology has studied in detail and for which it has a specific solution.</span></p>
+        <p><span class="es">La investigación del psicólogo alemán Peter Gollwitzer identificó que el problema no es la fuerza de la intención. Incluso las personas muy motivadas frecuentemente no ejecutan sus intenciones porque el plan es demasiado vago. "Quiero comer más sano" es una meta. No es un plan. "Quiero hacer ejercicio regularmente" es una aspiración. No es un protocolo de acción.</span><span class="en">Research by German psychologist Peter Gollwitzer identified that the problem is not the strength of the intention. Even highly motivated people frequently don't execute their intentions because the plan is too vague. "I want to eat healthier" is a goal. It's not a plan. "I want to exercise regularly" is an aspiration. It's not an action protocol.</span></p>
+        <div class="callout insight">
+          <div class="callout-label"><span class="es">La investigación</span><span class="en">The research</span></div>
+          <p><span class="es">Los estudios de Gollwitzer muestran que las personas que forman intenciones de implementación específicas tienen 2–3 veces más probabilidades de ejecutar sus planes que quienes solo forman metas. El efecto se ha replicado en docenas de contextos: ejercicio, alimentación, estudio, medicación, asistencia a citas médicas. La especificidad no es un detalle — es el mecanismo.</span><span class="en">Gollwitzer's studies show that people who form specific implementation intentions are 2–3 times more likely to execute their plans than those who only form goals. The effect has been replicated in dozens of contexts: exercise, eating, studying, medication, attending medical appointments. Specificity isn't a detail — it's the mechanism.</span></p>
+        </div>
+
+        <h3><span class="es">El formato que funciona: si-entonces</span><span class="en">The format that works: if-then</span></h3>
+        <p><span class="es">La intención de implementación tiene un formato preciso: <strong>"Si [situación específica], entonces [comportamiento específico]."</strong> Este formato hace tres cosas que las intenciones vagos no hacen:</span><span class="en">The implementation intention has a precise format: <strong>"If [specific situation], then [specific behavior]."</strong> This format does three things that vague intentions don't:</span></p>
+        <p><span class="es"><strong>1. Crea un disparador concreto:</strong> En lugar de confiar en que te acordarás de ejecutar el plan, el plan está vinculado a una señal específica que el cerebro reconoce automáticamente.</span><span class="en"><strong>1. Creates a concrete trigger:</strong> Instead of relying on remembering to execute the plan, the plan is tied to a specific cue that the brain recognizes automatically.</span></p>
+        <p><span class="es"><strong>2. Pre-decide la respuesta:</strong> Cuando el disparador ocurre, no hay deliberación. No hay evaluación de si tienes ganas. La respuesta ya fue decidida. El punto de decisión — donde el sabotaje normalmente interviene — ya no existe.</span><span class="en"><strong>2. Pre-decides the response:</strong> When the trigger occurs, there's no deliberation. No evaluation of whether you feel like it. The response was already decided. The decision point — where sabotage normally intervenes — no longer exists.</span></p>
+        <p><span class="es"><strong>3. Aprovecha la automaticidad del cerebro:</strong> El cerebro es experto en asociaciones si-entonces. Es como funciona en gran parte de su procesamiento automático. Usar ese mecanismo a tu favor, en lugar de luchar contra él, es trabajar con tu biología en lugar de contra ella.</span><span class="en"><strong>3. Leverages the brain's automaticity:</strong> The brain is expert at if-then associations. It's how much of its automatic processing works. Using that mechanism in your favor, instead of fighting it, is working with your biology instead of against it.</span></p>
+      </div>
+
+      <div class="lesson-section">
+        <h2><span class="es">Cómo construir una intención de implementación efectiva</span><span class="en">How to build an effective implementation intention</span></h2>
+
+        <div class="framework-box">
+          <div class="framework-label"><span class="es">La fórmula</span><span class="en">The formula</span></div>
+          <h4><span class="es">Si [CUÁNDO + DÓNDE + SITUACIÓN], entonces [QUÉ EXACTAMENTE]</span><span class="en">If [WHEN + WHERE + SITUATION], then [EXACTLY WHAT]</span></h4>
+          <ul class="framework-steps">
+            <li><div class="step-num">1</div><div><strong>CUÁNDO:</strong> <span class="es">Tiempo específico o evento disparador. "Mañana a las 7am" o "cuando suene la alarma del lunes" o "cuando llegue a casa del trabajo."</span><span class="en">Specific time or triggering event. "Tomorrow at 7am" or "when Monday's alarm goes off" or "when I get home from work."</span></div></li>
+            <li><div class="step-num">2</div><div><strong>DÓNDE:</strong> <span class="es">Lugar específico cuando sea relevante. "En el gimnasio del edificio" o "en mi escritorio" o "en la cocina."</span><span class="en">Specific place when relevant. "In the building gym" or "at my desk" or "in the kitchen."</span></div></li>
+            <li><div class="step-num">3</div><div><strong>QUÉ EXACTAMENTE:</strong> <span class="es">El comportamiento en términos concretos, no abstractos. "Haré 30 minutos de entrenamiento de fuerza" no "haré ejercicio." "Escribiré 500 palabras" no "trabajaré en el proyecto."</span><span class="en">The behavior in concrete, not abstract terms. "I will do 30 minutes of strength training" not "I will exercise." "I will write 500 words" not "I will work on the project."</span></div></li>
+          </ul>
+        </div>
+
+        <h3><span class="es">Ejemplos que funcionan vs. los que no</span><span class="en">Examples that work vs. those that don't</span></h3>
+        <div class="vignette">
+          <div class="vignette-label"><span class="es">Comparación de intenciones</span><span class="en">Intention comparison</span></div>
+          <div class="vignette-ba">
+            <div class="vignette-col">
+              <h5><span class="es">❌ Intención vaga</span><span class="en">❌ Vague intention</span></h5>
+              <p><span class="es">"Voy a empezar a meditar."<br><br>"Quiero comer más sano esta semana."<br><br>"Voy a trabajar en mi proyecto personal."<br><br>"Voy a hacer ejercicio más seguido."</span><span class="en">"I'm going to start meditating."<br><br>"I want to eat healthier this week."<br><br>"I'm going to work on my personal project."<br><br>"I'm going to exercise more often."</span></p>
+            </div>
+            <div class="vignette-col">
+              <h5><span class="es">✓ Intención de implementación</span><span class="en">✓ Implementation intention</span></h5>
+              <p><span class="es">"Si son las 7am y acabo de despertar, entonces meditaré 10 minutos antes de revisar el teléfono."<br><br>"Si llego al supermercado, entonces no compraré nada que no esté en mi lista pre-escrita."<br><br>"Si son las 8pm los martes y jueves, entonces trabajaré 45 minutos en el proyecto sin distracciones."<br><br>"Si es lunes, miércoles o viernes a las 6:30am, entonces iré al gimnasio y haré el circuito A."</span><span class="en">"If it's 7am and I just woke up, then I will meditate for 10 minutes before checking my phone."<br><br>"If I arrive at the supermarket, then I will not buy anything not on my pre-written list."<br><br>"If it's 8pm on Tuesdays and Thursdays, then I will work 45 minutes on the project without distractions."<br><br>"If it's Monday, Wednesday, or Friday at 6:30am, then I will go to the gym and do Circuit A."</span></p>
+            </div>
+          </div>
+        </div>
+
+        <h3><span class="es">Intenciones de implementación para interrumpir el sabotaje</span><span class="en">Implementation intentions for interrupting sabotage</span></h3>
+        <p><span class="es">Gollwitzer también demostró que las intenciones de implementación son especialmente poderosas cuando se aplican a las barreras anticipadas — no solo al comportamiento deseado. Esto significa que puedes crear planes si-entonces para el momento exacto donde normalmente te saboteas:</span><span class="en">Gollwitzer also showed that implementation intentions are especially powerful when applied to anticipated barriers — not just the desired behavior. This means you can create if-then plans for the exact moment where you normally self-sabotage:</span></p>
+        <p><span class="es">"<strong>Si</strong> siento la tentación de revisar redes sociales cuando debería estar trabajando, <strong>entonces</strong> tomaré 3 respiraciones profundas y abriré mi documento de trabajo."</span><span class="en">"<strong>If</strong> I feel the urge to check social media when I should be working, <strong>then</strong> I'll take 3 deep breaths and open my work document."</span></p>
+        <p><span class="es">"<strong>Si</strong> me despierto sin ganas de entrenar, <strong>entonces</strong> me pondré la ropa de entrenamiento y me diré que solo voy 15 minutos."</span><span class="en">"<strong>If</strong> I wake up not feeling like working out, <strong>then</strong> I'll put on my workout clothes and tell myself I'm only going for 15 minutes."</span></p>
+        <p><span class="es">Este tipo de intención — que anticipa el obstáculo y pre-diseña la respuesta — es particularmente poderosa porque interviene antes de que el sistema de evitación tome el control.</span><span class="en">This type of intention — which anticipates the obstacle and pre-designs the response — is particularly powerful because it intervenes before the avoidance system takes over.</span></p>
+      </div>
+
+      <div class="lesson-section">
+        <h2><span class="es">Errores comunes al crear intenciones de implementación</span><span class="en">Common mistakes when creating implementation intentions</span></h2>
+        <h3><span class="es">Error 1: Demasiadas a la vez</span><span class="en">Mistake 1: Too many at once</span></h3>
+        <p><span class="es">Las intenciones de implementación funcionan mejor cuando se aplican a 3–5 comportamientos clave, no a 20. El cerebro puede manejar un número limitado de asociaciones nuevas a la vez. Empieza pequeño y expande gradualmente.</span><span class="en">Implementation intentions work best when applied to 3–5 key behaviors, not 20. The brain can handle a limited number of new associations at once. Start small and expand gradually.</span></p>
+        <h3><span class="es">Error 2: El disparador es abstracto</span><span class="en">Mistake 2: The trigger is abstract</span></h3>
+        <p><span class="es">"Si me siento estresado(a)" es un disparador demasiado vago — ¿cuándo exactamente? ¿Qué tipo de estrés? Necesita ser observable y específico: "Si noto que mis hombros están tensos y estoy mirando fijamente la pantalla sin avanzar."</span><span class="en">"If I feel stressed" is too vague a trigger — when exactly? What kind of stress? It needs to be observable and specific: "If I notice my shoulders are tense and I'm staring at the screen without making progress."</span></p>
+        <h3><span class="es">Error 3: El comportamiento es aspiracional, no concreto</span><span class="en">Mistake 3: The behavior is aspirational, not concrete</span></h3>
+        <p><span class="es">"Entonces seré más disciplinado(a)" no es un comportamiento. "Entonces haré el primer ítem de mi lista de prioridades por 25 minutos sin interrupciones" sí lo es. El comportamiento tiene que ser observable y medible.</span><span class="en">"Then I will be more disciplined" is not a behavior. "Then I will do the first item on my priority list for 25 minutes without interruptions" is. The behavior has to be observable and measurable.</span></p>
+      </div>
+
+      <div class="lesson-quote">"<span class="es">La diferencia entre quien ejecuta<br>y quien no ejecuta no está en la fuerza.<br>Está en la <em>especificidad del plan.</em></span><span class="en">The difference between who executes<br>and who doesn't isn't strength.<br>It's in the <em>specificity of the plan.</em></span>"</div>
+
+      <div class="exercise-block">
+        <div class="exercise-header">
+          <div class="exercise-icon">✍️</div>
+          <div>
+            <div class="exercise-label"><span class="es">Ejercicio de la lección</span><span class="en">Lesson exercise</span></div>
+            <h4><span class="es">Escribe tus 5 intenciones de implementación</span><span class="en">Write your 5 implementation intentions</span></h4>
+          </div>
+        </div>
+        <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:1.25rem;"><span class="es">Usa los 5 comportamientos que identificaste en el ejercicio de la Lección 01. Si no los tienes escritos, vuelve y hazlo ahora. Este ejercicio construye directamente sobre ese.</span><span class="en">Use the 5 behaviors you identified in Lesson 01's exercise. If you don't have them written down, go back and do that now. This exercise builds directly on that one.</span></p>
+        <ol class="exercise-steps">
+          <li><div class="ex-step-num">1</div><div><strong><span class="es">Toma tu lista de 5 comportamientos importantes</span><span class="en">Take your list of 5 important behaviors</span></strong> <span class="es">de la Lección 01. Estos van a ser los candidatos para tus intenciones de implementación.</span><span class="en">from Lesson 01. These will be the candidates for your implementation intentions.</span></div></li>
+          <li><div class="ex-step-num">2</div><div><strong><span class="es">Para cada uno, escribe la intención usando el formato completo:</span><span class="en">For each one, write the intention using the complete format:</span></strong> <span class="es">"Si [tiempo/situación específica] en [lugar si aplica], entonces [comportamiento exacto por [duración/cantidad]]."</span><span class="en">"If [specific time/situation] at [place if applicable], then [exact behavior for [duration/amount]]."</span></div></li>
+          <li><div class="ex-step-num">3</div><div><strong><span class="es">Para tus 2 comportamientos más difíciles, escribe también una intención de barrera:</span><span class="en">For your 2 hardest behaviors, also write a barrier intention:</span></strong> <span class="es">"Si siento la resistencia/tentación de [descripción específica del sabotaje], entonces [respuesta pre-diseñada]."</span><span class="en">"If I feel the resistance/urge to [specific description of the sabotage], then [pre-designed response]."</span></div></li>
+          <li><div class="ex-step-num">4</div><div><strong><span class="es">Lee en voz alta cada intención</span><span class="en">Read each intention aloud</span></strong> <span class="es">y evalúa: ¿Es lo suficientemente específica para que no haya ambigüedad en su ejecución? Si tienes que preguntarte "¿pero cuándo exactamente?", no es específica suficiente.</span><span class="en">and evaluate: Is it specific enough that there's no ambiguity in its execution? If you have to ask yourself "but exactly when?", it's not specific enough.</span></div></li>
+          <li><div class="ex-step-num">5</div><div><strong><span class="es">Ponlas en un lugar visible o en tu calendario</span><span class="en">Put them somewhere visible or in your calendar</span></strong> <span class="es">— las intenciones de implementación funcionan mejor cuando están presentes en tu entorno físico o digital, no solo en tu memoria.</span><span class="en">— implementation intentions work best when they're present in your physical or digital environment, not just in your memory.</span></div></li>
+        </ol>
+        <div class="exercise-success">
+          <div class="exercise-success-label"><span class="es">Sabrás que funcionó cuando...</span><span class="en">You'll know it worked when...</span></div>
+          <p><span class="es">Tengas 5 intenciones escritas donde puedas señalar exactamente cuándo, dónde y qué harás — y 2 intenciones de barrera donde puedas señalar exactamente qué harás cuando el sabotaje aparezca. Si alguna dice "intentaré" o "cuando pueda", reescríbela.</span><span class="en">You have 5 written intentions where you can point to exactly when, where, and what you'll do — and 2 barrier intentions where you can point to exactly what you'll do when sabotage appears. If any says "I'll try" or "when I can," rewrite it.</span></p>
+        </div>
+      </div>
+
+      <div class="reflection-block">
+        <div class="reflection-label"><span class="es">Preguntas de reflexión</span><span class="en">Reflection questions</span></div>
+        <ul class="reflection-list">
+          <li><span class="es">¿Qué ocurre emocionalmente cuando haces tus intenciones más específicas? ¿Sientes resistencia? ¿Esa resistencia te dice algo?</span><span class="en">What happens emotionally when you make your intentions more specific? Do you feel resistance? Does that resistance tell you something?</span></li>
+          <li><span class="es">¿En cuál de los 5 comportamientos crees que la intención de implementación va a ser más difícil de cumplir? ¿Por qué?</span><span class="en">For which of the 5 behaviors do you think the implementation intention will be hardest to keep? Why?</span></li>
+          <li><span class="es">¿Hay disparadores en tu vida (situaciones, horas, lugares) que consistentemente te hacen comportarte de maneras que no quieres? ¿Podrías crear intenciones de barrera para esos?</span><span class="en">Are there triggers in your life (situations, times, places) that consistently make you behave in ways you don't want to? Could you create barrier intentions for those?</span></li>
+        </ul>
+      </div>
+
+      <details class="video-script">
+        <summary><div class="script-icon">🎥</div><div class="script-meta"><div class="script-title"><span class="es">Script de video — Lección 03</span><span class="en">Video script — Lesson 03</span></div><div class="script-time"><span class="es">~10 minutos · Tono: claro, práctico, urgente</span><span class="en">~10 minutes · Tone: clear, practical, urgent</span></div></div><span class="script-caret">▼</span></summary>
+        <div class="script-body">
+          <div class="script-section">
+            <div class="script-section-head"><span class="script-beat-label">HOOK</span><span class="script-time-badge">0:00–0:40</span></div>
+            <div class="script-text es">"¿Cuántas veces te has propuesto algo — empezar a entrenar, comer mejor, trabajar en ese proyecto — y no lo has hecho? Probablemente muchas. Y lo que voy a mostrarte hoy explica exactamente por qué y qué hacer de manera diferente."</div>
+            <div class="script-text en" style="display:none;">"How many times have you resolved to do something — start working out, eat better, work on that project — and haven't done it? Probably many times. And what I'm going to show you today explains exactly why and what to do differently."</div>
+          </div>
+          <hr class="script-divider">
+          <div class="script-section">
+            <div class="script-section-head"><span class="script-beat-label">LA CIENCIA</span><span class="script-time-badge">0:40–4:00</span></div>
+            <div class="script-text es">"Hay un investigador llamado Peter Gollwitzer que pasó décadas estudiando por qué la gente no ejecuta sus intenciones. Y lo que encontró es sorprendentemente simple: el problema no es la motivación. El problema es la vaguedad del plan."
+            <br><br>"'Voy a hacer ejercicio más seguido' — eso no es un plan. Es un deseo. ¿Cuándo? ¿Dónde? ¿Qué exactamente? Sin esas respuestas, tu cerebro no puede automatizar el comportamiento. Tiene que decidirlo cada vez. Y ya sabemos lo que pasa cuando hay que decidir bajo presión emocional."
+            <br><br>"Sus estudios muestran que las personas que forman lo que él llama 'intenciones de implementación' — planes específicos en formato si-entonces — ejecutan sus intenciones 2 a 3 veces más que quienes solo tienen metas. El efecto se ha reproducido en docenas de estudios. No es teórico."</div>
+            <div class="script-text en" style="display:none;">"There's a researcher named Peter Gollwitzer who spent decades studying why people don't execute their intentions. And what he found is surprisingly simple: the problem isn't motivation. The problem is the vagueness of the plan."
+            <br><br>"'I'm going to exercise more often' — that's not a plan. It's a wish. When? Where? What exactly? Without those answers, your brain can't automate the behavior. It has to decide every time. And we already know what happens when you have to decide under emotional pressure."
+            <br><br>"His studies show that people who form what he calls 'implementation intentions' — specific plans in if-then format — execute their intentions 2 to 3 times more than those who only have goals. The effect has been replicated in dozens of studies. It's not theoretical."</div>
+          </div>
+          <hr class="script-divider">
+          <div class="script-section">
+            <div class="script-section-head"><span class="script-beat-label">LA FÓRMULA</span><span class="script-time-badge">4:00–7:30</span></div>
+            <div class="script-text es">"La fórmula es: 'Si [situación específica], entonces [comportamiento específico].' Tan simple como eso. Pero la especificidad es todo."
+            <br><br>"'Si son las 7am del lunes, miércoles o viernes, entonces voy al gimnasio y hago el circuito A durante 40 minutos.' Eso es una intención de implementación. 'Quiero ir al gimnasio esta semana' es una intención vaga. La diferencia en resultados es enorme."
+            <br><br>"Y puedes usar el mismo formato para anticipar el sabotaje: 'Si me despiertas sin ganas de ir al gimnasio, entonces igualmente me pongo la ropa de entrenamiento y me digo que solo voy 15 minutos.' Así atacas el obstáculo antes de que te controle."</div>
+            <div class="script-text en" style="display:none;">"The formula is: 'If [specific situation], then [specific behavior].' As simple as that. But the specificity is everything."
+            <br><br>"'If it's 7am on Monday, Wednesday, or Friday, then I go to the gym and do Circuit A for 40 minutes.' That's an implementation intention. 'I want to go to the gym this week' is a vague intention. The difference in results is enormous."
+            <br><br>"And you can use the same format to anticipate sabotage: 'If I wake up not feeling like going to the gym, then I'll put on my workout clothes anyway and tell myself I'm only going for 15 minutes.' That way you attack the obstacle before it controls you."</div>
+          </div>
+          <hr class="script-divider">
+          <div class="script-section">
+            <div class="script-section-head"><span class="script-beat-label">CIERRE</span><span class="script-time-badge">7:30–10:00</span></div>
+            <div class="script-text es">"Tu ejercicio hoy: toma los 5 comportamientos que identificaste en la Lección 1 y escribe una intención de implementación para cada uno. Específica. En formato si-entonces. Y para los dos que más te cuesten, escribe también una intención de barrera. Eso está en el workbook."
+            <br><br>"Este no es un ejercicio para leer. Es un ejercicio para hacer. Y si lo haces, vas a ejecutar más en la próxima semana que en el último mes."</div>
+            <div class="script-text en" style="display:none;">"Your exercise today: take the 5 behaviors you identified in Lesson 1 and write an implementation intention for each one. Specific. In if-then format. And for the two that are hardest for you, also write a barrier intention. That's in the workbook."
+            <br><br>"This is not an exercise to read. It's an exercise to do. And if you do it, you'll execute more in the next week than in the last month."</div>
+          </div>
+        </div>
+      </details>
+
+      <div class="integration-note">
+        <span class="integration-icon">🔗</span>
+        <div><h5><span class="es">Conexión con el curso</span><span class="en">Course connection</span></h5>
+        <p><span class="es">Las intenciones de implementación son la herramienta más específica del Módulo 1. La Lección 08 usará este formato para construir tu arquitectura semanal completa. El Módulo 2 (Disciplina) construirá el sistema completo de no-negociación que hace que estas intenciones se cumplan incluso bajo presión.</span><span class="en">Implementation intentions are the most specific tool in Module 1. Lesson 08 will use this format to build your complete weekly architecture. Module 2 (Discipline) will build the complete non-negotiation system that makes these intentions hold even under pressure.</span></p></div>
+      </div>
+
+      <div class="lesson-nav">
+        <a href="lesson-02.html" class="btn-lesson-nav">← <span class="es">Lección 02</span><span class="en">Lesson 02</span></a>
+        <a href="lesson-04.html" class="btn-lesson-nav next"><div><div class="nav-direction"><span class="es">Siguiente</span><span class="en">Next</span></div><div class="nav-title"><span class="es">Trampas de pensamiento →</span><span class="en">Thought Traps →</span></div></div></a>
+      </div>
+    </div>
+    <div class="mark-complete-bar"><span class="mark-complete-text"><span class="es">¿Terminaste?</span><span class="en">Finished?</span></span><button class="btn-complete" id="btn-complete"><span class="es">Marcar como completada</span><span class="en">Mark as complete</span></button></div>
+  </main>
+</div>
+<script src="../assets/course.js"></script>
+</body>
+</html>

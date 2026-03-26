@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lab 02: Integración Módulo 2 — GFM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body class="lang-es" data-lesson-id="mod2-l09">
+<div id="progress-bar"></div><div id="sidebar-overlay"></div>
+<nav id="course-nav">
+  <div class="nav-left"><a href="../index.html" class="nav-back">← Dashboard</a><span class="nav-sep">|</span><span class="nav-logo">GFM</span><span class="nav-sep">|</span><span class="nav-context"><span class="es">M02 · Lab</span><span class="en">M02 · Lab</span></span></div>
+  <div class="nav-right"><button class="btn-sidebar-toggle">☰</button><button class="btn-lang" onclick="toggleLang()"><span class="es">🇺🇸 EN</span><span class="en">🇪🇸 ES</span></button></div>
+</nav>
+<div class="course-shell">
+  <aside id="sidebar"><div class="sidebar-header"><div class="sidebar-progress-label"><span class="es">Progreso</span><span class="en">Progress</span></div><div class="sidebar-progress-bar-wrap"><div class="sidebar-progress-fill"></div></div><div class="sidebar-progress-pct"></div></div><div class="sidebar-modules" id="sidebar-modules-container"></div></aside>
+  <main id="main-content">
+    <div class="content-inner">
+
+      <div class="lesson-hero">
+        <div class="lesson-tag" style="background:rgba(201,169,110,0.15);"><span class="es">Laboratorio · Módulo 02</span><span class="en">Lab · Module 02</span></div>
+        <h1><span class="es">Laboratorio de Integración: Disciplina Real</span><span class="en">Integration Lab: Real Discipline</span></h1>
+        <p class="lead"><span class="es">Este laboratorio sintetiza todos los sistemas del Módulo 2 en un documento de arquitectura de disciplina que usarás como referencia permanente. No es una revisión teórica — es la construcción de tu sistema completo.</span><span class="en">This lab synthesizes all Module 2 systems into a discipline architecture document you'll use as a permanent reference. It's not a theoretical review — it's the construction of your complete system.</span></p>
+        <div class="lesson-meta-row"><span class="meta-item"><span class="meta-icon">⏱️</span><span class="es">~50 min de trabajo</span><span class="en">~50 min of work</span></span></div>
+      </div>
+
+      <div class="outcomes-box">
+        <h5><span class="es">Outputs de este laboratorio</span><span class="en">Lab outputs</span></h5>
+        <ul class="outcomes-list">
+          <li><span class="es">Tu documento de 5 no-negociables con todos sus elementos (bucle de hábito, AMV, protocolo de entorno)</span><span class="en">Your 5 non-negotiables document with all elements (habit loop, MVA, environment protocol)</span></li>
+          <li><span class="es">Tu protocolo personal de recuperación de fallos escrito</span><span class="en">Your personal failure recovery protocol written</span></li>
+          <li><span class="es">Tu sistema de seguimiento configurado y en funcionamiento</span><span class="en">Your tracking system configured and running</span></li>
+        </ul>
+      </div>
+
+      <div class="lesson-section">
+        <h2><span class="es">Los 7 sistemas del Módulo 2</span><span class="en">The 7 systems of Module 2</span></h2>
+        <h3><span class="es">1. El impuesto de la negociación</span><span class="en">1. The negotiation tax</span></h3>
+        <p><span class="es">Cada negociación interna tiene un triple costo: energía mental, confianza erosionada e identidad reforzada en la dirección equivocada. Reconoces el argumento de negociación más frecuente en el momento en que aparece.</span><span class="en">Every internal negotiation has a triple cost: mental energy, eroded trust, and identity reinforced in the wrong direction. You recognize your most frequent negotiation argument in the moment it appears.</span></p>
+        <h3><span class="es">2. Protocolo de cero negociación</span><span class="en">2. Zero-negotiation protocol</span></h3>
+        <p><span class="es">Un no-negociable tiene 4 elementos: específico, no condicionado al estado de ánimo, con protocolo de entorno, y con forma mínima definida. El protocolo de cero negociación: reconocer, recordar el acuerdo, ejecutar la acción mínima de entrada.</span><span class="en">A non-negotiable has 4 elements: specific, not conditioned on mood, with environment protocol, and with defined minimum form. The zero-negotiation protocol: recognize, remember the agreement, execute the minimum entry action.</span></p>
+        <h3><span class="es">3. Diseño de hábitos</span><span class="en">3. Habit design</span></h3>
+        <p><span class="es">El bucle señal-rutina-recompensa. Construyes nuevos hábitos diseñando el bucle completo. Cambias hábitos existentes manteniendo la señal y recompensa, cambiando la rutina. El encadenamiento de hábitos une nuevos comportamientos a hábitos existentes.</span><span class="en">The cue-routine-reward loop. You build new habits by designing the full loop. You change existing habits by keeping the cue and reward, changing the routine. Habit stacking links new behaviors to existing habits.</span></p>
+        <h3><span class="es">4. Acción mínima viable</span><span class="en">4. Minimum viable action</span></h3>
+        <p><span class="es">El piso que no cruzas. La versión más reducida que todavía refuerza la identidad correcta. Tu stack de mínimos define qué ocurre incluso en la peor semana.</span><span class="en">The floor you don't cross. The most reduced version that still reinforces the correct identity. Your minimum stack defines what happens even in the worst week.</span></p>
+        <h3><span class="es">5. El calendario como contrato</span><span class="en">5. Calendar as contract</span></h3>
+        <p><span class="es">4 tipos de bloques: no-negociables (protegidos), trabajo profundo (protegido), trabajo reactivo (flexible), margen. Los bloques protegidos no se mueven. Lo más importante va primero.</span><span class="en">4 block types: non-negotiables (protected), deep work (protected), reactive work (flexible), margin. Protected blocks don't move. Most important goes first.</span></p>
+        <h3><span class="es">6. Seguimiento sin vergüenza</span><span class="en">6. Tracking without shame</span></h3>
+        <p><span class="es">Rastrea comportamientos, no resultados. Sí/no, sin detalles elaborados. Los "no" son datos. La tasa importa más que la racha. El diario de hecho construye evidencia de identidad.</span><span class="en">Track behaviors, not outcomes. Yes/no, no elaborate details. "No"s are data. Rate matters more than streak. The done log builds identity evidence.</span></p>
+        <h3><span class="es">7. Recuperación de fallos</span><span class="en">7. Failure recovery</span></h3>
+        <p><span class="es">Nunca dos veces seguidas. 4 pasos: nombrar sin drama, extraer el dato, confirmar el retorno al día siguiente, ajustar el sistema si aplica. Autocompasión como herramienta de adherencia.</span><span class="en">Never twice in a row. 4 steps: name without drama, extract the data, confirm return the next day, adjust system if applicable. Self-compassion as an adherence tool.</span></p>
+      </div>
+
+      <div class="exercise-block">
+        <div class="exercise-header">
+          <div class="exercise-icon">🔨</div>
+          <div><div class="exercise-label"><span class="es">Lab de integración</span><span class="en">Integration lab</span></div><h4><span class="es">Tu documento de arquitectura de disciplina</span><span class="en">Your discipline architecture document</span></h4></div>
+        </div>
+        <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:1.25rem;"><span class="es">Reserva 50 minutos. Abre un documento, papel o nota. Completa cada sección con especificidad — no con aspiraciones genéricas.</span><span class="en">Reserve 50 minutes. Open a document, paper, or note. Complete each section with specificity — not generic aspirations.</span></p>
+        <ol class="exercise-steps">
+          <li><div class="ex-step-num">1</div><div><strong><span class="es">MIS 5 NO-NEGOCIABLES — DOCUMENTO COMPLETO:</span><span class="en">MY 5 NON-NEGOTIABLES — COMPLETE DOCUMENT:</span></strong><br><span class="es">Para cada uno: Descripción específica · Hora/días · Bucle de hábito (señal + rutina + recompensa) · AMV · Protocolo de entorno</span><span class="en">For each: Specific description · Time/days · Habit loop (cue + routine + reward) · MVA · Environment protocol</span></div></li>
+          <li><div class="ex-step-num">2</div><div><strong><span class="es">MI STACK DE MÍNIMOS:</span><span class="en">MY MINIMUM STACK:</span></strong><br><span class="es">"En semana difícil, mi mínimo irrompible es: [lista]. Eso es suficiente."</span><span class="en">"In a difficult week, my unbreakable minimum is: [list]. That's enough."</span></div></li>
+          <li><div class="ex-step-num">3</div><div><strong><span class="es">MI PROTOCOLO DE RECUPERACIÓN:</span><span class="en">MY RECOVERY PROTOCOL:</span></strong><br><span class="es">Los 4 pasos personalizados. Mi frase de autocompasión. Mis factores de riesgo de fallo.</span><span class="en">The 4 personalized steps. My self-compassion phrase. My failure risk factors.</span></div></li>
+          <li><div class="ex-step-num">4</div><div><strong><span class="es">MI SISTEMA DE SEGUIMIENTO:</span><span class="en">MY TRACKING SYSTEM:</span></strong><br><span class="es">Formato · Cuándo registro · Cómo reviso semanalmente</span><span class="en">Format · When I log · How I review weekly</span></div></li>
+          <li><div class="ex-step-num">5</div><div><strong><span class="es">MIS PRESIONES SOCIALES Y RESPUESTAS:</span><span class="en">MY SOCIAL PRESSURES AND RESPONSES:</span></strong><br><span class="es">Las 3 situaciones y sus respuestas pre-diseñadas</span><span class="en">The 3 situations and their pre-designed responses</span></div></li>
+        </ol>
+        <div class="exercise-success">
+          <div class="exercise-success-label"><span class="es">Estás listo(a) para el Módulo 3 cuando...</span><span class="en">You're ready for Module 3 when...</span></div>
+          <p><span class="es">Has ejecutado tu sistema de no-negociables durante al menos 1 semana completa, tienes datos de seguimiento reales, y has aplicado el protocolo de recuperación al menos una vez (porque inevitablemente habrás fallado en algo).</span><span class="en">You've executed your non-negotiable system for at least 1 full week, you have real tracking data, and you've applied the recovery protocol at least once (because inevitably you will have failed at something).</span></p>
+        </div>
+      </div>
+
+      <div class="callout success">
+        <div class="callout-label"><span class="es">Lo que construiste en el Módulo 2</span><span class="en">What you built in Module 2</span></div>
+        <p><span class="es">Un sistema completo de disciplina que no depende de motivación, que tiene protección contra los fallos y que se recupera sin drama cuando ocurren. El Módulo 3 añade la capa más profunda: la identidad. Porque los sistemas funcionan mejor cuando la persona que los ejecuta se ha convertido en alguien que los vive naturalmente.</span><span class="en">A complete discipline system that doesn't depend on motivation, that has protection against failures, and that recovers without drama when they happen. Module 3 adds the deepest layer: identity. Because systems work best when the person executing them has become someone who lives them naturally.</span></p>
+      </div>
+
+      <div class="lesson-nav">
+        <a href="lesson-08.html" class="btn-lesson-nav">← L08</a>
+        <a href="../module-3/index.html" class="btn-lesson-nav next"><div><div class="nav-direction"><span class="es">Siguiente módulo</span><span class="en">Next module</span></div><div class="nav-title"><span class="es">Módulo 03: Identidad →</span><span class="en">Module 03: Identity →</span></div></div></a>
+      </div>
+    </div>
+    <div class="mark-complete-bar"><span class="mark-complete-text"><span class="es">¿Terminaste?</span><span class="en">Finished?</span></span><button class="btn-complete" id="btn-complete"><span class="es">Marcar como completado</span><span class="en">Mark as complete</span></button></div>
+  </main>
+</div>
+<script src="../assets/course.js"></script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Glow Flow Method — Dashboard del Curso</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/course.css">
+  <style>
+    #main-content { margin-left: 0; }
+    #sidebar { display: none; }
+    .dashboard-wrap { max-width: 860px; margin: 0 auto; padding: 0 2rem 6rem; }
+    .bonus-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 1.5rem; }
+    @media (max-width: 600px) { .bonus-grid { grid-template-columns: 1fr; } .dashboard-wrap { padding: 0 1.25rem 5rem; } }
+  </style>
+</head>
+<body class="lang-es">
+
+<div id="progress-bar"></div>
+
+<nav id="course-nav">
+  <div class="nav-left">
+    <a href="../index.html" class="nav-back">← <span class="es">Página de inicio</span><span class="en">Home page</span></a>
+    <span class="nav-sep">|</span>
+    <span class="nav-logo">Glow Flow Method</span>
+  </div>
+  <div class="nav-right">
+    <button class="btn-lang" onclick="toggleLang()">
+      <span class="es">🇺🇸 English</span>
+      <span class="en">🇪🇸 Español</span>
+    </button>
+  </div>
+</nav>
+
+<div style="padding-top: 56px;">
+  <div class="dashboard-wrap">
+
+    <!-- HEADER -->
+    <div class="dashboard-header">
+      <span class="label"><span class="es">Tu progreso</span><span class="en">Your progress</span></span>
+      <h1>
+        <span class="es">Bienvenido(a) al curso</span>
+        <span class="en">Welcome to the course</span>
+      </h1>
+      <p>
+        <span class="es">Esto no es contenido para consumir. Es un sistema para ejecutar. Cada módulo construye sobre el anterior. Cada lección te deja con algo concreto para aplicar hoy.</span>
+        <span class="en">This is not content to consume. It is a system to execute. Each module builds on the one before it. Each lesson leaves you with something concrete to apply today.</span>
+      </p>
+
+      <div class="progress-overview">
+        <div class="prog-stat">
+          <div class="prog-stat-num" id="dash-completed">0</div>
+          <div class="prog-stat-label"><span class="es">lecciones</span><span class="en">lessons</span></div>
+        </div>
+        <div class="prog-stat">
+          <div class="prog-stat-num" id="dash-total">34</div>
+          <div class="prog-stat-label"><span class="es">total</span><span class="en">total</span></div>
+        </div>
+        <div class="prog-bar-wrap">
+          <div class="prog-bar-track">
+            <div class="prog-bar-fill" id="dash-fill" style="width:0%"></div>
+          </div>
+          <div class="prog-bar-label"><span id="dash-pct">0%</span> <span class="es">completado</span><span class="en">complete</span></div>
+        </div>
+        <a href="#" class="btn-continue" id="btn-continue">
+          <span class="es">Comenzar →</span>
+          <span class="en">Start →</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- MODULE CARDS -->
+    <h2 style="margin-bottom: 1.25rem;">
+      <span class="es">Módulos del curso</span>
+      <span class="en">Course modules</span>
+    </h2>
+
+    <div class="module-cards">
+
+      <!-- MODULE 1 -->
+      <div class="module-card" id="mc-module-1">
+        <div class="module-card-head" onclick="this.parentElement.classList.toggle('open')">
+          <div class="module-card-left">
+            <div class="module-badge">01</div>
+            <div class="module-card-title-group">
+              <div class="module-card-num"><span class="es">Módulo 01 · 9 lecciones</span><span class="en">Module 01 · 9 lessons</span></div>
+              <div class="module-card-title"><span class="es">Reset Mental</span><span class="en">Mental Reset</span></div>
+            </div>
+          </div>
+          <div class="module-card-right">
+            <div class="module-progress-pct" id="mod-pct-module-1">0%</div>
+            <span class="module-card-caret">▼</span>
+          </div>
+        </div>
+        <div class="module-lesson-list" id="mod-lessons-module-1"></div>
+      </div>
+
+      <!-- MODULE 2 -->
+      <div class="module-card" id="mc-module-2">
+        <div class="module-card-head" onclick="this.parentElement.classList.toggle('open')">
+          <div class="module-card-left">
+            <div class="module-badge">02</div>
+            <div class="module-card-title-group">
+              <div class="module-card-num"><span class="es">Módulo 02 · 9 lecciones</span><span class="en">Module 02 · 9 lessons</span></div>
+              <div class="module-card-title"><span class="es">Disciplina Real</span><span class="en">Real Discipline</span></div>
+            </div>
+          </div>
+          <div class="module-card-right">
+            <div class="module-progress-pct" id="mod-pct-module-2">0%</div>
+            <span class="module-card-caret">▼</span>
+          </div>
+        </div>
+        <div class="module-lesson-list" id="mod-lessons-module-2"></div>
+      </div>
+
+      <!-- MODULE 3 -->
+      <div class="module-card" id="mc-module-3">
+        <div class="module-card-head" onclick="this.parentElement.classList.toggle('open')">
+          <div class="module-card-left">
+            <div class="module-badge">03</div>
+            <div class="module-card-title-group">
+              <div class="module-card-num"><span class="es">Módulo 03 · 6 lecciones</span><span class="en">Module 03 · 6 lessons</span></div>
+              <div class="module-card-title"><span class="es">Identidad</span><span class="en">Identity</span></div>
+            </div>
+          </div>
+          <div class="module-card-right">
+            <div class="module-progress-pct" id="mod-pct-module-3">0%</div>
+            <span class="module-card-caret">▼</span>
+          </div>
+        </div>
+        <div class="module-lesson-list" id="mod-lessons-module-3"></div>
+      </div>
+
+      <!-- MODULE 4 -->
+      <div class="module-card" id="mc-module-4">
+        <div class="module-card-head" onclick="this.parentElement.classList.toggle('open')">
+          <div class="module-card-left">
+            <div class="module-badge">04</div>
+            <div class="module-card-title-group">
+              <div class="module-card-num"><span class="es">Módulo 04 · 6 lecciones</span><span class="en">Module 04 · 6 lessons</span></div>
+              <div class="module-card-title"><span class="es">Enfoque Profundo</span><span class="en">Deep Focus</span></div>
+            </div>
+          </div>
+          <div class="module-card-right">
+            <div class="module-progress-pct" id="mod-pct-module-4">0%</div>
+            <span class="module-card-caret">▼</span>
+          </div>
+        </div>
+        <div class="module-lesson-list" id="mod-lessons-module-4"></div>
+      </div>
+
+      <!-- MODULE 5 -->
+      <div class="module-card" id="mc-module-5">
+        <div class="module-card-head" onclick="this.parentElement.classList.toggle('open')">
+          <div class="module-card-left">
+            <div class="module-badge">05</div>
+            <div class="module-card-title-group">
+              <div class="module-card-num"><span class="es">Módulo 05 · 4 lecciones</span><span class="en">Module 05 · 4 lessons</span></div>
+              <div class="module-card-title"><span class="es">Integración y Sostenibilidad</span><span class="en">Integration & Sustainability</span></div>
+            </div>
+          </div>
+          <div class="module-card-right">
+            <div class="module-progress-pct" id="mod-pct-module-5">0%</div>
+            <span class="module-card-caret">▼</span>
+          </div>
+        </div>
+        <div class="module-lesson-list" id="mod-lessons-module-5"></div>
+      </div>
+
+    </div>
+
+    <!-- BONUS -->
+    <div style="margin-top: 3rem;">
+      <h2 style="margin-bottom: 0.5rem;"><span class="es">Recursos adicionales</span><span class="en">Additional resources</span></h2>
+      <p><span class="es">Material de apoyo para profundizar y sostener tu transformación.</span><span class="en">Supporting material to deepen and sustain your transformation.</span></p>
+      <div class="bonus-grid">
+        <a href="capstone.html" class="bonus-card">
+          <h5 style="margin-bottom:0.5rem;"><span class="es">Plan Capstone</span><span class="en">Capstone Plan</span></h5>
+          <h4><span class="es">Arquitectura de 90 Días</span><span class="en">90-Day Architecture</span></h4>
+          <p><span class="es">Construye tu plan de 90 días con todo lo aprendido. El paso de "entiendo" a "vivo así".</span><span class="en">Build your 90-day plan with everything you've learned. The step from "I understand" to "I live this way."</span></p>
+        </a>
+        <a href="resources.html" class="bonus-card">
+          <h5 style="margin-bottom:0.5rem;"><span class="es">Apéndice</span><span class="en">Appendix</span></h5>
+          <h4><span class="es">Glosario y Recursos</span><span class="en">Glossary & Resources</span></h4>
+          <p><span class="es">Todos los términos, marcos y lecturas recomendadas del curso en un solo lugar.</span><span class="en">All terms, frameworks, and recommended readings from the course in one place.</span></p>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="assets/course.js"></script>
+</body>
+</html>

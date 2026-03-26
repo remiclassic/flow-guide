@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GFM — Redirigiendo</title>
+<script>
+(function () {
+  var p = location.pathname;
+  var i = p.indexOf("/module-");
+  if (i === -1) return;
+  location.replace(p.slice(0, i) + "/course" + p.slice(i));
+})();
+</script>
+</head>
+<body style="font-family:system-ui;padding:2rem;background:#0a0a0a;color:#eee;">
+<p>La lección está en la carpeta <code>course</code>. Redirigiendo…</p>
+</body>
+</html>

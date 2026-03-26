@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recursos — GFM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/course.css">
+  <style>
+    .resources-hero { padding: 5rem 0 3rem; text-align: center; }
+    .resources-hero h1 { font-size: clamp(2rem,5vw,3rem); font-weight: 900; letter-spacing: -0.03em; margin-bottom: 1rem; }
+    .resources-hero p { color: var(--text-muted); max-width: 540px; margin: 0 auto; }
+    .resources-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+    .resource-card { background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.75rem; transition: border-color 0.2s; }
+    .resource-card:hover { border-color: var(--accent); }
+    .resource-card-tag { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 0.75rem; }
+    .resource-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .resource-card p { font-size: 0.9rem; color: var(--text-muted); margin: 0; }
+    .resource-card a { display: inline-block; margin-top: 1rem; font-size: 0.85rem; color: var(--accent); text-decoration: none; font-weight: 600; }
+    .resource-card a:hover { text-decoration: underline; }
+    .section-title { font-size: 1.5rem; font-weight: 800; margin: 3rem 0 1rem; letter-spacing: -0.02em; }
+    .book-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+    .book-item { background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem 1.5rem; }
+    .book-item strong { display: block; margin-bottom: 0.25rem; }
+    .book-item span { font-size: 0.9rem; color: var(--text-muted); }
+    .glossary-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; margin-top: 1rem; }
+    .glossary-item { background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; }
+    .glossary-term { font-weight: 700; font-size: 0.95rem; color: var(--accent); margin-bottom: 0.4rem; }
+    .glossary-def { font-size: 0.875rem; color: var(--text-muted); line-height: 1.6; }
+  </style>
+</head>
+<body class="lang-es">
+<div id="progress-bar"></div><div id="sidebar-overlay"></div>
+<nav id="course-nav">
+  <div class="nav-left"><a href="index.html" class="nav-back">← Dashboard</a><span class="nav-sep">|</span><span class="nav-logo">GFM</span></div>
+  <div class="nav-right"><button class="btn-sidebar-toggle">☰</button><button class="btn-lang" onclick="toggleLang()"><span class="es">🇺🇸 EN</span><span class="en">🇪🇸 ES</span></button></div>
+</nav>
+<div class="course-shell">
+  <aside id="sidebar"><div class="sidebar-header"><div class="sidebar-progress-label"><span class="es">Progreso</span><span class="en">Progress</span></div><div class="sidebar-progress-bar-wrap"><div class="sidebar-progress-fill"></div></div><div class="sidebar-progress-pct"></div></div><div class="sidebar-modules" id="sidebar-modules-container"></div></aside>
+  <main id="main-content">
+    <div class="content-inner">
+
+      <div class="resources-hero">
+        <div class="lesson-tag"><span class="es">Apéndice de recursos</span><span class="en">Resource appendix</span></div>
+        <h1><span class="es">Recursos del curso</span><span class="en">Course resources</span></h1>
+        <p><span class="es">Bibliografía, glosario de conceptos clave, y referencias para profundizar en cada módulo del Glow Flow Method.</span><span class="en">Bibliography, glossary of key concepts, and references to go deeper in each module of the Glow Flow Method.</span></p>
+      </div>
+
+      <!-- BIBLIOGRAFÍA -->
+      <h2 class="section-title"><span class="es">📚 Lecturas recomendadas por módulo</span><span class="en">📚 Recommended reading by module</span></h2>
+      <ul class="book-list">
+        <li class="book-item">
+          <strong><span class="es">Módulo 01 — Reset Mental</span><span class="en">Module 01 — Mental Reset</span></strong>
+          <span><em>Atomic Habits</em> — James Clear &nbsp;·&nbsp; <em>Thinking, Fast and Slow</em> — Daniel Kahneman &nbsp;·&nbsp; <em>The Now Habit</em> — Neil Fiore</span>
+        </li>
+        <li class="book-item">
+          <strong><span class="es">Módulo 02 — Disciplina Real</span><span class="en">Module 02 — Real Discipline</span></strong>
+          <span><em>The Power of Habit</em> — Charles Duhigg &nbsp;·&nbsp; <em>Tiny Habits</em> — BJ Fogg &nbsp;·&nbsp; <em>Making Habits, Breaking Habits</em> — Jeremy Dean</span>
+        </li>
+        <li class="book-item">
+          <strong><span class="es">Módulo 03 — Identidad</span><span class="en">Module 03 — Identity</span></strong>
+          <span><em>Chatter</em> — Ethan Kross &nbsp;·&nbsp; <em>The Stories We Live By</em> — Dan McAdams &nbsp;·&nbsp; <em>Transitions</em> — William Bridges &nbsp;·&nbsp; <em>Self-Perception Theory</em> (1967) — Daryl Bem</span>
+        </li>
+        <li class="book-item">
+          <strong><span class="es">Módulo 04 — Enfoque Profundo</span><span class="en">Module 04 — Deep Focus</span></strong>
+          <span><em>Deep Work</em> — Cal Newport &nbsp;·&nbsp; <em>Flow</em> — Mihaly Csikszentmihalyi &nbsp;·&nbsp; <em>The Distracted Mind</em> — Adam Gazzaley &amp; Larry Rosen &nbsp;·&nbsp; <em>Attention Restoration Theory</em> — Rachel &amp; Stephen Kaplan</span>
+        </li>
+        <li class="book-item">
+          <strong><span class="es">Módulo 05 — Integración</span><span class="en">Module 05 — Integration</span></strong>
+          <span><em>Getting Things Done</em> — David Allen &nbsp;·&nbsp; <em>The Compound Effect</em> — Darren Hardy &nbsp;·&nbsp; <em>How long does it take to form a habit?</em> (2010) — Phillippa Lally et al.</span>
+        </li>
+      </ul>
+
+      <!-- HERRAMIENTAS -->
+      <h2 class="section-title"><span class="es">🛠 Herramientas recomendadas</span><span class="en">🛠 Recommended tools</span></h2>
+      <div class="resources-grid">
+        <div class="resource-card">
+          <div class="resource-card-tag"><span class="es">Bloqueo de distracciones</span><span class="en">Distraction blocking</span></div>
+          <h3>Freedom</h3>
+          <p><span class="es">Bloqueador multiplataforma para sitios web y apps. Configura sesiones de bloqueo sincronizadas con tus bloques de trabajo profundo.</span><span class="en">Cross-platform blocker for websites and apps. Configure blocking sessions synced with your deep work blocks.</span></p>
+          <a href="https://freedom.to" target="_blank" rel="noopener">freedom.to ↗</a>
+        </div>
+        <div class="resource-card">
+          <div class="resource-card-tag"><span class="es">Seguimiento de hábitos</span><span class="en">Habit tracking</span></div>
+          <h3>Streaks / Habitica / Loop</h3>
+          <p><span class="es">Apps de seguimiento de hábitos. Streaks (iOS), Loop (Android), o Habitica si prefieres gamificación. Úsalos para tu sistema de no-negociables.</span><span class="en">Habit tracking apps. Streaks (iOS), Loop (Android), or Habitica if you prefer gamification. Use them for your non-negotiable system.</span></p>
+        </div>
+        <div class="resource-card">
+          <div class="resource-card-tag"><span class="es">Sesiones de trabajo</span><span class="en">Work sessions</span></div>
+          <h3>Forest / Be Focused</h3>
+          <p><span class="es">Temporizadores de trabajo enfocado. Forest añade un elemento visual de árbol creciente — útil para quienes necesitan gamificación para la fase de rampa.</span><span class="en">Focused work timers. Forest adds a growing tree visual element — useful for those who need gamification for the ramp phase.</span></p>
+        </div>
+        <div class="resource-card">
+          <div class="resource-card-tag"><span class="es">Diario / Notas</span><span class="en">Journal / Notes</span></div>
+          <h3>Notion / Day One / Papel</h3>
+          <p><span class="es">Para el diario de evidencia de identidad, la revisión semanal y el documento maestro. La herramienta no importa — la consistencia sí.</span><span class="en">For the identity evidence journal, weekly review, and master document. The tool doesn't matter — consistency does.</span></p>
+        </div>
+        <div class="resource-card">
+          <div class="resource-card-tag"><span class="es">Calendario / Planificación</span><span class="en">Calendar / Planning</span></div>
+          <h3>Google Calendar / Fantastical</h3>
+          <p><span class="es">Para implementar el sistema de bloques del Módulo 2. Los bloques protegidos de trabajo profundo y no-negociables van bloqueados en color diferente.</span><span class="en">To implement the Module 2 block system. Protected deep work blocks and non-negotiables go in a different color block.</span></p>
+        </div>
+        <div class="resource-card">
+          <div class="resource-card-tag"><span class="es">Meditación / Recuperación</span><span class="en">Meditation / Recovery</span></div>
+          <h3>Insight Timer / Calm</h3>
+          <p><span class="es">Para las micro-recuperaciones entre sesiones de trabajo. El objetivo no es desarrollar una práctica de meditación — es activar la atención involuntaria entre bloques.</span><span class="en">For micro-recoveries between work sessions. The goal isn't to develop a meditation practice — it's to activate involuntary attention between blocks.</span></p>
+        </div>
+      </div>
+
+      <!-- GLOSARIO -->
+      <h2 class="section-title"><span class="es">📖 Glosario de conceptos clave</span><span class="en">📖 Glossary of key concepts</span></h2>
+      <div class="glossary-grid">
+        <div class="glossary-item">
+          <div class="glossary-term"><span class="es">Autosabotaje</span><span class="en">Self-sabotage</span></div>
+          <div class="glossary-def"><span class="es">Comportamiento que bloquea el progreso para regular una emoción negativa subyacente (miedo al fracaso, al juicio, al éxito). No es debilidad — es regulación emocional mal dirigida.</span><span class="en">Behavior that blocks progress to regulate an underlying negative emotion (fear of failure, judgment, success). Not weakness — misdirected emotion regulation.</span></div>
+        </div>
+        <div class="glossary-item">
+          <div class="glossary-term"><span class="es">Intención de implementación</span><span class="en">Implementation intention</span></div>
+          <div class="glossary-def"><span class="es">Plan si-entonces que especifica cuándo, dónde y cómo se ejecutará un comportamiento. "Si [situación], entonces [acción específica]." Elimina la decisión en el momento.</span><span class="en">If-then plan specifying when, where, and how a behavior will be executed. "If [situation], then [specific action]." Eliminates in-the-moment decision.</span></div>
+        </div>
+        <div class="glossary-item">
+          <div class="glossary-term"><span class="es">No-negociable</span><span class="en">Non-negotiable</span></div>
+          <div class="glossary-def"><span class="es">Comportamiento que se ejecuta independientemente del estado de ánimo, motivación o circunstancias. No se debate. No se condiciona. Tiene su propio bucle de hábito y AMV.</span><span class="en">Behavior executed regardless of mood, motivation, or circumstances. Not debated. Not conditioned. Has its own habit loop and MVA.</span></div>
+        </div>
+        <div class="glossary-item">
+          <div class="glossary-term"><span class="es">Acción mínima viable (AMV)</span><span class="en">Minimum viable action (MVA)</span></div>
+          <div class="glossary-def"><span class="es">La versión más reducida de un no-negociable que sigue siendo válida como voto de identidad. El piso que no cruzas incluso en el peor día.</span><span class="en">The most reduced version of a non-negotiable that still counts as an identity vote. The floor you don't cross even on the worst day.</span></div>
+        </div>
+        <div class="glossary-item">
+          <div class="glossary-term"><span class="es">Identidad demostrada</span><span class="en">Demonstrated identity</span></div>
+          <div class="glossary-def"><span class="es">El patrón acumulado de acciones reales — opuesto a la identidad declarada (lo que dices que eres). La identidad demostrada es la que construye confianza real.</span><span class="en">The accumulated pattern of real actions — opposite of declared identity (what you say you are). Demonstrated identity is what builds real confidence.</span></div>
+        </div>
+        <div class="glossary-item">
+          <div class="glossary-term"><span class="es">Estado de flujo</span><span class="en">Flow state</span></div>
+          <div class="glossary-def"><span class="es">Estado óptimo de absorción completa en una tarea desafiante donde el rendimiento es máximo y la experiencia subjetiva es positiva. Requiere desafío alto + habilidad alta.</span><span class="en">Optimal state of complete absorption in a challenging task where performance is maximum and subjective experience is positive. Requires high challenge + high skill.</span></div>
+        </div>
+        <div class="glossary-item">
+          <div class="glossary-term"><span class="es">Residuo de atención</span><span class="en">Attention residue</span></div>
+          <div class="glossary-def"><span class="es">Parte del procesamiento cognitivo que permanece anclada a una tarea anterior al cambiar de contexto. Reduce el rendimiento en la nueva tarea durante 23+ minutos.</span><span class="en">Part of cognitive processing that remains anchored to a previous task when switching context. Reduces performance in the new task for 23+ minutes.</span></div>
+        </div>
+        <div class="glossary-item">
+          <div class="glossary-term"><span class="es">Zona neutral</span><span class="en">Neutral zone</span></div>
+          <div class="glossary-def"><span class="es">Fase de transición de identidad donde ya no eres quien eras pero aún no eres plenamente quien te estás convirtiendo. Generalmente la fase más difícil — donde más personas abandonan.</span><span class="en">Identity transition phase where you're no longer who you were but not yet fully who you're becoming. Generally the hardest phase — where most people give up.</span></div>
+        </div>
+        <div class="glossary-item">
+          <div class="glossary-term"><span class="es">Crecimiento compuesto</span><span class="en">Compound growth</span></div>
+          <div class="glossary-def"><span class="es">Mejora consistente y acumulativa que produce resultados no lineales con el tiempo. 1% mejor cada día = 37x mejor en un año. Opuesto al crecimiento explosivo insostenible.</span><span class="en">Consistent and cumulative improvement that produces non-linear results over time. 1% better each day = 37x better in a year. Opposite of unsustainable explosive growth.</span></div>
+        </div>
+        <div class="glossary-item">
+          <div class="glossary-term"><span class="es">Entropía de sistema</span><span class="en">System entropy</span></div>
+          <div class="glossary-def"><span class="es">La tendencia natural de cualquier sistema sin mantenimiento a degradarse gradualmente. Los no-negociables se vuelven opcionales. Las ventanas digitales se expanden. Prevenido con la revisión semanal.</span><span class="en">The natural tendency of any system without maintenance to gradually degrade. Non-negotiables become optional. Digital windows expand. Prevented with weekly review.</span></div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+<script src="assets/course.js"></script>
+</body>
+</html>

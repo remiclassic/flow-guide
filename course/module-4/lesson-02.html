@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L02 M04 — GFM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body class="lang-es" data-lesson-id="mod4-l02">
+<div id="progress-bar"></div><div id="sidebar-overlay"></div>
+<nav id="course-nav">
+  <div class="nav-left"><a href="../index.html" class="nav-back">← Dashboard</a><span class="nav-sep">|</span><span class="nav-logo">GFM</span><span class="nav-sep">|</span><span class="nav-context"><span class="es">M04 · L02</span><span class="en">M04 · L02</span></span></div>
+  <div class="nav-right"><button class="btn-sidebar-toggle">☰</button><button class="btn-lang" onclick="toggleLang()"><span class="es">🇺🇸 EN</span><span class="en">🇪🇸 ES</span></button></div>
+</nav>
+<div class="course-shell">
+  <aside id="sidebar"><div class="sidebar-header"><div class="sidebar-progress-label"><span class="es">Progreso</span><span class="en">Progress</span></div><div class="sidebar-progress-bar-wrap"><div class="sidebar-progress-fill"></div></div><div class="sidebar-progress-pct"></div></div><div class="sidebar-modules" id="sidebar-modules-container"></div></aside>
+  <main id="main-content">
+    <div class="content-inner">
+
+      <div class="lesson-hero">
+        <div class="lesson-tag"><span class="es">Módulo 04 · Lección 02</span><span class="en">Module 04 · Lesson 02</span></div>
+        <h1><span class="es">El estado de flujo: condiciones, catalizadores e inhibidores</span><span class="en">The flow state: conditions, catalysts and inhibitors</span></h1>
+        <p class="lead"><span class="es">El flujo no es suerte — es ingeniería. Mihaly Csikszentmihalyi pasó décadas estudiando este estado óptimo de experiencia. Esta lección te enseña a diseñarlo.</span><span class="en">Flow isn't luck — it's engineering. Mihaly Csikszentmihalyi spent decades studying this optimal state of experience. This lesson teaches you to design it.</span></p>
+        <div class="lesson-meta-row"><span class="meta-item"><span class="meta-icon">⏱️</span><span class="es">~18 min lectura</span><span class="en">~18 min read</span></span></div>
+      </div>
+
+      <div class="outcomes-box">
+        <h5><span class="es">Al final de esta lección podrás...</span><span class="en">By the end of this lesson you'll be able to...</span></h5>
+        <ul class="outcomes-list">
+          <li><span class="es">Identificar las 9 características del estado de flujo</span><span class="en">Identify the 9 characteristics of the flow state</span></li>
+          <li><span class="es">Configurar las condiciones necesarias para el flujo en tu trabajo específico</span><span class="en">Configure the necessary conditions for flow in your specific work</span></li>
+          <li><span class="es">Reconocer y eliminar los 5 principales inhibidores de flujo</span><span class="en">Recognize and eliminate the 5 main flow inhibitors</span></li>
+        </ul>
+      </div>
+
+      <div class="lesson-section">
+        <h2><span class="es">Qué es el flujo (y qué no es)</span><span class="en">What flow is (and what it isn't)</span></h2>
+        <p><span class="es">Mihaly Csikszentmihalyi, psicólogo húngaro-americano, entrevistó a miles de personas — cirujanos, escaladores, músicos, ajedrecistas, atletas — buscando qué tenían en común los momentos de rendimiento óptimo y máxima satisfacción. La respuesta que encontró fue consistente y sorprendente: no era la facilidad, no era la relajación, no era la ausencia de esfuerzo. Era un estado de <strong>absorción completa</strong> en una tarea desafiante.</span><span class="en">Mihaly Csikszentmihalyi, Hungarian-American psychologist, interviewed thousands of people — surgeons, climbers, musicians, chess players, athletes — looking for what the moments of optimal performance and maximum satisfaction had in common. The answer he found was consistent and surprising: it wasn't ease, it wasn't relaxation, it wasn't the absence of effort. It was a state of <strong>complete absorption</strong> in a challenging task.</span></p>
+        <p><span class="es">Él llamó a esto "flujo" — y lo describió como el estado en que la persona está tan completamente involucrada en lo que hace que el tiempo se distorsiona, el yo desaparece, y el esfuerzo se siente sin esfuerzo.</span><span class="en">He called this "flow" — and described it as the state where the person is so completely involved in what they're doing that time distorts, the self disappears, and effort feels effortless.</span></p>
+        <p><span class="es">Lo que quiero que entiendas es que el flujo no es un estado místico ni una capacidad especial de ciertas personas. Es el resultado de condiciones específicas que pueden diseñarse.</span><span class="en">What I want you to understand is that flow isn't a mystical state or a special capacity of certain people. It's the result of specific conditions that can be designed.</span></p>
+      </div>
+
+      <div class="lesson-section">
+        <h2><span class="es">Las condiciones del flujo</span><span class="en">The conditions of flow</span></h2>
+        <p><span class="es">Csikszentmihalyi identificó que el flujo ocurre en la intersección de dos variables: el <strong>nivel de desafío</strong> de la tarea y el <strong>nivel de habilidad</strong> de la persona.</span><span class="en">Csikszentmihalyi identified that flow occurs at the intersection of two variables: the <strong>challenge level</strong> of the task and the <strong>skill level</strong> of the person.</span></p>
+
+        <div class="framework-box">
+          <div class="framework-title"><span class="es">El canal del flujo</span><span class="en">The flow channel</span></div>
+          <div class="framework-steps">
+            <div class="fw-step"><div class="fw-step-num">↑</div><div><strong><span class="es">Desafío alto + Habilidad baja = Ansiedad</span><span class="en">High challenge + Low skill = Anxiety</span></strong> <span class="es">La tarea supera las capacidades — genera estrés paralizante</span><span class="en">Task exceeds capabilities — generates paralyzing stress</span></div></div>
+            <div class="fw-step" style="background:rgba(201,169,110,0.15);border-color:var(--accent);"><div class="fw-step-num">✓</div><div><strong><span class="es">Desafío alto + Habilidad alta = Flujo</span><span class="en">High challenge + High skill = Flow</span></strong> <span class="es">El punto óptimo — donde el rendimiento es máximo y la experiencia es óptima</span><span class="en">The optimal point — where performance is maximum and experience is optimal</span></div></div>
+            <div class="fw-step"><div class="fw-step-num">↓</div><div><strong><span class="es">Desafío bajo + Habilidad alta = Aburrimiento</span><span class="en">Low challenge + High skill = Boredom</span></strong> <span class="es">La tarea no activa suficientemente — genera desconexión y distracción</span><span class="en">Task doesn't sufficiently activate — generates disconnection and distraction</span></div></div>
+          </div>
+        </div>
+
+        <p><span class="es">Esto tiene implicaciones directas para tu trabajo: si procrastinas o te distraes constantemente en una tarea, hay dos posibilidades — o la tarea es demasiado difícil (ansiedad) o demasiado fácil (aburrimiento). El flujo requiere el punto justo entre ambos extremos.</span><span class="en">This has direct implications for your work: if you procrastinate or constantly get distracted on a task, there are two possibilities — either the task is too hard (anxiety) or too easy (boredom). Flow requires the sweet spot between both extremes.</span></p>
+      </div>
+
+      <div class="lesson-section">
+        <h2><span class="es">Los 5 inhibidores principales de flujo</span><span class="en">The 5 main flow inhibitors</span></h2>
+
+        <div class="concept-cards">
+          <div class="concept-card">
+            <div class="concept-tag"><span class="es">Inhibidor 1: Objetivos poco claros</span><span class="en">Inhibitor 1: Unclear goals</span></div>
+            <p><span class="es">El flujo requiere saber exactamente qué estás tratando de hacer en cada momento. "Trabajar en mi proyecto" no es un objetivo de flujo. "Escribir la introducción de la sección 2" sí lo es. La claridad de objetivo dirige la atención.</span><span class="en">Flow requires knowing exactly what you're trying to do at every moment. "Work on my project" is not a flow goal. "Write the introduction of section 2" is. Goal clarity directs attention.</span></p>
+          </div>
+          <div class="concept-card">
+            <div class="concept-tag"><span class="es">Inhibidor 2: Ausencia de feedback inmediato</span><span class="en">Inhibitor 2: Absence of immediate feedback</span></div>
+            <p><span class="es">El flujo se mantiene cuando sabes si estás progresando o no. Para tareas creativas o cognitivas, esto requiere diseñar sistemas de feedback: revisar lo que escribiste, probar si el código funciona, ver el diseño tomando forma.</span><span class="en">Flow is maintained when you know whether you're progressing or not. For creative or cognitive tasks, this requires designing feedback systems: reviewing what you wrote, testing if the code works, seeing the design taking shape.</span></p>
+          </div>
+          <div class="concept-card">
+            <div class="concept-tag"><span class="es">Inhibidor 3: Interrupciones externas</span><span class="en">Inhibitor 3: External interruptions</span></div>
+            <p><span class="es">Ya cubierto en L01: cada interrupción destruye el flujo y requiere ~23 minutos de recuperación. El entorno sin interrupciones no es lujo — es prerequisito para el flujo.</span><span class="en">Already covered in L01: each interruption destroys flow and requires ~23 minutes of recovery. A no-interruption environment isn't luxury — it's a prerequisite for flow.</span></p>
+          </div>
+          <div class="concept-card">
+            <div class="concept-tag"><span class="es">Inhibidor 4: Auto-monitoreo excesivo</span><span class="en">Inhibitor 4: Excessive self-monitoring</span></div>
+            <p><span class="es">Cuando estás constantemente evaluándote — "¿Esto está bien?" "¿Lo estoy haciendo correctamente?" "¿Qué pensarán?" — el yo consciente interfiere con el procesamiento automático. El flujo requiere un cierto nivel de confianza en el proceso.</span><span class="en">When you're constantly evaluating yourself — "Is this good?" "Am I doing this right?" "What will they think?" — the conscious self interferes with automatic processing. Flow requires a certain level of trust in the process.</span></p>
+          </div>
+          <div class="concept-card">
+            <div class="concept-tag"><span class="es">Inhibidor 5: Energía cognitiva insuficiente</span><span class="en">Inhibitor 5: Insufficient cognitive energy</span></div>
+            <p><span class="es">El flujo requiere recursos cognitivos. Si intentas alcanzarlo después de 4 horas de email, reuniones y decisiones, simplemente no tendrás los recursos disponibles. Por eso el flujo debe planificarse cuando la energía es máxima.</span><span class="en">Flow requires cognitive resources. If you try to reach it after 4 hours of email, meetings, and decisions, you simply won't have the resources available. That's why flow must be planned when energy is maximum.</span></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="exercise-block">
+        <div class="exercise-header">
+          <div class="exercise-icon">✍️</div>
+          <div><div class="exercise-label"><span class="es">Ejercicio de la lección</span><span class="en">Lesson exercise</span></div><h4><span class="es">Mapa de flujo personal</span><span class="en">Personal flow map</span></h4></div>
+        </div>
+        <ol class="exercise-steps">
+          <li><div class="ex-step-num">1</div><div><strong><span class="es">Recuerda los últimos 3 momentos en que estuviste en flujo.</span><span class="en">Remember the last 3 times you were in flow.</span></strong> <span class="es">¿Qué hacías? ¿Dónde? ¿A qué hora? ¿Qué condiciones había?</span><span class="en">What were you doing? Where? What time? What conditions were present?</span></div></li>
+          <li><div class="ex-step-num">2</div><div><strong><span class="es">Identifica el nivel de desafío óptimo para ti</span><span class="en">Identify the optimal challenge level for you</span></strong> <span class="es">en tu trabajo principal. ¿Cuándo sientes el canal del flujo vs. ansiedad vs. aburrimiento?</span><span class="en">in your main work. When do you feel the flow channel vs. anxiety vs. boredom?</span></div></li>
+          <li><div class="ex-step-num">3</div><div><strong><span class="es">Lista tus 3 inhibidores más frecuentes</span><span class="en">List your 3 most frequent inhibitors</span></strong> <span class="es">y escribe 1 acción para eliminar cada uno antes de tu próxima sesión de trabajo profundo.</span><span class="en">and write 1 action to eliminate each before your next deep work session.</span></div></li>
+        </ol>
+      </div>
+
+      <details class="video-script-block">
+        <summary><span class="es">📹 Video script</span><span class="en">📹 Video script</span></summary>
+        <div class="script-content">
+          <p><em><span class="es">[Cámara. Energía alta. Usa el diagrama del canal del flujo como referencia visual si puedes.]</span><span class="en">[Camera. High energy. Use the flow channel diagram as visual reference if you can.]</span></em></p>
+          <p><span class="es">"¿Has tenido alguna vez esa experiencia donde estás trabajando y de repente el tiempo desaparece? De repente son 2 horas después, el trabajo fluyó como si solo fuera el fondo, y lo que hiciste es objetivamente mejor que lo que sueles hacer?"</span><span class="en">"Have you ever had that experience where you're working and suddenly time disappears? Suddenly it's 2 hours later, the work flowed as if it were just background, and what you did is objectively better than what you usually do?"</span></p>
+          <p><span class="es">"Eso es flujo. Y lo que descubrió Mihaly Csikszentmihalyi, que pasó décadas estudiándolo, es que no es suerte. Es ingeniería."</span><span class="en">"That's flow. And what Mihaly Csikszentmihalyi, who spent decades studying it, discovered is that it's not luck. It's engineering."</span></p>
+          <p><span class="es">"El flujo ocurre en un punto muy específico: cuando el desafío de la tarea es suficientemente alto para activar toda tu habilidad, pero no tan alto que genere ansiedad. Demasiado fácil: aburrimiento, distracción. Demasiado difícil: ansiedad, procrastinación. El canal del medio: flujo."</span><span class="en">"Flow occurs at a very specific point: when the challenge of the task is high enough to activate all your skill, but not so high that it generates anxiety. Too easy: boredom, distraction. Too hard: anxiety, procrastination. The middle channel: flow."</span></p>
+          <p><span class="es">"Y hay cinco cosas que matan el flujo antes de que empiece. Objetivos poco claros. Falta de feedback. Interrupciones. Auto-monitoreo excesivo. Y energía cognitiva insuficiente. Elimina estos cinco, y el flujo se vuelve posible. No garantizado — pero posible."</span><span class="en">"And there are five things that kill flow before it starts. Unclear goals. Lack of feedback. Interruptions. Excessive self-monitoring. And insufficient cognitive energy. Eliminate these five, and flow becomes possible. Not guaranteed — but possible."</span></p>
+        </div>
+      </details>
+
+      <div class="lesson-nav">
+        <a href="lesson-01.html" class="btn-lesson-nav">← L01</a>
+        <a href="lesson-03.html" class="btn-lesson-nav next"><div><div class="nav-direction"><span class="es">Siguiente</span><span class="en">Next</span></div><div class="nav-title"><span class="es">L03: Diseño de sesión profunda →</span><span class="en">L03: Deep session design →</span></div></div></a>
+      </div>
+    </div>
+    <div class="mark-complete-bar"><span class="mark-complete-text"><span class="es">¿Terminaste?</span><span class="en">Finished?</span></span><button class="btn-complete" id="btn-complete"><span class="es">Marcar como completado</span><span class="en">Mark as complete</span></button></div>
+  </main>
+</div>
+<script src="../assets/course.js"></script>
+</body>
+</html>
