@@ -11,6 +11,10 @@
     document.documentElement.classList.remove('lang-es', 'lang-en');
     document.documentElement.classList.add('lang-' + lang);
     document.documentElement.lang = lang;
+    document.querySelectorAll('[data-set-lang]').forEach(function (btn) {
+      var l = btn.getAttribute('data-set-lang');
+      btn.setAttribute('aria-pressed', l === lang ? 'true' : 'false');
+    });
   }
 
   function bindButtons() {

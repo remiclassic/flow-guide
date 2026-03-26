@@ -12,15 +12,25 @@
 </head>
 <body>
 
-  <div class="screen-nav">
-    <a href="../index.html"><span class="es">← Volver al dashboard</span><span class="en">← Back to dashboard</span></a>
-    <div class="wb-lang" role="group" aria-label="Language">
-      <span class="wb-lang-label"><span class="es">Idioma</span><span class="en">Language</span></span>
-      <button type="button" data-set-lang="es">ES</button>
-      <button type="button" data-set-lang="en">EN</button>
+  <!-- Workbook toolbar (screen only; hidden when printing) -->
+  <header class="screen-nav" aria-label="Workbook">
+    <div class="screen-nav-inner">
+      <a href="../index.html" class="wb-back"><span class="es">← Volver al dashboard</span><span class="en">← Back to dashboard</span></a>
+      <div class="screen-nav-tools">
+        <div class="wb-lang" role="group" aria-labelledby="wb-lang-heading">
+          <span id="wb-lang-heading" class="wb-lang-label"><span class="es">Idioma</span><span class="en">Language</span></span>
+          <div class="wb-lang-btns">
+            <button type="button" data-set-lang="es">ES</button>
+            <button type="button" data-set-lang="en">EN</button>
+          </div>
+        </div>
+        <a href="#" class="wb-print" onclick="window.print(); return false;" role="button">
+          <svg class="wb-print-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>
+          <span class="es">Imprimir / Guardar PDF</span><span class="en">Print / Save PDF</span>
+        </a>
+      </div>
     </div>
-    <a href="#" onclick="window.print(); return false;"><span class="es">🖨 Imprimir / Guardar PDF</span><span class="en">🖨 Print / Save PDF</span></a>
-  </div>
+  </header>
 
   <!-- COVER -->
   <div class="cover">
