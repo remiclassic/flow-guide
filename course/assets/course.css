@@ -619,6 +619,117 @@ details.video-script[open] summary { background: var(--bg-3); border-bottom: 1px
 .glossary-term h4 { color: var(--text); font-size: 0.95rem; margin-bottom: 0.35rem; }
 .glossary-term p { font-size: 0.85rem; }
 
+/* ── KNOWLEDGE CHECK (MCQ) ── */
+.knowledge-quiz {
+  margin: 2.5rem 0 2rem;
+  padding: 1.75rem 1.5rem;
+  background: var(--bg-2);
+  border: 1px solid var(--border-accent);
+  border-radius: var(--radius-lg);
+}
+.knowledge-quiz--module {
+  border-color: var(--border-accent-strong);
+  background: rgba(201,169,110,0.04);
+}
+.kq-heading {
+  font-size: clamp(1rem, 2.2vw, 1.2rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 0.35rem;
+}
+.kq-intro {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  margin-bottom: 1.5rem;
+  line-height: 1.55;
+}
+.kq-item {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.kq-item:last-of-type {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+.kq-prompt {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.85rem;
+  line-height: 1.45;
+}
+.kq-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.kq-opt {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  font-size: 0.86rem;
+  font-family: inherit;
+  line-height: 1.45;
+  color: var(--text-muted);
+  background: var(--bg-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+}
+.kq-opt:hover:not(:disabled) {
+  border-color: var(--border-accent);
+  color: var(--text);
+  background: var(--bg-4);
+}
+.kq-opt:disabled {
+  cursor: default;
+}
+.kq-opt.kq-pick-right {
+  border-color: var(--success-border);
+  background: var(--success-bg);
+  color: var(--success);
+}
+.kq-opt.kq-pick-wrong {
+  border-color: rgba(200, 90, 90, 0.45);
+  background: rgba(200, 90, 90, 0.08);
+  color: #e8a0a0;
+}
+.kq-opt.kq-reveal {
+  border-color: var(--success-border);
+  box-shadow: inset 0 0 0 1px var(--success-border);
+}
+.kq-after {
+  margin-top: 0.65rem;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+.kq-after p {
+  margin: 0;
+  color: var(--text-muted);
+}
+.kq-after-right p {
+  color: var(--success);
+}
+.kq-after-wrong p {
+  color: var(--text-muted);
+}
+.kq-score {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-accent);
+}
+.kq-score-inner {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--accent-light);
+  margin: 0;
+}
+
 /* ── SHARED UTILITIES ── */
 .mt-0 { margin-top: 0; }
 .mt-1 { margin-top: 0.5rem; }

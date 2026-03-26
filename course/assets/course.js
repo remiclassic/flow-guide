@@ -313,6 +313,52 @@ function updateDashboardProgress() {
   if (document.getElementById('dash-fill')) buildDashboard();
 }
 
+// ── KNOWLEDGE CHECK QUIZZES (lesson + module) ──
+function initKnowledgeQuizzes() {
+  document.querySelectorAll('.knowledge-quiz').forEach((quiz) => {
+    const scoreEl = quiz.querySelector('.kq-score');
+    const items = [...quiz.querySelectorAll('.kq-item')];
+    let answered = 0;
+    let correctCount = 0;
+
+    quiz.addEventListener('click', (e) => {
+      const btn = e.target.closest('.kq-opt');
+      if (!btn || !quiz.contains(btn)) return;
+      const item = btn.closest('.kq-item');
+      if (!item || item.classList.contains('kq-done')) return;
+
+      item.classList.add('kq-done');
+      const correct = parseInt(item.dataset.correct, 10);
+      const picked = parseInt(btn.dataset.i, 10);
+      const opts = item.querySelectorAll('.kq-opt');
+      opts.forEach((b) => { b.disabled = true; });
+
+      if (picked === correct) {
+        correctCount++;
+        btn.classList.add('kq-pick-right');
+        item.querySelector('.kq-after-right')?.removeAttribute('hidden');
+      } else {
+        btn.classList.add('kq-pick-wrong');
+        if (opts[correct]) opts[correct].classList.add('kq-reveal');
+        item.querySelector('.kq-after-wrong')?.removeAttribute('hidden');
+      }
+
+      answered++;
+      if (answered !== items.length || !scoreEl) return;
+
+      const allRight = correctCount === items.length;
+      scoreEl.innerHTML =
+        '<p class="kq-score-inner"><span class="es">Resultado: ' +
+        correctCount + '/' + items.length + ' correctas. ' +
+        (allRight ? '¡Muy buena comprensión de este bloque!' : 'Usa esto para decidir qué repasar.') +
+        '</span><span class="en">Score: ' +
+        correctCount + '/' + items.length + ' correct. ' +
+        (allRight ? 'Strong grasp of this section!' : 'Use this to decide what to review.') +
+        '</span></p>';
+    });
+  });
+}
+
 // ── NAV HIDE ON SCROLL ──
 function initNavHide() {
   const nav = document.getElementById('course-nav');
@@ -331,6 +377,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollProgress();
   initSidebarToggle();
   initNavHide();
+  initKnowledgeQuizzes();
 
   // If on a lesson page
   const lessonId = document.body.dataset.lessonId;
