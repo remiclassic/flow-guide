@@ -203,7 +203,7 @@ function buildSidebar(activeId) {
   const fill = document.querySelector('.sidebar-progress-fill');
   const pctEl = document.querySelector('.sidebar-progress-pct');
   if (fill) fill.style.width = pct + '%';
-  if (pctEl) pctEl.textContent = `${comp} / ${total} <span class="es">lecciones completadas</span><span class="en">lessons completed</span>`;
+  if (pctEl) pctEl.innerHTML = `${comp} / ${total} <span class="es">lecciones completadas</span><span class="en">lessons completed</span>`;
 }
 
 function toggleModule(el) {
@@ -285,8 +285,9 @@ function buildDashboard() {
     contBtn.querySelector('.es') && (contBtn.querySelector('.es').textContent = `Continuar → ${next.titleEs}`);
     contBtn.querySelector('.en') && (contBtn.querySelector('.en').textContent = `Continue → ${next.titleEn}`);
   } else if (contBtn && !next) {
-    contBtn.querySelector('.es') && (contBtn.querySelector('.es').textContent = '🎉 ¡Curso completado!');
-    contBtn.querySelector('.en') && (contBtn.querySelector('.en').textContent = '🎉 Course complete!');
+    contBtn.href = lessonUrl('capstone.html');
+    contBtn.querySelector('.es') && (contBtn.querySelector('.es').textContent = '🎉 Ver Proyecto Final →');
+    contBtn.querySelector('.en') && (contBtn.querySelector('.en').textContent = '🎉 View Capstone Project →');
   }
 
   // Module cards
@@ -359,6 +360,35 @@ function initKnowledgeQuizzes() {
   });
 }
 
+// ── MODULE WORKBOOK INJECTION ──
+function injectModuleWorkbook(lessonId) {
+  const mod = CURRICULUM.find(m => m.lessons.some(l => l.id === lessonId));
+  if (!mod) return;
+
+  const num = mod.id.replace('module-', '').padStart(2, '0');
+  const pdfUrl = lessonUrl(`pdf/module-${num}.html`);
+
+  const block = document.createElement('div');
+  block.className = 'lesson-workbook';
+  block.innerHTML =
+    '<div class="lesson-workbook-icon">📄</div>' +
+    '<div class="lesson-workbook-body">' +
+      '<div class="lesson-workbook-label"><span class="es">Cuaderno de trabajo del módulo</span><span class="en">Module workbook</span></div>' +
+      '<p class="lesson-workbook-title"><span class="es">' + mod.numEs + ' — ' + mod.titleEs + '</span><span class="en">' + mod.numEn + ' — ' + mod.titleEn + '</span></p>' +
+      '<p class="lesson-workbook-desc"><span class="es">Marcos clave, espacios para escribir, plan de 7 días y preguntas de revisión de este módulo.</span><span class="en">Key frameworks, writing spaces, 7-day action plan, and review questions for this module.</span></p>' +
+    '</div>' +
+    '<a href="' + pdfUrl + '" target="_blank" rel="noopener" class="lesson-workbook-btn">' +
+      '<span class="es">📥 Abrir workbook</span><span class="en">📥 Open workbook</span>' +
+    '</a>';
+
+  const nav = document.querySelector('.lesson-nav');
+  if (nav) {
+    nav.parentNode.insertBefore(block, nav);
+  } else {
+    document.querySelector('.content-inner')?.appendChild(block);
+  }
+}
+
 // ── NAV HIDE ON SCROLL ──
 function initNavHide() {
   const nav = document.getElementById('course-nav');
@@ -385,6 +415,7 @@ document.addEventListener('DOMContentLoaded', () => {
     buildSidebar(lessonId);
     initMarkComplete(lessonId);
     saveLastLesson(lessonId);
+    injectModuleWorkbook(lessonId);
   }
 
   // If on dashboard

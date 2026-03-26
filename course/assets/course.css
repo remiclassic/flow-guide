@@ -298,6 +298,35 @@ a:hover { color: var(--accent-light); }
 .callout.success .callout-label { color: var(--success); }
 .callout p { font-size: 0.9rem; color: var(--text); }
 
+/* ── LESSON WORKBOOK BLOCK ── */
+.lesson-workbook {
+  display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;
+  background: rgba(201,169,110,0.06); border: 1px solid rgba(201,169,110,0.2);
+  border-radius: var(--radius); padding: 1.5rem 1.75rem; margin: 2.5rem 0 1.5rem;
+}
+.lesson-workbook-icon { font-size: 2rem; flex-shrink: 0; line-height: 1; }
+.lesson-workbook-body { flex: 1; min-width: 180px; }
+.lesson-workbook-label {
+  font-size: 0.62rem; font-weight: 700; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 0.35rem;
+}
+.lesson-workbook-title {
+  font-size: 0.95rem; font-weight: 600; color: var(--text); margin: 0 0 0.3rem;
+}
+.lesson-workbook-desc { font-size: 0.82rem; color: var(--text-muted); margin: 0; }
+.lesson-workbook-btn {
+  display: inline-flex; align-items: center; gap: 0.4rem; flex-shrink: 0;
+  background: var(--accent); color: #000; padding: 0.65rem 1.35rem;
+  border-radius: 100px; font-size: 0.82rem; font-weight: 700; font-family: inherit;
+  text-decoration: none; white-space: nowrap;
+  transition: background 0.2s, transform 0.2s;
+}
+.lesson-workbook-btn:hover { background: var(--accent-light); transform: translateY(-1px); }
+@media (max-width: 600px) {
+  .lesson-workbook { gap: 1rem; }
+  .lesson-workbook-btn { width: 100%; justify-content: center; }
+}
+
 /* ── QUOTE ── */
 .lesson-quote {
   font-size: clamp(1.1rem, 2.5vw, 1.4rem); font-weight: 700;
@@ -556,6 +585,47 @@ details.video-script[open] summary { background: var(--bg-3); border-bottom: 1px
 .dash-lesson.completed .dash-lesson-title { color: var(--text); }
 .dash-check { font-size: 0.75rem; color: var(--text-dim); }
 .dash-lesson.completed .dash-check { color: var(--success); }
+
+/* ── SHARED PRIMARY BUTTON ── */
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  background: var(--accent); color: #000; padding: 0.7rem 1.5rem;
+  border-radius: 100px; font-size: 0.88rem; font-weight: 700; font-family: inherit;
+  text-decoration: none; border: none; cursor: pointer; white-space: nowrap;
+  transition: background 0.2s, transform 0.2s;
+}
+.btn-primary:hover { background: var(--accent-light); color: #000; transform: translateY(-1px); }
+
+/* ── MODULE HERO / OVERVIEW (M3–M5 index pages) ── */
+.module-hero {
+  padding: 3.5rem 0 2.5rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2.5rem;
+}
+.module-hero .module-num {
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem;
+}
+.module-outcomes { margin: 2rem 0; }
+.module-lessons-list { margin: 2rem 0; }
+.module-lesson-row {
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--bg-2); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1rem 1.25rem; margin-bottom: 0.5rem;
+  text-decoration: none; transition: border-color 0.2s, transform 0.15s;
+}
+.module-lesson-row:hover { border-color: var(--border-accent); transform: translateX(2px); }
+.module-lesson-row.done { opacity: 0.75; }
+.lesson-row-left { display: flex; align-items: center; gap: 1rem; }
+.lesson-row-num {
+  width: 28px; height: 28px; background: var(--bg-3); border: 1px solid var(--border);
+  border-radius: 6px; display: flex; align-items: center; justify-content: center;
+  font-size: 0.72rem; font-weight: 700; color: var(--text-dim); flex-shrink: 0;
+}
+.module-lesson-row.done .lesson-row-num { background: var(--success-bg); border-color: var(--success-border); color: var(--success); }
+.lesson-row-title { font-size: 0.9rem; font-weight: 600; color: var(--text); }
+.lesson-row-status { font-size: 0.8rem; color: var(--text-dim); }
+.module-lesson-row.done .lesson-row-status { color: var(--success); }
 
 /* ── MODULE OVERVIEW PAGE ── */
 .module-overview-hero {
