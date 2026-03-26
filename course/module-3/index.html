@@ -47,7 +47,7 @@
         const el = document.getElementById('module-lessons-dynamic');
         const completed = getCompleted();
         el.innerHTML = m.lessons.map((l, i) => {
-          const done = completed.includes(l.id);
+          const done = completed.has(l.id);
           return `<a href="${lessonUrl(l.path)}" class="module-lesson-row ${done ? 'done' : ''}">
             <div class="lesson-row-left"><span class="lesson-row-num">${i+1}</span><div><div class="lesson-row-title"><span class="es">${l.titleEs}</span><span class="en">${l.titleEn}</span></div></div></div>
             <span class="lesson-row-status">${done ? '✓' : '→'}</span></a>`;
