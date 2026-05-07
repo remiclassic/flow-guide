@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="mm-roll" x1="18" y1="14" x2="46" y2="50" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fef9c3"/>
+      <stop offset="1" stop-color="#fde047"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="32" cy="52" rx="18" ry="6" fill="#e7e5e4" opacity="0.6"/>
+  <path fill="url(#mm-roll)" stroke="#854d0e" stroke-width="1.5" d="M18 16h28c2 0 4 2 4 4v22c0 2-2 4-4 4H18c-2 0-4-2-4-4V20c0-2 2-4 4-4Z"/>
+  <path stroke="#78350f" stroke-width="1.2" d="M18 24h28"/>
+  <path stroke="#6d28d9" stroke-width="1.5" stroke-linecap="round" d="M24 32h16M24 38h12"/>
+  <circle cx="46" cy="18" r="8" fill="#ede9fe" stroke="#5b21b6" stroke-width="1.2"/>
+  <path stroke="#16a34a" stroke-width="2" stroke-linecap="round" d="M43 18l2 2 5-5"/>
+</svg>

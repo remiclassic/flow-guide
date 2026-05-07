@@ -1,16 +1,21 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
 
 export default function ActivityPageSkeleton() {
   return (
     <section className="flex-1 p-4 lg:p-8">
-      <h1 className="text-lg lg:text-2xl font-medium text-gray-900 mb-6">
-        Activity Log
-      </h1>
-      <Card>
+      <div className="mb-1 h-7 w-48 animate-pulse rounded-md bg-muted lg:h-9 lg:w-56" />
+      <div className="mb-6 h-4 w-full max-w-md animate-pulse rounded-md bg-muted" />
+      <div className="mb-6 flex flex-wrap gap-2 border-b border-border/80 pb-3">
+        <div className="h-9 w-28 animate-pulse rounded-full bg-muted" />
+        <div className="h-9 w-24 animate-pulse rounded-full bg-muted" />
+        <div className="h-9 w-36 animate-pulse rounded-full bg-muted" />
+      </div>
+      <Card className="border-border/80 shadow-card-soft">
         <CardHeader>
-          <CardTitle>Recent Activity</CardTitle>
+          <div className="h-5 w-40 animate-pulse rounded-md bg-muted" />
+          <div className="h-4 w-full max-w-lg animate-pulse rounded-md bg-muted" />
         </CardHeader>
-        <CardContent className="min-h-[88px]" />
+        <CardContent className="min-h-[120px]" />
       </Card>
     </section>
   );

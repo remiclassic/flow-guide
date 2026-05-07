@@ -77,6 +77,12 @@ export const courses = pgTable('courses', {
   title: varchar('title', { length: 255 }).notNull(),
   description: text('description'),
   isPublished: boolean('is_published').notNull().default(true),
+  /** Listed in the library but not openable; use preview_* for teaser stats. */
+  isComingSoon: boolean('is_coming_soon').notNull().default(false),
+  previewModuleCount: integer('preview_module_count'),
+  previewLessonCount: integer('preview_lesson_count'),
+  previewEstMinutes: integer('preview_est_minutes'),
+  heroImagePath: varchar('hero_image_path', { length: 512 }),
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),
 });

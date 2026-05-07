@@ -31,28 +31,28 @@ export default async function BillingPage() {
       <div>
         <h1 className="text-lg font-medium lg:text-2xl">Billing</h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          Manage Stripe invoices, payment methods, and plan changes.
+          Manage invoices, payment methods, and plan changes.
         </p>
       </div>
 
-      <Card className="border-zinc-200">
+      <Card className="border-border/80 shadow-card-soft">
         <CardHeader>
           <CardTitle>Subscription</CardTitle>
           <CardDescription>{statusLabel}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div>
-            <p className="text-sm font-medium text-zinc-900">
+            <p className="text-sm font-medium text-foreground">
               Plan: {team?.planName ?? 'Free'}
             </p>
             <p className="text-xs uppercase tracking-wide text-muted-foreground">
-              Status code: {team?.subscriptionStatus ?? 'none'}
+              Membership status: {team?.subscriptionStatus ?? 'none'}
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
             <form action={customerPortalAction}>
               <Button type="submit" variant="outline" className="rounded-full">
-                Customer portal
+                Manage membership
               </Button>
             </form>
             <Button asChild variant="ghost" className="rounded-full">

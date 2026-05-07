@@ -2,9 +2,39 @@ import { eq } from 'drizzle-orm';
 import { db } from './drizzle';
 import { courseModules, courses, lessons } from './schema';
 import {
+  COMING_SOON_CATALOG,
   CURRICULUM,
+  GLOW_FLOW_CARD_DESCRIPTION,
   GLOW_FLOW_COURSE_SLUG,
 } from '@/lib/courses/curriculum';
+
+export async function seedComingSoonCourses() {
+  for (const row of COMING_SOON_CATALOG) {
+    const existing = await db
+      .select({ id: courses.id })
+      .from(courses)
+      .where(eq(courses.slug, row.slug))
+      .limit(1);
+
+    if (existing.length > 0) {
+      console.log(`Course "${row.slug}" already exists, skipping coming-soon seed.`);
+      continue;
+    }
+
+    await db.insert(courses).values({
+      slug: row.slug,
+      title: row.title,
+      description: row.description,
+      isPublished: true,
+      isComingSoon: true,
+      previewModuleCount: row.previewModuleCount,
+      previewLessonCount: row.previewLessonCount,
+      previewEstMinutes: row.previewEstMinutes,
+      heroImagePath: row.heroImagePath?.trim() ?? null,
+    });
+    console.log(`Seeded coming-soon course: ${row.slug}`);
+  }
+}
 
 export async function seedGlowFlowCourse() {
   const existingSlug = await db
@@ -23,8 +53,7 @@ export async function seedGlowFlowCourse() {
     .values({
       slug: GLOW_FLOW_COURSE_SLUG,
       title: 'Glow Flow Method',
-      description:
-        'Premium course on structure, discipline, identity, focus, and sustainable systems. Lessons load from the legacy HTML viewer until migrated to native content.',
+      description: GLOW_FLOW_CARD_DESCRIPTION,
       isPublished: true,
     })
     .returning();

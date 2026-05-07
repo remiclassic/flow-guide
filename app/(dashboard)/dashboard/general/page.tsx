@@ -80,11 +80,11 @@ export default function GeneralPage() {
 
   return (
     <section className="flex-1 p-4 lg:p-8">
-      <h1 className="text-lg lg:text-2xl font-medium text-gray-900 mb-6">
+      <h1 className="mb-6 text-lg font-semibold text-foreground lg:text-2xl">
         General Settings
       </h1>
 
-      <Card>
+      <Card className="border-border/80 shadow-card-soft">
         <CardHeader>
           <CardTitle>Account Information</CardTitle>
         </CardHeader>
@@ -101,7 +101,7 @@ export default function GeneralPage() {
             )}
             <Button
               type="submit"
-              className="bg-orange-500 hover:bg-orange-600 text-white"
+              className="btn-gradient-primary border-0 shadow-card-soft"
               disabled={isPending}
             >
               {isPending ? (

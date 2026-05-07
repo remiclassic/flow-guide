@@ -6,8 +6,10 @@ import { useFormStatus } from 'react-dom';
 
 export function SubmitButton({
   disabled: disabledProp,
+  featured,
 }: {
   disabled?: boolean;
+  featured?: boolean;
 }) {
   const { pending } = useFormStatus();
 
@@ -15,18 +17,22 @@ export function SubmitButton({
     <Button
       type="submit"
       disabled={pending || disabledProp}
-      variant="outline"
-      className="w-full rounded-full"
+      className={`h-12 w-full rounded-full text-base font-semibold shadow-card-soft transition-opacity ${
+        featured
+          ? 'border-0 btn-gradient-primary hover:opacity-[0.92]'
+          : 'border border-stone-300/90 bg-white text-stone-900 shadow-sm hover:bg-stone-50'
+      }`}
+      variant={featured ? 'default' : 'outline'}
     >
       {pending ? (
         <>
-          <Loader2 className="animate-spin mr-2 h-4 w-4" />
+          <Loader2 className="mr-2 size-4 animate-spin" />
           Loading...
         </>
       ) : (
         <>
-          Get Started
-          <ArrowRight className="ml-2 h-4 w-4" />
+          Start free trial
+          <ArrowRight className="ml-2 size-4" />
         </>
       )}
     </Button>

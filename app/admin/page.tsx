@@ -13,8 +13,8 @@ export default async function AdminHomePage() {
       <section>
         <h1 className="text-2xl font-semibold">Overview</h1>
         <p className="mt-2 text-sm text-zinc-400">
-          Lightweight counters to validate database connectivity. Extend with
-          cohort analytics, refunds, or AI coach telemetry later.
+          A simple snapshot of learner and course activity for day-to-day
+          operations.
         </p>
       </section>
 

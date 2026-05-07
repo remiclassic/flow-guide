@@ -35,10 +35,10 @@ export default function SecurityPage() {
 
   return (
     <section className="flex-1 p-4 lg:p-8">
-      <h1 className="text-lg lg:text-2xl font-medium bold text-gray-900 mb-6">
+      <h1 className="mb-6 text-lg font-semibold text-foreground lg:text-2xl">
         Security Settings
       </h1>
-      <Card className="mb-8">
+      <Card className="mb-8 border-border/80 shadow-card-soft">
         <CardHeader>
           <CardTitle>Password</CardTitle>
         </CardHeader>
@@ -96,7 +96,7 @@ export default function SecurityPage() {
             )}
             <Button
               type="submit"
-              className="bg-orange-500 hover:bg-orange-600 text-white"
+              className="btn-gradient-primary border-0 shadow-card-soft"
               disabled={isPasswordPending}
             >
               {isPasswordPending ? (
@@ -115,12 +115,12 @@ export default function SecurityPage() {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="border-border/80 shadow-card-soft">
         <CardHeader>
           <CardTitle>Delete Account</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-gray-500 mb-4">
+          <p className="mb-4 text-sm text-muted-foreground">
             Account deletion is non-reversable. Please proceed with caution.
           </p>
           <form action={deleteAction} className="space-y-4">

@@ -1,9 +1,10 @@
 'use client';
 
 import Link from 'next/link';
+import { FlowLogoMark } from '@/components/brand/flow-logo';
 import { Suspense, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { BookOpen, CreditCard, Home, LogOut, Sparkles } from 'lucide-react';
+import { BookOpen, CreditCard, Home, LogOut, Users } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,7 +13,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { signOut } from '@/app/(login)/actions';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { User } from '@/lib/db/schema';
 import useSWR, { mutate } from 'swr';
 
@@ -35,23 +36,23 @@ function UserMenu() {
       <>
         <Link
           href="/legacy"
-          className="text-sm font-medium text-gray-700 hover:text-gray-900"
+          className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
         >
-          Legacy site
+          Course preview
         </Link>
         <Link
           href="/pricing"
-          className="text-sm font-medium text-gray-700 hover:text-gray-900"
+          className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
         >
           Pricing
         </Link>
         <Link
           href="/sign-in"
-          className="text-sm font-medium text-gray-700 hover:text-gray-900"
+          className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
         >
           Sign in
         </Link>
-        <Button asChild className="rounded-full">
+        <Button asChild className="rounded-full btn-gradient-primary shadow-card-soft">
           <Link href="/sign-up">Sign up</Link>
         </Button>
       </>
@@ -66,7 +67,7 @@ function UserMenu() {
   return (
     <DropdownMenu open={isMenuOpen} onOpenChange={setIsMenuOpen}>
       <DropdownMenuTrigger>
-        <Avatar className="size-9 cursor-pointer">
+        <Avatar className="size-9 cursor-pointer ring-2 ring-border shadow-sm">
           <AvatarImage alt={user.name || ''} />
           <AvatarFallback>{initials}</AvatarFallback>
         </Avatar>
@@ -87,7 +88,13 @@ function UserMenu() {
         <DropdownMenuItem className="cursor-pointer">
           <Link href="/dashboard" className="flex w-full items-center">
             <Home className="mr-2 h-4 w-4" />
-            <span>Workspace</span>
+            <span>Learning home</span>
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem className="cursor-pointer">
+          <Link href="/dashboard/team" className="flex w-full items-center">
+            <Users className="mr-2 h-4 w-4" />
+            <span>Team</span>
           </Link>
         </DropdownMenuItem>
         <form action={handleSignOut} className="w-full">
@@ -105,16 +112,23 @@ function UserMenu() {
 
 function Header() {
   return (
-    <header className="border-b border-gray-200 bg-white/90 backdrop-blur">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center gap-2">
-          <Sparkles className="h-6 w-6 text-amber-600" />
-          <span className="text-xl font-semibold text-gray-900">
-            Glow Flow
+    <header className="border-b border-border bg-card/85 backdrop-blur-md shadow-card-soft">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3.5 sm:px-6 lg:px-8">
+        <Link href="/" className="flex min-w-0 items-center gap-3 transition-opacity hover:opacity-90">
+          <FlowLogoMark size={40} fetchPriority="high" className="size-10" />
+          <span className="flex flex-col leading-tight">
+            <span className="text-lg font-semibold tracking-tight text-foreground">
+              Flow Guide
+            </span>
+            <span className="text-[11px] font-medium tracking-wide text-muted-foreground">
+              Learn. Build. Master.
+            </span>
           </span>
         </Link>
-        <div className="flex items-center space-x-4">
-          <Suspense fallback={<div className="h-9 w-9 rounded-full bg-gray-100" />}>
+        <div className="flex items-center gap-4">
+          <Suspense
+            fallback={<div className="size-9 shrink-0 rounded-full bg-muted" />}
+          >
             <UserMenu />
           </Suspense>
         </div>
@@ -124,9 +138,12 @@ function Header() {
 }
 
 export default function Layout({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+  const isDashboardRoute = pathname.startsWith('/dashboard');
+
   return (
     <section className="flex min-h-screen flex-col">
-      <Header />
+      {isDashboardRoute ? null : <Header />}
       {children}
     </section>
   );

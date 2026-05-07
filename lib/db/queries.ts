@@ -21,6 +21,7 @@ import {
 } from './schema';
 import { cookies } from 'next/headers';
 import { verifyToken } from '@/lib/auth/session';
+import { COMING_SOON_CATALOG } from '@/lib/courses/curriculum';
 
 export async function getUser() {
   const sessionCookie = (await cookies()).get('session');
@@ -153,25 +154,126 @@ export function teamHasCourseAccess(team: Team | null): boolean {
   return status === 'active' || status === 'trialing';
 }
 
-export async function getPublishedCourses() {
-  return db
+export type PublishedCourseListItem = {
+  id: number;
+  slug: string;
+  title: string;
+  description: string | null;
+  isPublished: boolean;
+  isComingSoon: boolean;
+  previewModuleCount: number | null;
+  previewLessonCount: number | null;
+  previewEstMinutes: number | null;
+  heroImagePath: string | null;
+};
+
+/** Synthetic rows use negative ids (not stored in Postgres). */
+export function isPersistedCourseRow(course: Pick<PublishedCourseListItem, 'id'>): boolean {
+  return course.id > 0;
+}
+
+function enrichHeroPathsFromCatalog(
+  rows: PublishedCourseListItem[]
+): PublishedCourseListItem[] {
+  const catalogHeroBySlug = new Map(
+    COMING_SOON_CATALOG.filter((c) => c.heroImagePath?.trim()).map((c) => [
+      c.slug,
+      c.heroImagePath!.trim(),
+    ])
+  );
+  return rows.map((r) => {
+    const path = catalogHeroBySlug.get(r.slug);
+    if (path && !r.heroImagePath?.trim()) {
+      return { ...r, heroImagePath: path };
+    }
+    return r;
+  });
+}
+
+function mergeComingSoonCatalogPlaceholders(
+  rows: PublishedCourseListItem[]
+): PublishedCourseListItem[] {
+  const slugs = new Set(rows.map((r) => r.slug));
+  let syntheticId = -1;
+  const extras: PublishedCourseListItem[] = [];
+  for (const p of COMING_SOON_CATALOG) {
+    if (slugs.has(p.slug)) continue;
+    extras.push({
+      id: syntheticId--,
+      slug: p.slug,
+      title: p.title,
+      description: p.description,
+      isPublished: true,
+      isComingSoon: true,
+      previewModuleCount: p.previewModuleCount,
+      previewLessonCount: p.previewLessonCount,
+      previewEstMinutes: p.previewEstMinutes,
+      heroImagePath: p.heroImagePath?.trim() ?? null,
+    });
+  }
+  return [...rows, ...extras];
+}
+
+/** Playable courses first (by id), then coming-soon teasers in catalog order. */
+export function sortPublishedCoursesForDisplay(
+  rows: PublishedCourseListItem[]
+): PublishedCourseListItem[] {
+  const slugOrder = new Map(COMING_SOON_CATALOG.map((c, i) => [c.slug, i]));
+  const playable = rows
+    .filter((c) => !c.isComingSoon)
+    .sort((a, b) => a.id - b.id);
+  const soon = rows
+    .filter((c) => c.isComingSoon)
+    .sort(
+      (a, b) =>
+        (slugOrder.get(a.slug) ?? 999) - (slugOrder.get(b.slug) ?? 999)
+    );
+  return [...playable, ...soon];
+}
+
+export async function getPublishedCourses(): Promise<PublishedCourseListItem[]> {
+  const rows = await db
     .select({
       id: courses.id,
       slug: courses.slug,
       title: courses.title,
       description: courses.description,
       isPublished: courses.isPublished,
+      isComingSoon: courses.isComingSoon,
+      previewModuleCount: courses.previewModuleCount,
+      previewLessonCount: courses.previewLessonCount,
+      previewEstMinutes: courses.previewEstMinutes,
+      heroImagePath: courses.heroImagePath,
     })
     .from(courses)
     .where(eq(courses.isPublished, true))
     .orderBy(asc(courses.id));
+
+  const enriched = enrichHeroPathsFromCatalog(rows);
+
+  return sortPublishedCoursesForDisplay(
+    mergeComingSoonCatalogPlaceholders(enriched)
+  );
+}
+
+/** First course that has a playable curriculum (excludes library teasers). */
+export function primaryPlayableCourse(
+  rows: PublishedCourseListItem[]
+): PublishedCourseListItem | null {
+  return rows.find((c) => !c.isComingSoon) ?? null;
 }
 
 export async function getCourseBySlug(slug: string) {
   const rows = await db
     .select()
     .from(courses)
-    .where(and(eq(courses.slug, slug), eq(courses.isPublished, true)))
+    .where(
+      and(
+        eq(courses.slug, slug),
+        eq(courses.isPublished, true),
+        eq(courses.isComingSoon, false)
+      )
+    )
     .limit(1);
   return rows[0] ?? null;
 }
@@ -231,6 +333,30 @@ export async function getCompletedLessonIdsForUser(
       )
     );
   return new Set(rows.map((r) => r.lessonId));
+}
+
+/** Completed lesson events with timestamps (read-only analytics for coach UI). */
+export async function getCompletedLessonEventsForUser(
+  userId: number,
+  lessonIds: number[]
+): Promise<{ lessonId: number; completedAt: Date }[]> {
+  if (lessonIds.length === 0) return [];
+  const rows = await db
+    .select({
+      lessonId: lessonProgress.lessonId,
+      completedAt: lessonProgress.completedAt,
+    })
+    .from(lessonProgress)
+    .where(
+      and(
+        eq(lessonProgress.userId, userId),
+        inArray(lessonProgress.lessonId, lessonIds),
+        isNotNull(lessonProgress.completedAt)
+      )
+    );
+  return rows
+    .filter((r): r is { lessonId: number; completedAt: Date } => r.completedAt != null)
+    .map((r) => ({ lessonId: r.lessonId, completedAt: r.completedAt }));
 }
 
 export async function setLessonCompleted(args: {

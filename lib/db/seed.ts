@@ -2,7 +2,7 @@ import { stripe } from '../payments/stripe';
 import { db } from './drizzle';
 import { users, teams, teamMembers } from './schema';
 import { hashPassword } from '@/lib/auth/session';
-import { seedGlowFlowCourse } from './seed-courses';
+import { seedComingSoonCourses, seedGlowFlowCourse } from './seed-courses';
 
 async function createStripeProducts() {
   console.log('Creating Stripe products and prices...');
@@ -72,13 +72,20 @@ async function seed() {
   });
 
   await seedGlowFlowCourse();
+  await seedComingSoonCourses();
 
-  try {
-    await createStripeProducts();
-  } catch (error) {
+  if (process.env.STRIPE_SECRET_KEY?.trim()) {
+    try {
+      await createStripeProducts();
+    } catch (error) {
+      console.warn(
+        'Stripe product seed failed (check STRIPE_SECRET_KEY and Stripe dashboard):',
+        error
+      );
+    }
+  } else {
     console.warn(
-      'Stripe product seed skipped (set STRIPE_SECRET_KEY for full setup):',
-      error
+      'Stripe product seed skipped (set STRIPE_SECRET_KEY to create products/prices).'
     );
   }
 }

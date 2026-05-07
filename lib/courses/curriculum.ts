@@ -26,6 +26,48 @@ export type CurriculumModule = {
 
 export const GLOW_FLOW_COURSE_SLUG = 'glow-flow-method';
 
+export const DESIGN_IDEAL_LIFESTYLE_SLUG = 'design-ideal-lifestyle';
+export const MINDSET_HABITS_MASTERY_SLUG = 'mindset-habits-mastery';
+
+export const DESIGN_IDEAL_LIFESTYLE_CARD_DESCRIPTION =
+  'Shape daily rhythms, environment, and priorities so your life matches what matters — before you optimize tactics.';
+
+export const MINDSET_HABITS_MASTERY_CARD_DESCRIPTION =
+  'Rewire patterns of thought and behavior so consistency sticks — built as a follow-on to your core Glow Flow path.';
+
+/** Single source for DB seed + UI placeholders when rows are not migrated yet. */
+export type ComingSoonCatalogEntry = {
+  slug: string;
+  title: string;
+  description: string;
+  previewModuleCount: number;
+  previewLessonCount: number;
+  previewEstMinutes: number;
+  /** Public path under `/public`, e.g. `/courses/hero.png` */
+  heroImagePath?: string | null;
+};
+
+export const COMING_SOON_CATALOG: ComingSoonCatalogEntry[] = [
+  {
+    slug: DESIGN_IDEAL_LIFESTYLE_SLUG,
+    title: 'Design Your Ideal Lifestyle',
+    description: DESIGN_IDEAL_LIFESTYLE_CARD_DESCRIPTION,
+    previewModuleCount: 5,
+    previewLessonCount: 22,
+    previewEstMinutes: Math.round(4.5 * 60),
+    heroImagePath: '/courses/design-ideal-lifestyle-hero.png',
+  },
+  {
+    slug: MINDSET_HABITS_MASTERY_SLUG,
+    title: 'Mindset & Habits Mastery',
+    description: MINDSET_HABITS_MASTERY_CARD_DESCRIPTION,
+    previewModuleCount: 6,
+    previewLessonCount: 20,
+    previewEstMinutes: 4 * 60,
+    heroImagePath: '/courses/mindset-habits-mastery-hero.png',
+  },
+];
+
 export const CURRICULUM: CurriculumModule[] = [
   {
     id: 'module-1',
@@ -416,4 +458,25 @@ export const CURRICULUM: CurriculumModule[] = [
 
 export function totalLessonsInCurriculum(): number {
   return CURRICULUM.reduce((sum, m) => sum + m.lessons.length, 0);
+}
+
+/** Matches seeded Glow Flow tree — use for UI copy so dashboard stays aligned with DB outline. */
+export const GLOW_FLOW_LESSON_TOTAL = totalLessonsInCurriculum();
+export const GLOW_FLOW_MODULE_TOTAL = CURRICULUM.length;
+
+/** Canonical long-form description (DB seed should match; dashboard overrides stale rows by slug). */
+export const GLOW_FLOW_CARD_DESCRIPTION = `${GLOW_FLOW_MODULE_TOTAL} modules, ${GLOW_FLOW_LESSON_TOTAL} lessons: Mental Reset, Real Discipline, Identity, Deep Focus, and Integration & Sustainability. Lessons open in Flow Guide’s viewer (from the original Glow Flow program) while content migrates to native format.`;
+
+/** Prefer curriculum-backed copy for Glow Flow so UI matches the seeded outline even if the DB row is stale. */
+export function courseDescriptionForSlug(
+  slug: string,
+  storedDescription: string | null | undefined
+): string | null {
+  if (slug === GLOW_FLOW_COURSE_SLUG) return GLOW_FLOW_CARD_DESCRIPTION;
+  if (slug === DESIGN_IDEAL_LIFESTYLE_SLUG)
+    return DESIGN_IDEAL_LIFESTYLE_CARD_DESCRIPTION;
+  if (slug === MINDSET_HABITS_MASTERY_SLUG)
+    return MINDSET_HABITS_MASTERY_CARD_DESCRIPTION;
+  const s = storedDescription?.trim();
+  return s ? s : null;
 }
