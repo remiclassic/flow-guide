@@ -467,16 +467,17 @@ export const GLOW_FLOW_MODULE_TOTAL = CURRICULUM.length;
 /** Canonical long-form description (DB seed should match; dashboard overrides stale rows by slug). */
 export const GLOW_FLOW_CARD_DESCRIPTION = `${GLOW_FLOW_MODULE_TOTAL} modules, ${GLOW_FLOW_LESSON_TOTAL} lessons: Mental Reset, Real Discipline, Identity, Deep Focus, and Integration & Sustainability. Lessons open in Flow Guide’s viewer (from the original Glow Flow program) while content migrates to native format.`;
 
-/** Prefer curriculum-backed copy for Glow Flow so UI matches the seeded outline even if the DB row is stale. */
+/** Prefer DB copy when set; otherwise fall back to seed/catalog blurbs for known slugs. */
 export function courseDescriptionForSlug(
   slug: string,
   storedDescription: string | null | undefined
 ): string | null {
+  const stored = storedDescription?.trim();
+  if (stored) return stored;
   if (slug === GLOW_FLOW_COURSE_SLUG) return GLOW_FLOW_CARD_DESCRIPTION;
   if (slug === DESIGN_IDEAL_LIFESTYLE_SLUG)
     return DESIGN_IDEAL_LIFESTYLE_CARD_DESCRIPTION;
   if (slug === MINDSET_HABITS_MASTERY_SLUG)
     return MINDSET_HABITS_MASTERY_CARD_DESCRIPTION;
-  const s = storedDescription?.trim();
-  return s ? s : null;
+  return null;
 }

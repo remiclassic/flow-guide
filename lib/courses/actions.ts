@@ -1,20 +1,20 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
 import { z } from 'zod';
 import {
   getLessonByCourseSlugAndKey,
   getTeamForUser,
   getUser,
   setLessonCompleted,
-  teamHasCourseAccess,
+  teamHasCourseAccess
 } from '@/lib/db/queries';
+import { redirectLocalized } from '@/lib/i18n/redirect-localized';
 
 const markSchema = z.object({
   courseSlug: z.string().min(1),
   lessonKey: z.string().min(1),
-  completed: z.enum(['true', 'false']).optional(),
+  completed: z.enum(['true', 'false']).optional()
 });
 
 export async function markLessonProgressAction(
@@ -22,18 +22,15 @@ export async function markLessonProgressAction(
 ): Promise<void> {
   const user = await getUser();
   if (!user) {
-    redirect('/sign-in');
+    return redirectLocalized({ href: '/sign-in' });
   }
 
   const team = await getTeamForUser();
-  if (!teamHasCourseAccess(team)) {
-    redirect('/pricing?reason=subscription');
-  }
 
   const parsed = markSchema.safeParse({
     courseSlug: formData.get('courseSlug'),
     lessonKey: formData.get('lessonKey'),
-    completed: formData.get('completed') ?? 'true',
+    completed: formData.get('completed') ?? 'true'
   });
 
   if (!parsed.success) {
@@ -49,12 +46,22 @@ export async function markLessonProgressAction(
     return;
   }
 
+  const freeCourse = bundle.course.accessMode === 'free';
+  if (!freeCourse && !teamHasCourseAccess(team)) {
+    return redirectLocalized({
+      href: {
+        pathname: '/pricing',
+        query: { reason: 'subscription' }
+      }
+    });
+  }
+
   const completed = parsed.data.completed !== 'false';
 
   await setLessonCompleted({
     userId: user.id,
     lessonId: bundle.lesson.id,
-    completed,
+    completed
   });
 
   revalidatePath(`/dashboard/courses/${parsed.data.courseSlug}`, 'page');

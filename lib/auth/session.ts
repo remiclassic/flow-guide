@@ -1,7 +1,8 @@
 import { compare, hash } from 'bcryptjs';
 import { SignJWT, jwtVerify } from 'jose';
 import { cookies } from 'next/headers';
-import { NewUser } from '@/lib/db/schema';
+import { sessionCookieBase } from '@/lib/auth/cookie-options';
+import type { User } from '@/lib/db/schema';
 
 const onVercel = Boolean(process.env.VERCEL);
 const isProduction = process.env.NODE_ENV === 'production';
@@ -38,8 +39,8 @@ export async function comparePasswords(
   return compare(plainTextPassword, hashedPassword);
 }
 
-type SessionData = {
-  user: { id: number };
+export type SessionData = {
+  user: { id: number; role?: string };
   expires: string;
 };
 
@@ -64,17 +65,16 @@ export async function getSession() {
   return await verifyToken(session);
 }
 
-export async function setSession(user: NewUser) {
+export async function setSession(user: Pick<User, 'id' | 'role'>) {
   const expiresInOneDay = new Date(Date.now() + 24 * 60 * 60 * 1000);
   const session: SessionData = {
-    user: { id: user.id! },
+    user: { id: user.id!, role: user.role as string },
     expires: expiresInOneDay.toISOString(),
   };
   const encryptedSession = await signToken(session);
-  (await cookies()).set('session', encryptedSession, {
-    expires: expiresInOneDay,
-    httpOnly: true,
-    secure: true,
-    sameSite: 'lax',
-  });
+  (await cookies()).set(
+    'session',
+    encryptedSession,
+    sessionCookieBase(expiresInOneDay)
+  );
 }

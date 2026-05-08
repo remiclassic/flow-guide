@@ -1,7 +1,7 @@
 import { z, type ZodTypeAny } from 'zod';
 import { TeamDataWithMembers, User } from '@/lib/db/schema';
 import { getTeamForUser, getUser } from '@/lib/db/queries';
-import { redirect } from 'next/navigation';
+import { redirectLocalized } from '@/lib/i18n/redirect-localized';
 
 export type ActionState = {
   error?: string;
@@ -63,7 +63,7 @@ export function withTeam<T>(action: ActionWithTeamFunction<T>) {
   return async (formData: FormData): Promise<T> => {
     const user = await getUser();
     if (!user) {
-      redirect('/sign-in');
+      return redirectLocalized({ href: '/sign-in' });
     }
 
     const team = await getTeamForUser();

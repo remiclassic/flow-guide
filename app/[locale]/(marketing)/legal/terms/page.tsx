@@ -1,0 +1,40 @@
+import { getTranslations } from 'next-intl/server';
+import type { Metadata } from 'next';
+
+type Props = { params: Promise<{ locale: string }> };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'legal' });
+  const base =
+    process.env.NEXT_PUBLIC_SITE_URL?.trim() || 'http://localhost:3000';
+  const path = locale === 'es' ? '/legal/terminos' : '/legal/terms';
+
+  return {
+    title: t('termsTitle'),
+    alternates: {
+      canonical: `${base}/${locale}${path}`,
+      languages: {
+        es: `${base}/es/legal/terminos`,
+        en: `${base}/en/legal/terms`,
+        'x-default': `${base}/es/legal/terminos`
+      }
+    }
+  };
+}
+
+export default async function TermsPage({ params }: Props) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'legal' });
+
+  return (
+    <main className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
+      <h1 className="text-3xl font-semibold tracking-tight text-foreground">
+        {t('termsTitle')}
+      </h1>
+      <p className="mt-6 leading-relaxed text-muted-foreground">
+        {t('termsLead')}
+      </p>
+    </main>
+  );
+}

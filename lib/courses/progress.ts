@@ -152,9 +152,9 @@ export function estimateMinutesForLessons(lessonCount: number): number {
   return lessonCount * ESTIMATED_MINUTES_PER_LESSON;
 }
 
-/** DB teaser fields for courses listed before curriculum exists. */
+/** DB teaser fields for scheduled (coming-soon) courses. */
 export type CourseListingPreviewFields = {
-  isComingSoon: boolean;
+  lifecycleStatus: string;
   previewModuleCount: number | null;
   previewLessonCount: number | null;
   previewEstMinutes: number | null;
@@ -166,7 +166,7 @@ export function courseListingCounts(
   outlineLessonCount: number
 ): { moduleCount: number; lessonCount: number; estMinutes: number } {
   if (
-    course.isComingSoon &&
+    course.lifecycleStatus === 'scheduled' &&
     course.previewLessonCount != null &&
     course.previewLessonCount > 0
   ) {
@@ -186,12 +186,12 @@ export function courseListingCounts(
 }
 
 export function courseListingProgress(
-  course: Pick<CourseListingPreviewFields, 'isComingSoon'>,
+  course: Pick<CourseListingPreviewFields, 'lifecycleStatus'>,
   completed: number,
   outlineLessonCount: number,
   effectiveLessonCount: number
 ): { percent: number; completed: number; total: number } {
-  if (course.isComingSoon) {
+  if (course.lifecycleStatus === 'scheduled') {
     return completionRatio(0, effectiveLessonCount);
   }
   return completionRatio(completed, outlineLessonCount);

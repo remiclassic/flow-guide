@@ -1,5 +1,8 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
@@ -45,58 +48,6 @@ function QuestThumb({
   );
 }
 
-function campaignBadge(status: ResolvedGlowFlowCampaignQuest['status']) {
-  switch (status) {
-    case 'locked':
-      return (
-        <Badge variant="secondary" className="rounded-full font-medium">
-          Locked
-        </Badge>
-      );
-    case 'complete':
-      return (
-        <Badge className="rounded-full bg-primary/12 text-primary hover:bg-primary/12">
-          Complete
-        </Badge>
-      );
-    case 'in_progress':
-      return (
-        <Badge variant="secondary" className="rounded-full font-medium">
-          In progress
-        </Badge>
-      );
-    default:
-      return (
-        <Badge variant="outline" className="rounded-full font-medium">
-          Available
-        </Badge>
-      );
-  }
-}
-
-function lessonBadge(status: ResolvedGlowFlowLessonQuest['status']) {
-  switch (status) {
-    case 'locked':
-      return (
-        <Badge variant="secondary" className="rounded-full text-xs font-medium">
-          Locked
-        </Badge>
-      );
-    case 'complete':
-      return (
-        <Badge className="rounded-full bg-primary/12 text-xs text-primary hover:bg-primary/12">
-          Complete
-        </Badge>
-      );
-    default:
-      return (
-        <Badge variant="outline" className="rounded-full text-xs font-medium">
-          Active
-        </Badge>
-      );
-  }
-}
-
 function campaignCtaHref(
   row: ResolvedGlowFlowCampaignQuest,
   primarySlug: string,
@@ -106,12 +57,6 @@ function campaignCtaHref(
   if (row.status === 'complete') return `/dashboard/courses/${primarySlug}`;
   if (row.nextLessonKey) return `/dashboard/courses/${primarySlug}/lessons/${row.nextLessonKey}`;
   return `/dashboard/courses/${primarySlug}`;
-}
-
-function campaignCtaLabel(row: ResolvedGlowFlowCampaignQuest, unlocked: boolean): string {
-  if (!unlocked) return 'Unlock';
-  if (row.status === 'complete') return 'Review path';
-  return 'Continue';
 }
 
 export function GlowFlowQuestsPanel({
@@ -125,6 +70,7 @@ export function GlowFlowQuestsPanel({
   outlineLite: OutlineModuleLite[];
   completedSet: ReadonlySet<number>;
 }) {
+  const t = useTranslations('dashboard');
   const campaign = resolveGlowFlowCampaignQuests(outlineLite, completedSet, unlocked);
   const sideGroups = resolveGlowFlowSideQuestGroups(
     outlineLite,
@@ -133,18 +79,73 @@ export function GlowFlowQuestsPanel({
     unlocked
   );
 
+  function campaignBadge(status: ResolvedGlowFlowCampaignQuest['status']) {
+    switch (status) {
+      case 'locked':
+        return (
+          <Badge variant="secondary" className="rounded-full font-medium">
+            {t('shared.locked')}
+          </Badge>
+        );
+      case 'complete':
+        return (
+          <Badge className="rounded-full bg-primary/12 text-primary hover:bg-primary/12">
+            {t('shared.complete')}
+          </Badge>
+        );
+      case 'in_progress':
+        return (
+          <Badge variant="secondary" className="rounded-full font-medium">
+            {t('shared.inProgress')}
+          </Badge>
+        );
+      default:
+        return (
+          <Badge variant="outline" className="rounded-full font-medium">
+            {t('shared.available')}
+          </Badge>
+        );
+    }
+  }
+
+  function lessonBadge(status: ResolvedGlowFlowLessonQuest['status']) {
+    switch (status) {
+      case 'locked':
+        return (
+          <Badge variant="secondary" className="rounded-full text-xs font-medium">
+            {t('shared.locked')}
+          </Badge>
+        );
+      case 'complete':
+        return (
+          <Badge className="rounded-full bg-primary/12 text-xs text-primary hover:bg-primary/12">
+            {t('shared.complete')}
+          </Badge>
+        );
+      default:
+        return (
+          <Badge variant="outline" className="rounded-full text-xs font-medium">
+            {t('shared.active')}
+          </Badge>
+        );
+    }
+  }
+
+  function campaignCtaLabel(row: ResolvedGlowFlowCampaignQuest): string {
+    if (!unlocked) return t('shared.unlock');
+    if (row.status === 'complete') return t('shared.reviewPath');
+    return t('shared.continue');
+  }
+
   return (
     <div className="space-y-8">
       <Card className="border-border/80 shadow-card-soft">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Flag className="size-5 text-primary" aria-hidden />
-            Campaign quests
+            {t('quests.campaignTitle')}
           </CardTitle>
-          <CardDescription>
-            Each module is a major quest. Finish its lessons to complete it—progress stays synced with
-            your checklist.
-          </CardDescription>
+          <CardDescription>{t('quests.campaignDesc')}</CardDescription>
         </CardHeader>
       </Card>
 
@@ -157,7 +158,10 @@ export function GlowFlowQuestsPanel({
             <li key={row.id}>
               <Card className="overflow-hidden border-border/80 shadow-card-soft">
                 <CardContent className="flex flex-col gap-4 p-5 sm:flex-row sm:items-stretch">
-                  <QuestThumb src={row.imageSrc} alt={`Quest art: ${row.title}`} />
+                  <QuestThumb
+                    src={row.imageSrc}
+                    alt={`${t('quests.questArtAlt')}: ${row.title}`}
+                  />
                   <div className="flex min-w-0 flex-1 flex-col gap-3">
                     <div className="flex flex-wrap items-center gap-2">
                       <p className="font-semibold text-foreground">{row.title}</p>
@@ -170,10 +174,11 @@ export function GlowFlowQuestsPanel({
                     <p className="text-sm text-muted-foreground">{row.description}</p>
                     <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground">
                       <span>
-                        Reward: <span className="font-medium text-foreground">+{row.rewardXp} XP</span>
+                        {t('shared.rewardLabel')}{' '}
+                        <span className="font-medium text-foreground">+{row.rewardXp} XP</span>
                       </span>
                       <span className="tabular-nums">
-                        {row.completed}/{row.total} lessons
+                        {t('quests.lessonsUnit', { completed: row.completed, total: row.total })}
                       </span>
                     </div>
                     <Progress value={row.percent} className="h-2 max-w-md bg-muted/80" />
@@ -187,11 +192,11 @@ export function GlowFlowQuestsPanel({
                       {!unlocked ? (
                         <>
                           <LockIcon className="size-4" />
-                          {campaignCtaLabel(row, unlocked)}
+                          {campaignCtaLabel(row)}
                         </>
                       ) : (
                         <>
-                          {campaignCtaLabel(row, unlocked)}
+                          {campaignCtaLabel(row)}
                           <ArrowRight className="size-4" />
                         </>
                       )}
@@ -206,11 +211,8 @@ export function GlowFlowQuestsPanel({
 
       <Card className="border-border/80 shadow-card-soft">
         <CardHeader>
-          <CardTitle>Side quests</CardTitle>
-          <CardDescription>
-            One quest per lesson—complete the lesson to check it off. Spotlight quests include bonus
-            badges.
-          </CardDescription>
+          <CardTitle>{t('quests.sideTitle')}</CardTitle>
+          <CardDescription>{t('quests.sideDesc')}</CardDescription>
         </CardHeader>
       </Card>
 
@@ -231,7 +233,7 @@ export function GlowFlowQuestsPanel({
                         <QuestThumb
                           className="sm:mt-0"
                           src={q.imageSrc}
-                          alt={`Quest art: ${q.questTitle}`}
+                          alt={`${t('quests.questArtAlt')}: ${q.questTitle}`}
                         />
                         <div className="min-w-0 flex-1 space-y-1">
                           <div className="flex flex-wrap items-center gap-2">
@@ -244,7 +246,7 @@ export function GlowFlowQuestsPanel({
                             {q.rewardBadge ? (
                               <>
                                 {' '}
-                                · Badge:{' '}
+                                · {t('shared.badgeLabel')}{' '}
                                 <span className="font-medium text-foreground">{q.rewardBadge}</span>
                               </>
                             ) : null}
@@ -260,16 +262,16 @@ export function GlowFlowQuestsPanel({
                             {!unlocked ? (
                               <>
                                 <LockIcon className="size-4" />
-                                Unlock
+                                {t('shared.unlock')}
                               </>
                             ) : q.status === 'complete' ? (
                               <>
-                                Review
+                                {t('quests.review')}
                                 <ArrowRight className="size-4" />
                               </>
                             ) : (
                               <>
-                                Begin
+                                {t('quests.begin')}
                                 <ArrowRight className="size-4" />
                               </>
                             )}

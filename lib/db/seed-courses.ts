@@ -25,8 +25,7 @@ export async function seedComingSoonCourses() {
       slug: row.slug,
       title: row.title,
       description: row.description,
-      isPublished: true,
-      isComingSoon: true,
+      lifecycleStatus: 'scheduled',
       previewModuleCount: row.previewModuleCount,
       previewLessonCount: row.previewLessonCount,
       previewEstMinutes: row.previewEstMinutes,
@@ -54,7 +53,7 @@ export async function seedGlowFlowCourse() {
       slug: GLOW_FLOW_COURSE_SLUG,
       title: 'Glow Flow Method',
       description: GLOW_FLOW_CARD_DESCRIPTION,
-      isPublished: true,
+      lifecycleStatus: 'published',
     })
     .returning();
 

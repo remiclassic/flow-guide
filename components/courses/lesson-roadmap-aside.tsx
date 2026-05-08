@@ -18,6 +18,8 @@ type Props = {
   unlocked: boolean;
   modules: RoadmapModule[];
   currentLessonKey: string;
+  /** When set, lesson links are `${lessonLessonBasePath}/${lessonKey}` (must be serializable for RSC → client). */
+  lessonLessonBasePath?: string;
 };
 
 export function LessonRoadmapAside({
@@ -25,6 +27,7 @@ export function LessonRoadmapAside({
   unlocked,
   modules,
   currentLessonKey,
+  lessonLessonBasePath,
 }: Props) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const toggle = useCallback(() => setMobileOpen((o) => !o), []);
@@ -53,9 +56,12 @@ export function LessonRoadmapAside({
               <ul className="space-y-1">
                 {mod.lessons.map((lesson) => {
                   const active = lesson.lessonKey === currentLessonKey;
-                  const href = unlocked
-                    ? `/dashboard/courses/${courseSlug}/lessons/${lesson.lessonKey}`
-                    : '/pricing?reason=subscription';
+                  const base = lessonLessonBasePath?.trim();
+                  const href = base
+                    ? `${base.replace(/\/$/, '')}/${lesson.lessonKey}`
+                    : unlocked
+                      ? `/dashboard/courses/${courseSlug}/lessons/${lesson.lessonKey}`
+                      : '/pricing?reason=subscription';
 
                   return (
                     <li key={lesson.lessonKey}>

@@ -1,22 +1,23 @@
 import { drizzle } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
+import { loadRootEnvFiles } from '@/lib/env/load-dotenv';
 import * as schema from './schema';
-import dotenv from 'dotenv';
 
-dotenv.config();
+loadRootEnvFiles();
 
 /** True when running on Vercel (build + runtime). Used to require real secrets and DB URLs. */
 const onVercel = Boolean(process.env.VERCEL);
 
 function resolveConnectionString(): string {
-  const raw = process.env.POSTGRES_URL?.trim();
+  const raw =
+    process.env.POSTGRES_URL?.trim() || process.env.DATABASE_URL?.trim();
   if (raw) {
     return raw;
   }
 
   if (onVercel) {
     throw new Error(
-      'POSTGRES_URL is required on Vercel. In the Vercel dashboard, add your Supabase Postgres URI (Project Settings → Database). Prefer the Transaction pooler connection string for serverless. See README.md → Supabase + Vercel.'
+      'POSTGRES_URL (or DATABASE_URL) is required on Vercel. In the Vercel dashboard, add your Supabase Postgres URI (Project Settings → Database). Prefer the Transaction pooler connection string (host `*.pooler.supabase.com`, port `6543`) for serverless. See README.md → Supabase + Vercel.'
     );
   }
 
@@ -31,10 +32,12 @@ const connectionString = resolveConnectionString();
  * does not support prepared statements the same way as a direct session.
  * `postgres.js`: disable `prepare` when using that URL (or `pgbouncer=true`).
  */
+/** Transaction pooler (6543) breaks prepared statements; session pooler (5432) does not. */
 function shouldDisablePreparedStatements(url: string): boolean {
-  return (
-    /pooler\.supabase\.com/i.test(url) || /[?&]pgbouncer=true/i.test(url)
-  );
+  if (/[?&]pgbouncer=true/i.test(url)) {
+    return true;
+  }
+  return /pooler\.supabase\.com/i.test(url) && /:6543\b/.test(url);
 }
 
 /**
@@ -52,7 +55,8 @@ function postgresOptions(url: string): NonNullable<Parameters<typeof postgres>[1
     opts.prepare = false;
   }
 
-  const isSupabaseHost = /\.supabase\.com/i.test(url);
+  const isSupabaseHost =
+    /\.supabase\.com/i.test(url) || /\.supabase\.co/i.test(url);
   const hasSslMode =
     /sslmode=require/i.test(url) ||
     /sslmode=verify-full/i.test(url) ||

@@ -17,11 +17,20 @@ import {
   teamMembers,
   teams,
   users,
+  type CourseLifecycleStatus,
   type Team,
 } from './schema';
 import { cookies } from 'next/headers';
 import { verifyToken } from '@/lib/auth/session';
+import { resolveCourseHeroImagePath } from '@/lib/courses/course-hero';
 import { COMING_SOON_CATALOG } from '@/lib/courses/curriculum';
+import { lessonHasStudentVisibleContent } from '@/lib/courses/lesson-content';
+
+/** Courses visible in the learner library (teasers + fully published). */
+export const LIBRARY_LIFECYCLE_STATUSES: CourseLifecycleStatus[] = [
+  'scheduled',
+  'published',
+];
 
 export async function getUser() {
   const sessionCookie = (await cookies()).get('session');
@@ -159,15 +168,22 @@ export type PublishedCourseListItem = {
   slug: string;
   title: string;
   description: string | null;
-  isPublished: boolean;
-  isComingSoon: boolean;
+  lifecycleStatus: string;
+  accessMode: string;
   previewModuleCount: number | null;
   previewLessonCount: number | null;
   previewEstMinutes: number | null;
   heroImagePath: string | null;
 };
 
-/** Synthetic rows use negative ids (not stored in Postgres). */
+/** Teaser cards (scheduled) behave like legacy `isComingSoon` in UI helpers */
+export function isCourseScheduledTeaser(course: {
+  lifecycleStatus: string;
+}): boolean {
+  return course.lifecycleStatus === 'scheduled';
+}
+
+/** Synthetic rows use negative ids (legacy); DB-only platform should not create these */
 export function isPersistedCourseRow(course: Pick<PublishedCourseListItem, 'id'>): boolean {
   return course.id > 0;
 }
@@ -175,60 +191,27 @@ export function isPersistedCourseRow(course: Pick<PublishedCourseListItem, 'id'>
 function enrichHeroPathsFromCatalog(
   rows: PublishedCourseListItem[]
 ): PublishedCourseListItem[] {
-  const catalogHeroBySlug = new Map(
-    COMING_SOON_CATALOG.filter((c) => c.heroImagePath?.trim()).map((c) => [
-      c.slug,
-      c.heroImagePath!.trim(),
-    ])
-  );
-  return rows.map((r) => {
-    const path = catalogHeroBySlug.get(r.slug);
-    if (path && !r.heroImagePath?.trim()) {
-      return { ...r, heroImagePath: path };
-    }
-    return r;
-  });
+  return rows.map((r) => ({
+    ...r,
+    heroImagePath: resolveCourseHeroImagePath(r.slug, r.heroImagePath),
+  }));
 }
 
-function mergeComingSoonCatalogPlaceholders(
-  rows: PublishedCourseListItem[]
-): PublishedCourseListItem[] {
-  const slugs = new Set(rows.map((r) => r.slug));
-  let syntheticId = -1;
-  const extras: PublishedCourseListItem[] = [];
-  for (const p of COMING_SOON_CATALOG) {
-    if (slugs.has(p.slug)) continue;
-    extras.push({
-      id: syntheticId--,
-      slug: p.slug,
-      title: p.title,
-      description: p.description,
-      isPublished: true,
-      isComingSoon: true,
-      previewModuleCount: p.previewModuleCount,
-      previewLessonCount: p.previewLessonCount,
-      previewEstMinutes: p.previewEstMinutes,
-      heroImagePath: p.heroImagePath?.trim() ?? null,
-    });
-  }
-  return [...rows, ...extras];
-}
-
-/** Playable courses first (by id), then coming-soon teasers in catalog order. */
+/** Playable courses first (by id), then scheduled teasers in catalog order. */
 export function sortPublishedCoursesForDisplay(
   rows: PublishedCourseListItem[]
 ): PublishedCourseListItem[] {
   const slugOrder = new Map(COMING_SOON_CATALOG.map((c, i) => [c.slug, i]));
   const playable = rows
-    .filter((c) => !c.isComingSoon)
+    .filter((c) => c.lifecycleStatus === 'published')
     .sort((a, b) => a.id - b.id);
-  const soon = rows
-    .filter((c) => c.isComingSoon)
+  const teaser = rows
+    .filter((c) => c.lifecycleStatus === 'scheduled')
     .sort(
       (a, b) =>
         (slugOrder.get(a.slug) ?? 999) - (slugOrder.get(b.slug) ?? 999)
     );
-  return [...playable, ...soon];
+  return [...playable, ...teaser];
 }
 
 export async function getPublishedCourses(): Promise<PublishedCourseListItem[]> {
@@ -238,31 +221,35 @@ export async function getPublishedCourses(): Promise<PublishedCourseListItem[]> 
       slug: courses.slug,
       title: courses.title,
       description: courses.description,
-      isPublished: courses.isPublished,
-      isComingSoon: courses.isComingSoon,
+      lifecycleStatus: courses.lifecycleStatus,
+      accessMode: courses.accessMode,
       previewModuleCount: courses.previewModuleCount,
       previewLessonCount: courses.previewLessonCount,
       previewEstMinutes: courses.previewEstMinutes,
       heroImagePath: courses.heroImagePath,
     })
     .from(courses)
-    .where(eq(courses.isPublished, true))
+    .where(
+      and(
+        isNull(courses.deletedAt),
+        inArray(courses.lifecycleStatus, LIBRARY_LIFECYCLE_STATUSES)
+      )
+    )
     .orderBy(asc(courses.id));
 
   const enriched = enrichHeroPathsFromCatalog(rows);
 
-  return sortPublishedCoursesForDisplay(
-    mergeComingSoonCatalogPlaceholders(enriched)
-  );
+  return sortPublishedCoursesForDisplay(enriched);
 }
 
-/** First course that has a playable curriculum (excludes library teasers). */
+/** First course that has a playable curriculum (excludes scheduled teasers). */
 export function primaryPlayableCourse(
   rows: PublishedCourseListItem[]
 ): PublishedCourseListItem | null {
-  return rows.find((c) => !c.isComingSoon) ?? null;
+  return rows.find((c) => c.lifecycleStatus === 'published') ?? null;
 }
 
+/** Full published course for learner routes (not scheduled teaser). */
 export async function getCourseBySlug(slug: string) {
   const rows = await db
     .select()
@@ -270,8 +257,8 @@ export async function getCourseBySlug(slug: string) {
     .where(
       and(
         eq(courses.slug, slug),
-        eq(courses.isPublished, true),
-        eq(courses.isComingSoon, false)
+        eq(courses.lifecycleStatus, 'published'),
+        isNull(courses.deletedAt)
       )
     )
     .limit(1);
@@ -279,8 +266,11 @@ export async function getCourseBySlug(slug: string) {
 }
 
 export async function getCourseOutline(courseId: number) {
-  return db.query.courseModules.findMany({
-    where: eq(courseModules.courseId, courseId),
+  const rows = await db.query.courseModules.findMany({
+    where: and(
+      eq(courseModules.courseId, courseId),
+      isNull(courseModules.deletedAt)
+    ),
     orderBy: (m, { asc }) => [asc(m.sortOrder)],
     with: {
       lessons: {
@@ -288,6 +278,23 @@ export async function getCourseOutline(courseId: number) {
       },
     },
   });
+  return rows.map((m) => ({
+    ...m,
+    lessons: m.lessons.filter((l) => l.deletedAt == null),
+  }));
+}
+
+/** Hides soft-deleted rows and lessons with no student-visible body. */
+export function filterOutlineForLearner(
+  outline: Awaited<ReturnType<typeof getCourseOutline>>
+) {
+  return outline
+    .filter((m) => m.deletedAt == null)
+    .map((m) => ({
+      ...m,
+      lessons: m.lessons.filter((l) => lessonHasStudentVisibleContent(l)),
+    }))
+    .filter((m) => m.lessons.length > 0);
 }
 
 export async function getLessonByCourseSlugAndKey(
@@ -307,13 +314,16 @@ export async function getLessonByCourseSlugAndKey(
     .where(
       and(
         eq(courseModules.courseId, course.id),
-        eq(lessons.lessonKey, lessonKey)
+        eq(lessons.lessonKey, lessonKey),
+        isNull(lessons.deletedAt),
+        isNull(courseModules.deletedAt)
       )
     )
     .limit(1);
 
   const row = rows[0];
   if (!row) return null;
+  if (!lessonHasStudentVisibleContent(row.lesson)) return null;
   return { course, lesson: row.lesson, module: row.module };
 }
 

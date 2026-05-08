@@ -1,10 +1,9 @@
+@import "tw-animate-css";
 @import "tailwindcss";
 /*
   ---break---
 */
 @custom-variant dark (&:is(.dark *));
-
-@import "tw-animate-css";
 
 @variant dark (&:is(.dark *));
 
@@ -115,6 +114,299 @@
 
   .btn-gradient-primary:hover {
     opacity: 0.92;
+  }
+
+  @keyframes sidebar-upgrade-float {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) rotate(-1deg);
+    }
+    50% {
+      transform: translate3d(0, -6px, 0) rotate(2deg);
+    }
+  }
+
+  @keyframes sidebar-upgrade-twinkle {
+    0%,
+    100% {
+      opacity: 0.58;
+      transform: scale(0.84) rotate(0deg);
+    }
+    45% {
+      opacity: 1;
+      transform: scale(1.16) rotate(18deg);
+    }
+  }
+}
+
+@layer components {
+  .bn-mantine {
+    --bn-font-family: "Manrope", Arial, Helvetica, sans-serif;
+    --bn-colors-editor-text: hsl(260 24% 17%);
+    --bn-colors-editor-background: transparent;
+    --bn-colors-menu-text: hsl(260 23% 22%);
+    --bn-colors-menu-background: hsl(40 58% 98%);
+    --bn-colors-tooltip-text: hsl(262 68% 36%);
+    --bn-colors-tooltip-background: hsl(265 58% 96%);
+    --bn-colors-hovered-text: hsl(262 72% 34%);
+    --bn-colors-hovered-background: hsl(265 55% 96%);
+    --bn-colors-selected-text: hsl(262 72% 32%);
+    --bn-colors-selected-background: hsl(266 62% 93%);
+    --bn-colors-border: hsl(32 32% 84%);
+    --bn-border: 1px solid hsl(32 32% 84% / 0.86);
+    --bn-border-radius-small: 0.75rem;
+    --bn-border-radius-medium: 1rem;
+    --bn-border-radius-large: 1.25rem;
+    --bn-shadow-medium:
+      0 18px 48px -28px hsl(260 32% 24% / 0.32),
+      0 4px 14px -10px hsl(28 40% 28% / 0.18);
+  }
+
+  .bn-mantine .bn-toolbar {
+    gap: 0.25rem;
+    padding: 0.35rem;
+  }
+
+  .bn-mantine .bn-toolbar .mantine-Button-root,
+  .bn-mantine .bn-toolbar .mantine-ActionIcon-root {
+    border-radius: 999px;
+    color: hsl(260 21% 25%);
+  }
+
+  .bn-mantine .bn-suggestion-menu {
+    min-width: min(440px, calc(100vw - 2rem));
+    padding: 0.45rem;
+  }
+
+  .bn-mantine .bn-suggestion-menu-label {
+    color: hsl(32 45% 38%);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .bn-mantine .bn-suggestion-menu-item {
+    border-radius: 0.95rem;
+    height: 3.8rem;
+    padding-inline: 0.75rem;
+  }
+
+  .bn-mantine .bn-suggestion-menu-item[aria-selected="true"],
+  .bn-mantine .bn-suggestion-menu-item:hover {
+    background:
+      linear-gradient(135deg, hsl(265 55% 96%), hsl(38 70% 96%));
+  }
+
+  .bn-mantine .bn-mt-suggestion-menu-item-section[data-position="left"] {
+    background: hsl(265 58% 96%);
+    color: hsl(262 72% 36%);
+    border: 1px solid hsl(265 45% 88%);
+    border-radius: 0.85rem;
+    box-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.8);
+  }
+
+  .bn-mantine .bn-mt-suggestion-menu-item-title {
+    color: hsl(260 24% 16%);
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  .bn-mantine .bn-mt-suggestion-menu-item-subtitle {
+    color: hsl(260 11% 42%);
+    font-size: 0.72rem;
+    line-height: 1.25;
+  }
+
+  .flow-guide-blocknote-editor {
+    background:
+      radial-gradient(circle at 12% 0%, hsl(265 78% 96% / 0.68), transparent 30%),
+      linear-gradient(180deg, hsl(38 72% 97%), hsl(36 52% 95%));
+  }
+
+  .flow-guide-blocknote-editor .bn-container,
+  .flow-guide-blocknote-reader .bn-container {
+    background: transparent;
+  }
+
+  .flow-guide-blocknote-editor .bn-editor,
+  .flow-guide-blocknote-reader .bn-editor {
+    background: transparent;
+    color: hsl(260 24% 17%);
+    font-family: "Manrope", Arial, Helvetica, sans-serif;
+  }
+
+  .flow-guide-blocknote-editor .bn-editor {
+    min-height: 680px;
+    max-width: 980px;
+    margin-inline: auto;
+    padding: clamp(1.25rem, 3vw, 2.75rem) clamp(1rem, 3vw, 3rem);
+    font-size: 1.03rem;
+    line-height: 1.82;
+  }
+
+  .flow-guide-blocknote-reader .bn-editor {
+    padding: 0;
+    font-size: 0.97rem;
+    line-height: 1.75;
+  }
+
+  .flow-guide-blocknote-editor .bn-block-content,
+  .flow-guide-blocknote-reader .bn-block-content {
+    padding-block: 0.18rem;
+  }
+
+  .flow-guide-blocknote-editor .bn-block-group,
+  .flow-guide-blocknote-reader .bn-block-group {
+    row-gap: 0.18rem;
+  }
+
+  .flow-guide-blocknote-editor h1,
+  .flow-guide-blocknote-reader h1 {
+    margin-block: 1.1rem 0.55rem;
+    color: hsl(260 28% 13%);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.045em;
+    line-height: 1.06;
+  }
+
+  .flow-guide-blocknote-editor h2,
+  .flow-guide-blocknote-reader h2 {
+    margin-block: 1rem 0.4rem;
+    color: hsl(260 25% 16%);
+    font-size: clamp(1.45rem, 2.6vw, 2rem);
+    font-weight: 760;
+    letter-spacing: -0.035em;
+    line-height: 1.15;
+  }
+
+  .flow-guide-blocknote-editor h3,
+  .flow-guide-blocknote-reader h3 {
+    margin-block: 0.85rem 0.32rem;
+    color: hsl(260 24% 18%);
+    font-size: 1.22rem;
+    font-weight: 740;
+    letter-spacing: -0.02em;
+    line-height: 1.24;
+  }
+
+  .flow-guide-blocknote-editor p,
+  .flow-guide-blocknote-reader p {
+    color: hsl(260 13% 34%);
+  }
+
+  .flow-guide-blocknote-editor a,
+  .flow-guide-blocknote-reader a {
+    color: hsl(262 72% 42%);
+    font-weight: 700;
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.18em;
+  }
+
+  .flow-guide-blocknote-editor blockquote,
+  .flow-guide-blocknote-reader blockquote {
+    border-left: 4px solid hsl(265 60% 72%);
+    background: hsl(265 50% 97% / 0.7);
+    border-radius: 0 1rem 1rem 0;
+    color: hsl(260 18% 32%);
+    padding: 0.7rem 1rem;
+  }
+
+  .flow-guide-blocknote-editor code,
+  .flow-guide-blocknote-reader code {
+    border: 1px solid hsl(32 26% 84%);
+    border-radius: 0.55rem;
+    background: hsl(35 40% 94%);
+    color: hsl(260 22% 21%);
+    padding: 0.1rem 0.35rem;
+  }
+
+  .flow-guide-blocknote-editor .bn-side-menu .mantine-UnstyledButton-root {
+    color: hsl(32 34% 42%);
+    opacity: 0.68;
+  }
+
+  .flow-guide-blocknote-editor .bn-side-menu .mantine-UnstyledButton-root:hover {
+    background: hsl(36 68% 95%);
+    color: hsl(262 72% 38%);
+    opacity: 1;
+  }
+
+  .flow-guide-blocknote-reader .bn-editor * {
+    caret-color: transparent;
+  }
+
+  .flow-guide-blocknote-custom {
+    position: relative;
+    display: grid;
+    grid-template-columns: 0.3rem minmax(0, 1fr);
+    gap: 0.95rem;
+    margin-block: 0.85rem;
+    overflow: hidden;
+    border: 1px solid hsl(32 34% 84% / 0.9);
+    border-radius: 1.35rem;
+    background:
+      linear-gradient(135deg, hsl(40 70% 98%), hsl(36 50% 96%)),
+      hsl(38 58% 97%);
+    box-shadow:
+      inset 0 1px 0 hsl(0 0% 100% / 0.86),
+      0 14px 36px -30px hsl(28 40% 28% / 0.38);
+    padding: 1rem 1.05rem 1rem 0.85rem;
+  }
+
+  .flow-guide-blocknote-custom__rail {
+    border-radius: 999px;
+    background: hsl(262 72% 64%);
+    opacity: 0.82;
+  }
+
+  .flow-guide-blocknote-custom__body {
+    min-width: 0;
+  }
+
+  .flow-guide-blocknote-custom__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.45rem 0.7rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .flow-guide-blocknote-custom__label {
+    color: hsl(260 25% 16%);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .flow-guide-blocknote-custom__eyebrow {
+    color: hsl(32 38% 40%);
+    font-size: 0.76rem;
+    font-weight: 650;
+  }
+
+  .flow-guide-blocknote-custom__content {
+    color: hsl(260 15% 32%);
+    font-size: 0.98rem;
+    line-height: 1.75;
+    outline: none;
+  }
+
+  .flow-guide-blocknote-custom--reflection .flow-guide-blocknote-custom__rail,
+  .flow-guide-blocknote-custom--journal .flow-guide-blocknote-custom__rail {
+    background: linear-gradient(180deg, hsl(262 75% 64%), hsl(278 62% 70%));
+  }
+
+  .flow-guide-blocknote-custom--action .flow-guide-blocknote-custom__rail,
+  .flow-guide-blocknote-custom--exercise .flow-guide-blocknote-custom__rail {
+    background: linear-gradient(180deg, hsl(35 84% 58%), hsl(24 76% 56%));
+  }
+
+  .flow-guide-blocknote-custom--resource .flow-guide-blocknote-custom__rail,
+  .flow-guide-blocknote-custom--video .flow-guide-blocknote-custom__rail {
+    background: linear-gradient(180deg, hsl(205 72% 54%), hsl(180 48% 43%));
   }
 }
 

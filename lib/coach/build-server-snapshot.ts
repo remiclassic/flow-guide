@@ -1,7 +1,6 @@
 import {
   completedModulesCount,
   completionRatio,
-  courseCtaLabel,
   estimateMinutesForLessons,
   findNextIncompleteLesson,
   flatLessonIndex,
@@ -23,11 +22,88 @@ import {
 } from '@/lib/coach/analytics';
 import { courseDescriptionForSlug } from '@/lib/courses/curriculum';
 import type { CoachServerSnapshot } from '@/lib/coach/types';
+import { getTranslations } from 'next-intl/server';
 
 type CourseRow = { id: number; slug: string; title: string; description: string | null };
 type OutlineRows = Awaited<ReturnType<typeof import('@/lib/db/queries').getCourseOutline>>;
 
+function emptySnapshot(
+  displayName: string,
+  unlocked: boolean,
+  tSnap: (key: string, values?: Record<string, string | number>) => string
+): CoachServerSnapshot {
+  return {
+    displayName,
+    primaryCourseSlug: null,
+    primaryCourseTitle: null,
+    unlocked,
+    ratio: { percent: 0, completed: 0, total: 0 },
+    nextLesson: null,
+    modRows: [],
+    lessonPositionLabel: null,
+    continueHref: '/dashboard/courses',
+    continueCtaLabel: tSnap('browseCourses'),
+    courseCtaLabel: tSnap('browse'),
+    courseDescription: null,
+    courseOverviewHref: null,
+    lessonsCompletedThisUtcWeek: 0,
+    lessonsCompletedTodayUtc: 0,
+    completionStreakDays: 0,
+    lastCompletionAtIso: null,
+    lastCompletedLessonTitle: null,
+    daysSinceLastCompletion: null,
+    estimatedMinutesRemaining: 0,
+    modulesDone: 0,
+    moduleTotal: 0,
+    modulesCompletedThisUtcWeek: 0,
+    xpPreview: 0,
+    moduleBonusXp: 0,
+    levelNum: 1,
+    levelLabel: tSnap('levelBuilding'),
+    completionsLast7Days: 0,
+    completionsPrior7Days: 0,
+    strongestModuleTitle: null,
+    nearCompleteModule: null,
+    milestones: [],
+  };
+}
+
+function buildMilestones(
+  percent: number,
+  modulesDone: number,
+  moduleTotal: number,
+  tSnap: (key: string, values?: Record<string, string | number>) => string
+): { id: string; title: string; done: boolean }[] {
+  const thresholds: { id: string; pct: number; msgKey: string }[] = [
+    { id: 'course-25', pct: 25, msgKey: 'milestone25' },
+    { id: 'course-50', pct: 50, msgKey: 'milestone50' },
+    { id: 'course-75', pct: 75, msgKey: 'milestone75' },
+    { id: 'course-100', pct: 100, msgKey: 'milestone100' },
+  ];
+  return thresholds
+    .map((row) => ({
+      id: row.id,
+      title: tSnap(row.msgKey),
+      done: percent >= row.pct,
+    }))
+    .concat(
+      moduleTotal > 0
+        ? [
+            {
+              id: 'module-half',
+              title: tSnap('milestoneModulesHalf', {
+                done: Math.ceil(moduleTotal / 2),
+                total: moduleTotal,
+              }),
+              done: modulesDone >= Math.ceil(moduleTotal / 2),
+            },
+          ]
+        : []
+    );
+}
+
 export async function buildCoachServerSnapshot(args: {
+  locale: string;
   displayName: string;
   userId: number;
   unlocked: boolean;
@@ -38,11 +114,18 @@ export async function buildCoachServerSnapshot(args: {
   now?: Date;
 }): Promise<CoachServerSnapshot> {
   void args.userId;
+  const tDash = await getTranslations({
+    locale: args.locale,
+    namespace: 'dashboard',
+  });
+  const tSnap = (key: string, values?: Record<string, string | number>) =>
+    tDash(`coachSnapshot.${key}`, values);
+
   const now = args.now ?? new Date();
   const { primary, unlocked } = args;
 
   if (!primary) {
-    return emptySnapshot(args.displayName, args.unlocked);
+    return emptySnapshot(args.displayName, args.unlocked, tSnap);
   }
 
   const outlineLite = toOutlineLite(args.outlineRaw);
@@ -59,7 +142,12 @@ export async function buildCoachServerSnapshot(args: {
   const lessonOrdinal =
     nextLesson ? flatLessonIndex(outlineLite, nextLesson.lessonKey) : -1;
   const lessonPositionLabel =
-    lessonOrdinal >= 0 ? `Lesson ${lessonOrdinal + 1} of ${ratio.total}` : null;
+    lessonOrdinal >= 0
+      ? tSnap('lessonPosition', {
+          current: lessonOrdinal + 1,
+          total: ratio.total,
+        })
+      : null;
 
   const continueHref = !unlocked
     ? '/pricing?reason=subscription'
@@ -68,12 +156,13 @@ export async function buildCoachServerSnapshot(args: {
       : `/dashboard/courses/${primary.slug}`;
 
   const continueCtaLabel = !unlocked
-    ? 'View plans'
+    ? tSnap('viewPlans')
     : nextLesson
-      ? 'Continue lesson'
-      : 'Open course';
+      ? tSnap('continueLesson')
+      : tSnap('openCourse');
 
-  const courseCta = courseCtaLabel(ratio.completed);
+  const courseCta =
+    ratio.completed > 0 ? tSnap('continue') : tSnap('startCourse');
 
   const events = args.completionEvents.filter((e) => lessonIds.includes(e.lessonId));
 
@@ -102,7 +191,11 @@ export async function buildCoachServerSnapshot(args: {
 
   const levelNum = placeholderLevelFromPercent(ratio.percent);
   const levelLabel =
-    levelNum >= 4 ? 'Advanced' : levelNum >= 3 ? 'Intermediate' : 'Building momentum';
+    levelNum >= 4
+      ? tSnap('levelAdvanced')
+      : levelNum >= 3
+        ? tSnap('levelIntermediate')
+        : tSnap('levelBuilding');
 
   const completionsLast7Days = completionsInRollingWindow(events, now, 0, 7);
   const completionsPrior7Days = completionsInRollingWindow(events, now, 7, 14);
@@ -116,7 +209,7 @@ export async function buildCoachServerSnapshot(args: {
     now
   );
 
-  const milestones = buildMilestones(ratio.percent, modulesDone, moduleTotal);
+  const milestones = buildMilestones(ratio.percent, modulesDone, moduleTotal, tSnap);
 
   const courseDescription =
     courseDescriptionForSlug(primary.slug, primary.description) ?? null;
@@ -157,71 +250,4 @@ export async function buildCoachServerSnapshot(args: {
     nearCompleteModule,
     milestones,
   };
-}
-
-function emptySnapshot(displayName: string, unlocked: boolean): CoachServerSnapshot {
-  return {
-    displayName,
-    primaryCourseSlug: null,
-    primaryCourseTitle: null,
-    unlocked,
-    ratio: { percent: 0, completed: 0, total: 0 },
-    nextLesson: null,
-    modRows: [],
-    lessonPositionLabel: null,
-    continueHref: '/dashboard/courses',
-    continueCtaLabel: 'Browse courses',
-    courseCtaLabel: 'Browse',
-    courseDescription: null,
-    courseOverviewHref: null,
-    lessonsCompletedThisUtcWeek: 0,
-    lessonsCompletedTodayUtc: 0,
-    completionStreakDays: 0,
-    lastCompletionAtIso: null,
-    lastCompletedLessonTitle: null,
-    daysSinceLastCompletion: null,
-    estimatedMinutesRemaining: 0,
-    modulesDone: 0,
-    moduleTotal: 0,
-    modulesCompletedThisUtcWeek: 0,
-    xpPreview: 0,
-    moduleBonusXp: 0,
-    levelNum: 1,
-    levelLabel: 'Building momentum',
-    completionsLast7Days: 0,
-    completionsPrior7Days: 0,
-    strongestModuleTitle: null,
-    nearCompleteModule: null,
-    milestones: [],
-  };
-}
-
-function buildMilestones(
-  percent: number,
-  modulesDone: number,
-  moduleTotal: number
-): { id: string; title: string; done: boolean }[] {
-  const thresholds: { id: string; pct: number; title: string }[] = [
-    { id: 'course-25', pct: 25, title: 'A quarter of your path explored' },
-    { id: 'course-50', pct: 50, title: 'Halfway through your lessons' },
-    { id: 'course-75', pct: 75, title: 'Three quarters of the journey done' },
-    { id: 'course-100', pct: 100, title: 'Your whole course, lesson by lesson' },
-  ];
-  return thresholds
-    .map((row) => ({
-      id: row.id,
-      title: row.title,
-      done: percent >= row.pct,
-    }))
-    .concat(
-      moduleTotal > 0
-        ? [
-            {
-              id: 'module-half',
-              title: `Half your modules complete (${Math.ceil(moduleTotal / 2)}/${moduleTotal})`,
-              done: modulesDone >= Math.ceil(moduleTotal / 2),
-            },
-          ]
-        : []
-    );
 }

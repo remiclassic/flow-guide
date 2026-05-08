@@ -22,6 +22,48 @@
       "when": 1778187707140,
       "tag": "0002_course_coming_soon",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1778200800000,
+      "tag": "0003_admin_cms",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1778200900000,
+      "tag": "0004_media_assets",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1778300000000,
+      "tag": "0005_course_studio_lessons",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1778201100000,
+      "tag": "0006_lesson_blocknote_content",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1778305000000,
+      "tag": "0007_lesson_knowledge_quiz",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1778306000000,
+      "tag": "0008_lesson_course_versions",
+      "breakpoints": true
     }
   ]
 }

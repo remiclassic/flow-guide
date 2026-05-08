@@ -5,13 +5,25 @@ import { setSession } from '@/lib/auth/session';
 import { NextRequest, NextResponse } from 'next/server';
 import { stripe } from '@/lib/payments/stripe';
 import Stripe from 'stripe';
+import type { Locale } from '@/i18n/routing';
+import { localizedPublicSegments } from '@/i18n/middleware-paths';
+
+function localeFromRequest(request: NextRequest): Locale {
+  const c = request.cookies.get('NEXT_LOCALE')?.value;
+  if (c === 'en' || c === 'es') return c;
+  return 'es';
+}
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const sessionId = searchParams.get('session_id');
+  const locale = localeFromRequest(request);
+  const pricingPath = localizedPublicSegments(locale).pricing;
 
   if (!sessionId) {
-    return NextResponse.redirect(new URL('/pricing', request.url));
+    return NextResponse.redirect(
+      new URL(`/${locale}${pricingPath}`, request.url)
+    );
   }
 
   try {
@@ -89,9 +101,13 @@ export async function GET(request: NextRequest) {
       .where(eq(teams.id, userTeam[0].teamId));
 
     await setSession(user[0]);
-    return NextResponse.redirect(new URL('/dashboard', request.url));
+    return NextResponse.redirect(
+      new URL(`/${locale}/dashboard`, request.url)
+    );
   } catch (error) {
     console.error('Error handling successful checkout:', error);
-    return NextResponse.redirect(new URL('/error', request.url));
+    return NextResponse.redirect(
+      new URL(`/${locale}${pricingPath}`, request.url)
+    );
   }
 }

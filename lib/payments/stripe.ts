@@ -1,5 +1,9 @@
 import Stripe from 'stripe';
-import { redirect } from 'next/navigation';
+import { redirect as nextRedirect } from 'next/navigation';
+import { getLocale } from 'next-intl/server';
+import type { Locale } from '@/i18n/routing';
+import { localizedPublicSegments } from '@/i18n/middleware-paths';
+import { redirectLocalized } from '@/lib/i18n/redirect-localized';
 import { Team } from '@/lib/db/schema';
 import {
   getTeamByStripeCustomerId,
@@ -14,6 +18,10 @@ export const stripe = new Stripe(stripeSecretKey, {
   apiVersion: '2025-04-30.basil',
 });
 
+function baseUrl() {
+  return process.env.BASE_URL?.trim() || '';
+}
+
 export async function createCheckoutSession({
   team,
   priceId
@@ -24,8 +32,17 @@ export async function createCheckoutSession({
   const user = await getUser();
 
   if (!team || !user) {
-    redirect(`/sign-up?redirect=checkout&priceId=${priceId}`);
+    return redirectLocalized({
+      href: {
+        pathname: '/sign-up',
+        query: { redirect: 'checkout', priceId }
+      }
+    });
   }
+
+  const locale = (await getLocale()) as Locale;
+  const origin = baseUrl();
+  const segs = localizedPublicSegments(locale);
 
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ['card'],
@@ -36,8 +53,8 @@ export async function createCheckoutSession({
       }
     ],
     mode: 'subscription',
-    success_url: `${process.env.BASE_URL}/api/stripe/checkout?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${process.env.BASE_URL}/pricing`,
+    success_url: `${origin}/api/stripe/checkout?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${origin}/${locale}${segs.pricing}`,
     customer: team.stripeCustomerId || undefined,
     client_reference_id: user.id.toString(),
     allow_promotion_codes: true,
@@ -46,13 +63,18 @@ export async function createCheckoutSession({
     }
   });
 
-  redirect(session.url!);
+  nextRedirect(session.url!);
 }
 
 export async function createCustomerPortalSession(team: Team) {
-  if (!team.stripeCustomerId || !team.stripeProductId) {
-    redirect('/pricing');
+  const customerId = team.stripeCustomerId;
+  const stripeProductId = team.stripeProductId;
+  if (!customerId || !stripeProductId) {
+    return redirectLocalized({ href: '/pricing' });
   }
+
+  const locale = (await getLocale()) as Locale;
+  const origin = baseUrl();
 
   let configuration: Stripe.BillingPortal.Configuration;
   const configurations = await stripe.billingPortal.configurations.list();
@@ -60,7 +82,7 @@ export async function createCustomerPortalSession(team: Team) {
   if (configurations.data.length > 0) {
     configuration = configurations.data[0];
   } else {
-    const product = await stripe.products.retrieve(team.stripeProductId);
+    const product = await stripe.products.retrieve(stripeProductId);
     if (!product.active) {
       throw new Error("Team's product is not active in Stripe");
     }
@@ -111,8 +133,8 @@ export async function createCustomerPortalSession(team: Team) {
   }
 
   return stripe.billingPortal.sessions.create({
-    customer: team.stripeCustomerId,
-    return_url: `${process.env.BASE_URL}/dashboard/billing`,
+    customer: customerId,
+    return_url: `${origin}/${locale}/dashboard/billing`,
     configuration: configuration.id
   });
 }
