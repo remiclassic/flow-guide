@@ -134,13 +134,13 @@ export function LessonViewerShell({
 
         {/* CENTER — Lesson stage, expands to fill */}
         <div className="min-w-0 flex-1">
-          <div className="px-5 py-8 sm:px-8">
+          <div className="px-6 py-10 sm:px-10 lg:px-12">
             <LessonHero {...heroContent} readingPercent={scrollPct} />
-            <div className="my-8 h-px bg-gradient-to-r from-transparent via-[hsl(var(--lesson-border)/0.5)] to-transparent" />
+            <div className="my-12 h-px bg-gradient-to-r from-transparent via-[hsl(var(--lesson-border)/0.4)] to-transparent" />
             <LessonAtmosphere scrollPercent={scrollPct}>
               <div
                 id="lesson-article-body"
-                className="lesson-article-body w-full space-y-8"
+                className="lesson-article-body w-full pt-6 sm:pt-8"
               >
                 {article}
               </div>

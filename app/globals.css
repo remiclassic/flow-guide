@@ -245,12 +245,14 @@
     line-height: 1.82;
   }
 
+  /* ─── BlockNote reader: magazine-grade typography ──────── */
+
   .flow-guide-blocknote-reader .bn-editor {
     width: 100%;
     max-width: none;
     padding: 0;
-    font-size: 0.97rem;
-    line-height: 1.75;
+    font-size: 1.045rem;
+    line-height: 1.85;
   }
 
   .flow-guide-blocknote-reader .bn-container {
@@ -258,39 +260,60 @@
     max-width: none;
   }
 
-  .flow-guide-blocknote-editor .bn-block-content,
-  .flow-guide-blocknote-reader .bn-block-content {
+  /* Base block spacing — paragraph to paragraph */
+  .flow-guide-blocknote-editor .bn-block-content {
     padding-block: 0.2rem;
+  }
+
+  .flow-guide-blocknote-reader .bn-block-content {
+    padding-block: 0.1rem;
   }
 
   .flow-guide-blocknote-editor .bn-block-group {
     row-gap: 0.18rem;
   }
 
-  /* Reader: generous inter-block breathing room */
+  /* Gap between consecutive paragraph/list blocks */
   .flow-guide-blocknote-reader .bn-block-group {
-    row-gap: 0.9rem;
+    row-gap: 0.4rem;
   }
 
-  /* ── Reader headings ── */
+  /* Extra top breathing room before heading blocks using :has() */
+  .flow-guide-blocknote-reader .bn-block-group > .bn-block:has(> .bn-block-content > h1) {
+    margin-top: 0.5rem;
+  }
+
+  .flow-guide-blocknote-reader .bn-block-group > .bn-block:has(> .bn-block-content > h2) {
+    margin-top: 2.75rem;
+  }
+
+  .flow-guide-blocknote-reader .bn-block-group > .bn-block:has(> .bn-block-content > h3) {
+    margin-top: 2rem;
+  }
+
+  /* First block never gets extra top margin */
+  .flow-guide-blocknote-reader .bn-block-group > .bn-block:first-child {
+    margin-top: 0 !important;
+  }
+
+  /* ── Headings ── */
   .flow-guide-blocknote-editor h1,
   .flow-guide-blocknote-reader h1 {
-    margin-block: 1.1rem 0.55rem;
-    color: hsl(260 28% 13%);
+    margin-block: 0 0.6rem;
+    color: hsl(260 28% 12%);
     font-size: clamp(2rem, 4vw, 3rem);
     font-weight: 800;
     letter-spacing: -0.045em;
     line-height: 1.06;
   }
 
-  /* H2 in reader gets extra top space to strongly signal a new section */
-  .flow-guide-blocknote-reader h2 {
-    margin-block: 2.5rem 0.6rem;
-    color: hsl(260 28% 14%);
-    font-size: clamp(1.3rem, 2.4vw, 1.65rem);
-    font-weight: 780;
+  .flow-guide-blocknote-reader h1 {
+    font-size: clamp(1.5rem, 3vw, 1.95rem);
+    font-weight: 760;
     letter-spacing: -0.03em;
-    line-height: 1.2;
+    line-height: 1.15;
+    color: hsl(260 28% 12%);
+    margin-bottom: 0.5rem;
   }
 
   .flow-guide-blocknote-editor h2 {
@@ -302,8 +325,16 @@
     line-height: 1.15;
   }
 
-  .flow-guide-blocknote-editor h3,
-  .flow-guide-blocknote-reader h3 {
+  .flow-guide-blocknote-reader h2 {
+    margin-block: 0 0.8rem;
+    color: hsl(260 28% 13%);
+    font-size: clamp(1.35rem, 2.4vw, 1.7rem);
+    font-weight: 780;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+  }
+
+  .flow-guide-blocknote-editor h3 {
     margin-block: 0.85rem 0.32rem;
     color: hsl(260 24% 18%);
     font-size: 1.22rem;
@@ -312,26 +343,29 @@
     line-height: 1.24;
   }
 
-  /* H3 in reader: visible but clearly subordinate to h2 */
+  /* H3 in reader: small-caps label above a section or callout */
   .flow-guide-blocknote-reader h3 {
-    margin-block: 1.75rem 0.35rem;
+    margin-block: 0 0.65rem;
     color: hsl(262 55% 38%);
-    font-size: 1rem;
-    font-weight: 760;
-    letter-spacing: 0.05em;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.11em;
     text-transform: uppercase;
+    line-height: 1.4;
   }
 
-  /* Paragraphs in reader: darker, more readable */
+  /* ── Paragraphs ── */
   .flow-guide-blocknote-editor p {
     color: hsl(260 13% 34%);
   }
 
   .flow-guide-blocknote-reader p {
-    color: hsl(260 18% 30%);
-    line-height: 1.85;
+    color: hsl(260 20% 28%);
+    line-height: 1.88;
+    font-size: 1.045rem;
   }
 
+  /* ── Links ── */
   .flow-guide-blocknote-editor a,
   .flow-guide-blocknote-reader a {
     color: hsl(262 72% 42%);
@@ -340,18 +374,20 @@
     text-underline-offset: 0.18em;
   }
 
-  /* Lists in reader: more item breathing room */
+  /* ── Lists ── */
   .flow-guide-blocknote-reader ul,
   .flow-guide-blocknote-reader ol {
     padding-left: 1.5rem;
   }
 
   .flow-guide-blocknote-reader li {
-    padding-block: 0.25rem;
-    color: hsl(260 18% 30%);
-    line-height: 1.8;
+    padding-block: 0.3rem;
+    color: hsl(260 20% 28%);
+    line-height: 1.85;
+    font-size: 1.045rem;
   }
 
+  /* ── Blockquote (editor) ── */
   .flow-guide-blocknote-editor blockquote {
     border-left: 4px solid hsl(265 60% 72%);
     background: hsl(265 50% 97% / 0.7);
@@ -360,20 +396,15 @@
     padding: 0.7rem 1rem;
   }
 
-  /* Blockquote in reader: card with absolute left accent rail */
+  /* ── Blockquote (reader): card with left accent rail ── */
   .flow-guide-blocknote-reader blockquote {
     position: relative;
     display: block;
     border: 1px solid hsl(var(--lesson-border) / 0.5);
-    background: linear-gradient(
-      135deg,
-      hsl(var(--primary) / 0.05),
-      hsl(var(--lesson-wash) / 0.7)
-    );
+    background: linear-gradient(135deg, hsl(var(--primary) / 0.04), hsl(var(--lesson-wash) / 0.65));
     border-radius: 1rem;
-    padding: 1rem 1.25rem 1rem 1.5rem;
+    padding: 1.4rem 1.65rem 1.4rem 2rem;
     font-style: normal;
-    margin-block: 0.5rem;
     overflow: hidden;
   }
 
@@ -381,8 +412,8 @@
     content: '';
     position: absolute;
     left: 0;
-    top: 0.5rem;
-    bottom: 0.5rem;
+    top: 1rem;
+    bottom: 1rem;
     width: 3px;
     border-radius: 999px;
     background: linear-gradient(180deg, hsl(262 72% 64%), hsl(278 62% 70%));
@@ -390,9 +421,14 @@
   }
 
   .flow-guide-blocknote-reader blockquote > * {
-    color: hsl(260 18% 36%);
-    font-size: 0.97rem;
-    line-height: 1.8;
+    color: hsl(260 18% 34%);
+    font-size: 1.02rem;
+    line-height: 1.85;
+    margin: 0;
+  }
+
+  .flow-guide-blocknote-reader blockquote > p + p {
+    margin-top: 0.9rem;
   }
 
   .flow-guide-blocknote-editor code,
@@ -417,6 +453,25 @@
 
   .flow-guide-blocknote-reader .bn-editor * {
     caret-color: transparent;
+  }
+
+  /* Dark mode overrides for reader text */
+  .dark .flow-guide-blocknote-reader h1,
+  .dark .flow-guide-blocknote-reader h2 {
+    color: hsl(var(--lesson-ink));
+  }
+
+  .dark .flow-guide-blocknote-reader h3 {
+    color: hsl(var(--primary));
+  }
+
+  .dark .flow-guide-blocknote-reader p,
+  .dark .flow-guide-blocknote-reader li {
+    color: hsl(var(--lesson-muted));
+  }
+
+  .dark .flow-guide-blocknote-reader blockquote > * {
+    color: hsl(var(--lesson-muted));
   }
 
   .flow-guide-blocknote-custom {
