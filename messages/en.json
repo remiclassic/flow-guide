@@ -247,7 +247,22 @@
       "reflectionSectionTitle": "Reflection",
       "actionSectionTitle": "Action steps",
       "previewStaffNote": "Staff preview — completion affects your personal progress.",
-      "heroVisualCaption": "Guided path"
+      "heroVisualCaption": "Guided path",
+      "guidedStart": "Guided start",
+      "focusMode": "Calm focus mode",
+      "beginWithIntention": "Begin with intention",
+      "rewardTitle": "Carry this forward",
+      "rewardComplete": "Progress earned",
+      "rewardInProgress": "Next step ready",
+      "rewardBodyWithNext": "You have built momentum here. When you are ready, continue into \"{title}\" and keep the path moving.",
+      "rewardBodyComplete": "You have completed this path. Revisit the course overview anytime to reinforce what you learned.",
+      "moduleShort": "Module {num}",
+      "courseCompletion": "Course completion",
+      "coachTitle": "AI coach",
+      "coachHint": "Ask for a simpler explanation, a next action, or help applying this lesson.",
+      "askCoach": "Ask the coach",
+      "resourcesTitle": "Resources",
+      "resourcesHint": "Downloads, links, and supporting material for this lesson will appear here."
     },
     "shared": {
       "learner": "Learner",

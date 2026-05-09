@@ -105,7 +105,7 @@ export function ImmersiveLessonTopBar() {
     'FG';
 
   return (
-    <header className="fixed left-0 right-0 top-0 z-[60] flex h-14 items-center justify-between gap-3 border-b border-[hsl(var(--lesson-border)/0.35)] bg-[hsl(var(--lesson-canvas)/0.92)] px-4 backdrop-blur-md supports-[padding:max(0px)]:pt-[max(0.75rem,env(safe-area-inset-top))]">
+    <header className="fixed left-0 right-0 top-0 z-[60] flex h-14 items-center justify-between gap-3 border-b border-border bg-card/92 px-4 backdrop-blur-md supports-[padding:max(0px)]:pt-[max(0.75rem,env(safe-area-inset-top))]">
       <NextLink
         href="/dashboard"
         className="flex min-w-0 items-center gap-2.5 rounded-xl py-1 pr-2 outline-none ring-offset-background transition-opacity hover:opacity-90 focus-visible:ring-2 focus-visible:ring-ring"

@@ -1,6 +1,6 @@
 'use client';
 
-import { type ReactNode, useEffect, useState } from 'react';
+import { type ReactNode, useMemo } from 'react';
 import { cn } from '@/lib/utils';
 
 /**
@@ -15,11 +15,9 @@ export function LessonAtmosphere({
   children: ReactNode;
   className?: string;
 }) {
-  const [phase, setPhase] = useState(0);
-
-  useEffect(() => {
+  const phase = useMemo(() => {
     const p = scrollPercent / 100;
-    setPhase(Math.min(2, Math.floor(p * 3)));
+    return Math.min(2, Math.floor(p * 3));
   }, [scrollPercent]);
 
   return (

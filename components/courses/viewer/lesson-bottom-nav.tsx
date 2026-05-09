@@ -1,10 +1,11 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowLeft, ArrowRight, LayoutGrid } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CheckCircle2, LayoutGrid, Sparkles } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { buildLessonUrl } from '@/components/courses/lesson-experience';
+import { markLessonProgressAction } from '@/lib/courses/actions';
 import { cn } from '@/lib/utils';
 
 type Props = {
@@ -13,6 +14,8 @@ type Props = {
   lessonLessonBasePath?: string;
   previousLessonKey: string | null;
   nextLessonKey: string | null;
+  completed: boolean;
+  currentLessonKey: string;
   onOpenJourney?: () => void;
   onOpenCompanion?: () => void;
   showMobileTools?: boolean;
@@ -25,6 +28,8 @@ export function LessonBottomNav({
   lessonLessonBasePath,
   previousLessonKey,
   nextLessonKey,
+  completed,
+  currentLessonKey,
   onOpenJourney,
   onOpenCompanion,
   showMobileTools,
@@ -35,64 +40,85 @@ export function LessonBottomNav({
   return (
     <div
       className={cn(
-        'fixed inset-x-0 bottom-0 z-50 border-t border-[hsl(var(--lesson-border)/0.45)] bg-[hsl(var(--lesson-canvas)/0.88)]/95 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-[0_-12px_40px_-24px_hsl(var(--primary)/0.25)] backdrop-blur-md supports-[padding:max(0px)]:px-4',
+        'fixed inset-x-0 bottom-0 z-[70] border-t border-border bg-card/90 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 backdrop-blur-xl',
         className
       )}
     >
-      <div className="mx-auto flex w-full max-w-none items-center justify-between gap-2 px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
-        {showMobileTools && onOpenJourney && onOpenCompanion ? (
-          <div className="flex gap-1 sm:hidden">
+      <div className="mx-auto flex w-full max-w-[1680px] items-center gap-2 px-4 sm:gap-3 sm:px-6 lg:px-8 xl:px-10">
+
+        {/* LEFT ZONE — previous + mobile outline toggle */}
+        <div className="flex items-center gap-1 sm:gap-2">
+          {showMobileTools && onOpenJourney ? (
             <Button
               type="button"
-              variant="outline"
+              variant="ghost"
               size="sm"
-              className="rounded-full border-[hsl(var(--lesson-border)/0.55)] text-xs"
+              className="rounded-full text-muted-foreground lg:hidden"
               onClick={onOpenJourney}
             >
               {t('openJourney')}
             </Button>
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              className="rounded-full border-[hsl(var(--lesson-border)/0.55)] text-xs"
-              onClick={onOpenCompanion}
-            >
-              {t('openCompanion')}
-            </Button>
-          </div>
-        ) : (
-          <span className="sm:hidden" />
-        )}
-
-        <div className="flex min-w-0 flex-1 items-center justify-center gap-1 sm:justify-between sm:gap-3">
+          ) : null}
           {previousLessonKey ? (
             <Button variant="ghost" size="sm" className="rounded-full text-muted-foreground" asChild>
               <Link href={buildLessonUrl(courseSlug, previousLessonKey, lessonLessonBasePath)}>
-                <ArrowLeft className="size-4 sm:mr-1" />
-                <span className="hidden sm:inline">{t('floatingPrev')}</span>
+                <ArrowLeft className="size-4" />
+                <span className="ml-1 hidden sm:inline">{t('floatingPrev')}</span>
               </Link>
             </Button>
           ) : (
-            <span className="hidden w-20 sm:block" />
+            <span className="w-4" />
           )}
+        </div>
 
+        {/* CENTER ZONE — roadmap + mark complete */}
+        <div className="flex flex-1 items-center justify-center gap-2 sm:gap-3">
           <Button
             variant="outline"
             size="sm"
-            className="rounded-full border-[hsl(var(--lesson-border)/0.55)] px-3"
+            className="rounded-full border-[hsl(var(--lesson-border)/0.55)] bg-[hsl(var(--lesson-canvas)/0.6)] px-3 text-muted-foreground hover:text-foreground"
             asChild
           >
             <Link href={courseOverviewHref}>
-              <LayoutGrid className="size-4 sm:mr-1.5" />
-              <span className="hidden sm:inline">{t('floatingModule')}</span>
+              <LayoutGrid className="size-4" />
+              <span className="ml-1.5 hidden sm:inline">{t('floatingModule')}</span>
             </Link>
           </Button>
 
+          <form action={markLessonProgressAction}>
+            <input type="hidden" name="courseSlug" value={courseSlug} />
+            <input type="hidden" name="lessonKey" value={currentLessonKey} />
+            <input type="hidden" name="completed" value={completed ? 'false' : 'true'} />
+            <Button
+              type="submit"
+              size="sm"
+              variant={completed ? 'outline' : 'default'}
+              className={cn(
+                'rounded-full px-4 font-semibold transition-[filter,transform] duration-150 active:scale-[0.98]',
+                completed
+                  ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-700 hover:bg-emerald-500/18 dark:text-emerald-300'
+                  : 'border-0 bg-gradient-to-r from-primary to-[hsl(278_72%_52%)] shadow-[0_10px_24px_-14px_hsl(var(--primary)/0.75)] hover:brightness-105'
+              )}
+            >
+              {completed ? (
+                <CheckCircle2 className="mr-1.5 size-4" aria-hidden />
+              ) : (
+                <Sparkles className="mr-1.5 size-4" aria-hidden />
+              )}
+              <span className="hidden sm:inline">
+                {completed ? t('completedLesson') : t('markComplete')}
+              </span>
+              <span className="sm:hidden">{completed ? '✓' : t('markComplete')}</span>
+            </Button>
+          </form>
+        </div>
+
+        {/* RIGHT ZONE — next lesson + mobile companion toggle */}
+        <div className="flex items-center gap-1 sm:gap-2">
           {nextLessonKey ? (
             <Button
               size="sm"
-              className="rounded-full border-0 bg-gradient-to-r from-primary to-[hsl(278_72%_52%)] px-4 font-semibold shadow-md"
+              className="rounded-full border-0 bg-gradient-to-r from-primary to-[hsl(278_72%_52%)] px-4 font-semibold shadow-[0_12px_26px_-16px_hsl(var(--primary)/0.8)]"
               asChild
             >
               <Link href={buildLessonUrl(courseSlug, nextLessonKey, lessonLessonBasePath)}>
@@ -101,8 +127,19 @@ export function LessonBottomNav({
               </Link>
             </Button>
           ) : (
-            <span className="hidden w-24 sm:block" />
+            <span className="w-4" />
           )}
+          {showMobileTools && onOpenCompanion ? (
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              className="rounded-full text-muted-foreground lg:hidden"
+              onClick={onOpenCompanion}
+            >
+              {t('openCompanion')}
+            </Button>
+          ) : null}
         </div>
       </div>
     </div>

@@ -9,6 +9,7 @@ import { LessonInlinePlacements } from '@/components/courses/lesson-inline-place
 import { LessonViewerShell } from '@/components/courses/viewer/lesson-viewer-shell';
 import {
   ActionStepsCard,
+  ContinueJourneyCard,
   PauseMoment,
   QuizSectionPremium,
   ReflectionCard,
@@ -117,7 +118,6 @@ export function LessonExperience({
 }: LessonExperienceProps) {
   const placementModels = toPlacementViewModels(placementRows);
   const summaryEn = lesson.summaryEn?.trim();
-  const summaryEs = lesson.summaryEs?.trim();
   const reflectionEn = lesson.reflectionPromptEn?.trim();
   const reflectionEs = lesson.reflectionPromptEs?.trim();
   const stepsEn = lesson.actionStepsEn?.trim();
@@ -183,6 +183,12 @@ export function LessonExperience({
       {showDbAction && stepsEs && stepsEs !== stepsEn ? (
         <ActionStepsCard markdown={stepsEs} />
       ) : null}
+
+      <ContinueJourneyCard
+        href={continueHref}
+        title={continueTitle}
+        completed={completed}
+      />
     </>
   );
 
@@ -197,8 +203,6 @@ export function LessonExperience({
       ratioPercent={ratioPercent}
       ratioCompleted={ratioCompleted}
       ratioTotal={ratioTotal}
-      continueHref={continueHref}
-      continueTitle={continueTitle}
       backToCourseHref={courseOverviewHref}
     />
   );
@@ -234,7 +238,7 @@ export function LessonExperience({
   };
 
   return (
-    <section className="relative w-full min-h-[calc(100dvh-3.5rem)] bg-[radial-gradient(ellipse_120%_80%_at_50%_-20%,hsl(var(--primary)/0.07),transparent_50%),hsl(var(--lesson-canvas))] pb-6">
+    <section className="relative w-full min-h-[calc(100dvh-3.5rem)] bg-background pb-6">
       <LessonViewerShell
         heroContent={heroContent}
         journey={journey}
@@ -246,6 +250,10 @@ export function LessonExperience({
         lessonLessonBasePath={lessonLessonBasePath}
         previousLessonKey={previousLessonKey}
         nextLessonKey={nextLessonKey}
+        courseTitle={courseTitle}
+        ratioPercent={ratioPercent}
+        completed={completed}
+        currentLessonKey={currentLessonKey}
       />
     </section>
   );

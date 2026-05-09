@@ -260,18 +260,19 @@
 
   .flow-guide-blocknote-editor .bn-block-content,
   .flow-guide-blocknote-reader .bn-block-content {
-    padding-block: 0.18rem;
+    padding-block: 0.2rem;
   }
 
-  .flow-guide-blocknote-editor .bn-block-group,
-  .flow-guide-blocknote-reader .bn-block-group {
+  .flow-guide-blocknote-editor .bn-block-group {
     row-gap: 0.18rem;
   }
 
+  /* Reader: generous inter-block breathing room */
   .flow-guide-blocknote-reader .bn-block-group {
-    row-gap: 0.55rem;
+    row-gap: 0.9rem;
   }
 
+  /* ── Reader headings ── */
   .flow-guide-blocknote-editor h1,
   .flow-guide-blocknote-reader h1 {
     margin-block: 1.1rem 0.55rem;
@@ -282,8 +283,17 @@
     line-height: 1.06;
   }
 
-  .flow-guide-blocknote-editor h2,
+  /* H2 in reader gets extra top space to strongly signal a new section */
   .flow-guide-blocknote-reader h2 {
+    margin-block: 2.5rem 0.6rem;
+    color: hsl(260 28% 14%);
+    font-size: clamp(1.3rem, 2.4vw, 1.65rem);
+    font-weight: 780;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+  }
+
+  .flow-guide-blocknote-editor h2 {
     margin-block: 1rem 0.4rem;
     color: hsl(260 25% 16%);
     font-size: clamp(1.45rem, 2.6vw, 2rem);
@@ -302,9 +312,24 @@
     line-height: 1.24;
   }
 
-  .flow-guide-blocknote-editor p,
-  .flow-guide-blocknote-reader p {
+  /* H3 in reader: visible but clearly subordinate to h2 */
+  .flow-guide-blocknote-reader h3 {
+    margin-block: 1.75rem 0.35rem;
+    color: hsl(262 55% 38%);
+    font-size: 1rem;
+    font-weight: 760;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* Paragraphs in reader: darker, more readable */
+  .flow-guide-blocknote-editor p {
     color: hsl(260 13% 34%);
+  }
+
+  .flow-guide-blocknote-reader p {
+    color: hsl(260 18% 30%);
+    line-height: 1.85;
   }
 
   .flow-guide-blocknote-editor a,
@@ -315,6 +340,18 @@
     text-underline-offset: 0.18em;
   }
 
+  /* Lists in reader: more item breathing room */
+  .flow-guide-blocknote-reader ul,
+  .flow-guide-blocknote-reader ol {
+    padding-left: 1.5rem;
+  }
+
+  .flow-guide-blocknote-reader li {
+    padding-block: 0.25rem;
+    color: hsl(260 18% 30%);
+    line-height: 1.8;
+  }
+
   .flow-guide-blocknote-editor blockquote {
     border-left: 4px solid hsl(265 60% 72%);
     background: hsl(265 50% 97% / 0.7);
@@ -323,18 +360,39 @@
     padding: 0.7rem 1rem;
   }
 
+  /* Blockquote in reader: card with absolute left accent rail */
   .flow-guide-blocknote-reader blockquote {
-    border-left: none;
-    border: 1px solid hsl(var(--lesson-border)/0.45);
+    position: relative;
+    display: block;
+    border: 1px solid hsl(var(--lesson-border) / 0.5);
     background: linear-gradient(
       135deg,
-      hsl(var(--primary) / 0.06),
-      hsl(var(--lesson-wash) / 0.6)
+      hsl(var(--primary) / 0.05),
+      hsl(var(--lesson-wash) / 0.7)
     );
-    border-radius: 1.25rem;
-    color: hsl(var(--lesson-muted));
-    padding: 1rem 1.15rem;
+    border-radius: 1rem;
+    padding: 1rem 1.25rem 1rem 1.5rem;
     font-style: normal;
+    margin-block: 0.5rem;
+    overflow: hidden;
+  }
+
+  .flow-guide-blocknote-reader blockquote::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    width: 3px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, hsl(262 72% 64%), hsl(278 62% 70%));
+    opacity: 0.8;
+  }
+
+  .flow-guide-blocknote-reader blockquote > * {
+    color: hsl(260 18% 36%);
+    font-size: 0.97rem;
+    line-height: 1.8;
   }
 
   .flow-guide-blocknote-editor code,
@@ -477,13 +535,13 @@
     --sidebar-accent-foreground: 262 70% 32%;
     --sidebar-border: 260 18% 92%;
     --sidebar-ring: 262 83% 58%;
-    /* Immersive lesson viewer — warm editorial surfaces */
-    --lesson-canvas: 40 42% 97%;
-    --lesson-wash: 265 55% 97%;
-    --lesson-glow: 262 65% 94%;
-    --lesson-border: 260 22% 88%;
-    --lesson-ink: 260 22% 22%;
-    --lesson-muted: 260 14% 38%;
+    /* Immersive lesson viewer — aligned to dashboard palette */
+    --lesson-canvas: 250 40% 98%;   /* = --background */
+    --lesson-wash: 265 45% 97%;     /* = --accent */
+    --lesson-glow: 262 55% 95%;
+    --lesson-border: 260 18% 90%;   /* = --border */
+    --lesson-ink: 260 25% 14%;      /* = --foreground */
+    --lesson-muted: 260 12% 42%;    /* = --muted-foreground */
   }
 
   .dark {
@@ -523,12 +581,12 @@
     --sidebar-accent-foreground: 250 35% 96%;
     --sidebar-border: 260 15% 18%;
     --sidebar-ring: 265 85% 68%;
-    --lesson-canvas: 260 22% 9%;
-    --lesson-wash: 265 24% 14%;
-    --lesson-glow: 262 35% 18%;
-    --lesson-border: 260 14% 22%;
-    --lesson-ink: 250 40% 94%;
-    --lesson-muted: 260 12% 62%;
+    --lesson-canvas: 260 25% 8%;   /* = dark --background */
+    --lesson-wash: 260 18% 20%;    /* = dark --accent */
+    --lesson-glow: 262 28% 16%;
+    --lesson-border: 260 15% 20%;  /* = dark --border */
+    --lesson-ink: 250 40% 96%;     /* = dark --foreground */
+    --lesson-muted: 260 12% 65%;   /* = dark --muted-foreground */
   }
 
   * {

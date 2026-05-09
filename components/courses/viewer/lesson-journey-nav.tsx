@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import {
-  BookOpen,
   Check,
   ChevronDown,
   ChevronRight,
@@ -26,8 +25,6 @@ type Props = {
   ratioPercent: number;
   ratioCompleted: number;
   ratioTotal: number;
-  continueHref: string;
-  continueTitle: string | null;
   backToCourseHref: string;
   className?: string;
 };
@@ -42,8 +39,6 @@ export function LessonJourneyNav({
   ratioPercent,
   ratioCompleted,
   ratioTotal,
-  continueHref,
-  continueTitle,
   backToCourseHref,
   className,
 }: Props) {
@@ -69,10 +64,7 @@ export function LessonJourneyNav({
 
   return (
     <nav
-      className={cn(
-        'flex max-h-[calc(100dvh-8rem)] flex-col gap-5 overflow-hidden rounded-3xl border border-[hsl(var(--lesson-border)/0.45)] bg-[hsl(var(--lesson-wash)/0.55)] p-5 shadow-[0_20px_60px_-40px_hsl(var(--primary)/0.35)] backdrop-blur-sm',
-        className
-      )}
+      className={cn('flex flex-col gap-4', className)}
       aria-label={t('journeyTitle')}
     >
       <div className="flex items-start gap-3">
@@ -87,90 +79,41 @@ export function LessonJourneyNav({
         </div>
       </div>
 
-      <div className="rounded-2xl border border-[hsl(var(--lesson-border)/0.35)] bg-[hsl(var(--lesson-canvas)/0.65)] p-4">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-          {t('courseProgress')}
-        </p>
-        <div className="mt-3 flex items-center gap-3">
-          <div className="relative grid size-14 shrink-0 place-items-center">
-            <svg className="col-start-1 row-start-1 size-14 -rotate-90" viewBox="0 0 36 36" aria-hidden>
-              <circle
-                cx="18"
-                cy="18"
-                r="15.5"
-                fill="none"
-                className="stroke-[hsl(var(--lesson-border)/0.65)]"
-                strokeWidth="3"
-              />
-              <circle
-                cx="18"
-                cy="18"
-                r="15.5"
-                fill="none"
-                className="stroke-primary transition-[stroke-dashoffset] duration-500 ease-out"
-                strokeWidth="3"
-                strokeDasharray={97.4}
-                strokeDashoffset={97.4 - (97.4 * ratioPercent) / 100}
-                strokeLinecap="round"
-              />
-            </svg>
-            <span className="col-start-1 row-start-1 text-[11px] font-bold tabular-nums text-foreground">
-              {ratioPercent}%
-            </span>
-          </div>
-          <div className="min-w-0 flex-1 space-y-2">
-            <div className="flex justify-between text-xs text-muted-foreground">
-              <span>
-                {ratioCompleted}/{ratioTotal} lessons
-              </span>
-            </div>
-            <Progress
-              value={ratioPercent}
-              className="h-1.5 rounded-full bg-[hsl(var(--lesson-border)/0.45)]"
-            />
-          </div>
-        </div>
-      </div>
-
-      {continueTitle ? (
-        <Link
-          href={continueHref}
-          className="group rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/[0.08] to-transparent p-4 transition-colors hover:border-primary/35 hover:from-primary/[0.12]"
-        >
-          <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">
-            {t('continueJourney')}
-          </p>
-          <p className="mt-2 line-clamp-2 text-sm font-medium leading-snug text-foreground group-hover:text-primary">
-            {continueTitle}
-          </p>
-          <p className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-primary">
-            <BookOpen className="size-3.5" />
-            {t('floatingNext')}
-          </p>
-        </Link>
-      ) : null}
-
-      <div className="min-h-0 flex-1 space-y-2 overflow-y-auto pr-1">
+      <div className="space-y-2">
         <p className="px-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
           {t('lessonOutline')}
         </p>
         <ul className="space-y-1">
           {modules.map((mod) => {
             const isOpen = expanded.has(mod.id);
+            const doneCount = mod.lessons.filter((lesson) => lesson.done).length;
+            const modulePercent =
+              mod.lessons.length > 0
+                ? Math.round((doneCount / mod.lessons.length) * 100)
+                : 0;
             return (
               <li key={mod.id} className="rounded-2xl border border-transparent">
                 <button
                   type="button"
                   onClick={() => toggleModule(mod.id)}
-                  className="flex w-full items-center gap-2 rounded-xl px-2 py-2 text-left text-sm font-semibold text-foreground transition-colors hover:bg-[hsl(var(--lesson-glow)/0.45)]"
+                  className="w-full rounded-[1.1rem] px-2 py-2 text-left transition-colors hover:bg-[hsl(var(--lesson-glow)/0.5)]"
                   aria-expanded={isOpen}
                 >
-                  {isOpen ? (
-                    <ChevronDown className="size-4 shrink-0 text-muted-foreground" />
-                  ) : (
-                    <ChevronRight className="size-4 shrink-0 text-muted-foreground" />
-                  )}
-                  <span className="min-w-0 flex-1 truncate">{mod.titleEn}</span>
+                  <span className="flex items-center gap-2 text-sm font-semibold text-foreground">
+                    {isOpen ? (
+                      <ChevronDown className="size-4 shrink-0 text-muted-foreground" />
+                    ) : (
+                      <ChevronRight className="size-4 shrink-0 text-muted-foreground" />
+                    )}
+                    <span className="min-w-0 flex-1 truncate">{mod.titleEn}</span>
+                    <span className="shrink-0 text-[10px] font-semibold tabular-nums text-muted-foreground">
+                      {doneCount}/{mod.lessons.length}
+                    </span>
+                  </span>
+                  <Progress
+                    value={modulePercent}
+                    className="mt-2 h-1 rounded-full bg-[hsl(var(--lesson-border)/0.4)] [&>div]:bg-gradient-to-r [&>div]:from-primary/70 [&>div]:to-[hsl(34_88%_62%/0.8)]"
+                  />
                 </button>
                 {isOpen ? (
                   <ul className="space-y-0.5 pb-2 pl-2">
@@ -188,10 +131,10 @@ export function LessonJourneyNav({
                           <Link
                             href={href}
                             className={cn(
-                              'flex items-center gap-2 rounded-xl px-2.5 py-2 text-[13px] transition-colors',
+                              'group/lesson flex items-center gap-2 rounded-xl px-2.5 py-2 text-[13px] transition-[background,color,box-shadow,transform] duration-200 hover:translate-x-0.5 motion-reduce:transform-none',
                               active
-                                ? 'bg-primary/[0.12] font-semibold text-primary ring-1 ring-primary/20'
-                                : 'text-muted-foreground hover:bg-[hsl(var(--lesson-glow)/0.5)] hover:text-foreground'
+                                ? 'bg-primary/[0.13] font-semibold text-primary shadow-[inset_3px_0_0_hsl(var(--primary)),0_10px_22px_-18px_hsl(var(--primary)/0.5)] ring-1 ring-primary/20'
+                                : 'text-muted-foreground hover:bg-[hsl(var(--lesson-glow)/0.55)] hover:text-foreground'
                             )}
                           >
                             {lesson.done ? (
@@ -203,7 +146,7 @@ export function LessonJourneyNav({
                                 <Play className="size-3.5 fill-current" />
                               </span>
                             ) : (
-                              <Circle className="size-4 shrink-0 text-muted-foreground/40" />
+                              <Circle className="size-4 shrink-0 text-muted-foreground/40 transition-colors group-hover/lesson:text-primary/50" />
                             )}
                             <span className="min-w-0 flex-1 leading-snug">{lesson.titleEn}</span>
                           </Link>
@@ -220,7 +163,7 @@ export function LessonJourneyNav({
 
       <Link
         href={backToCourseHref}
-        className="mt-auto inline-flex items-center justify-center rounded-full border border-[hsl(var(--lesson-border)/0.55)] bg-[hsl(var(--lesson-canvas)/0.5)] px-4 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-[hsl(var(--lesson-glow)/0.55)]"
+        className="mt-auto inline-flex items-center justify-center rounded-full border border-[hsl(var(--lesson-border)/0.55)] bg-[hsl(var(--lesson-canvas)/0.58)] px-4 py-2.5 text-sm font-semibold text-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.4)] transition-colors hover:bg-[hsl(var(--lesson-glow)/0.6)]"
       >
         {t('backToCourse')}
       </Link>

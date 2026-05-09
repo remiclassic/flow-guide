@@ -247,7 +247,22 @@
       "reflectionSectionTitle": "Reflexión",
       "actionSectionTitle": "Pasos de acción",
       "previewStaffNote": "Vista previa — la completación afecta tu progreso personal.",
-      "heroVisualCaption": "Camino guiado"
+      "heroVisualCaption": "Camino guiado",
+      "guidedStart": "Inicio guiado",
+      "focusMode": "Modo de calma",
+      "beginWithIntention": "Empieza con intención",
+      "rewardTitle": "Lleva esto contigo",
+      "rewardComplete": "Progreso ganado",
+      "rewardInProgress": "Siguiente paso listo",
+      "rewardBodyWithNext": "Ya tienes impulso. Cuando estés listo, continúa con \"{title}\" y mantén la ruta en movimiento.",
+      "rewardBodyComplete": "Has completado esta ruta. Vuelve al resumen del curso cuando quieras reforzar lo aprendido.",
+      "moduleShort": "Módulo {num}",
+      "courseCompletion": "Progreso del curso",
+      "coachTitle": "Coach IA",
+      "coachHint": "Pide una explicación más simple, una próxima acción o ayuda para aplicar esta lección.",
+      "askCoach": "Preguntar al coach",
+      "resourcesTitle": "Recursos",
+      "resourcesHint": "Las descargas, enlaces y materiales de apoyo para esta lección aparecerán aquí."
     },
     "shared": {
       "learner": "Aprendiz",

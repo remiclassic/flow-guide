@@ -1,7 +1,15 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight, BookMarked, Flame, Sparkles } from 'lucide-react';
+import {
+  ArrowRight,
+  BookMarked,
+  CheckCircle2,
+  Download,
+  Flame,
+  MessageCircle,
+  Sparkles,
+} from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { markLessonProgressAction } from '@/lib/courses/actions';
@@ -43,10 +51,7 @@ export function CompanionPanel({
 
   return (
     <aside
-      className={cn(
-        'flex max-h-[calc(100dvh-8rem)] flex-col gap-4 overflow-y-auto rounded-3xl border border-[hsl(var(--lesson-border)/0.45)] bg-[hsl(var(--lesson-wash)/0.5)] p-5 shadow-[0_20px_60px_-40px_hsl(var(--primary)/0.3)] backdrop-blur-sm lg:sticky lg:top-24',
-        className
-      )}
+      className={cn('flex flex-col gap-4', className)}
       aria-label={t('companionTitle')}
     >
       {previewNote ? (
@@ -55,7 +60,13 @@ export function CompanionPanel({
         </p>
       ) : null}
 
-      <div className="rounded-2xl border border-[hsl(var(--lesson-border)/0.35)] bg-[hsl(var(--lesson-canvas)/0.65)] p-4">
+      <div className="rounded-[1.5rem] border border-[hsl(var(--lesson-border)/0.35)] bg-[hsl(var(--lesson-canvas)/0.68)] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.42)] dark:shadow-none">
+        <div className="mb-3 flex items-center gap-2">
+          <CheckCircle2 className="size-4 text-primary" aria-hidden />
+          <p className="text-sm font-semibold text-foreground">
+            {completed ? t('completedLesson') : t('inProgressLesson')}
+          </p>
+        </div>
         <div className="flex items-center justify-between gap-3">
           <div className="relative grid size-[4.25rem] shrink-0 place-items-center">
             <svg className="col-start-1 row-start-1 size-[4.25rem] -rotate-90" viewBox="0 0 36 36" aria-hidden>
@@ -97,7 +108,7 @@ export function CompanionPanel({
         </div>
       </div>
 
-      <div className="rounded-2xl border border-primary/15 bg-gradient-to-br from-primary/[0.07] to-transparent p-4">
+      <div className="rounded-[1.5rem] border border-primary/15 bg-gradient-to-br from-primary/[0.09] via-[hsl(var(--lesson-glow)/0.45)] to-transparent p-4">
         <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
           <Flame className="size-4 text-[hsl(var(--stat-streak))]" aria-hidden />
           {t('streakLabel')}
@@ -120,7 +131,7 @@ export function CompanionPanel({
       </div>
 
       {takeaway?.trim() ? (
-        <div className="rounded-2xl border border-orange-500/20 bg-gradient-to-br from-orange-500/[0.08] to-transparent p-4">
+        <div className="rounded-[1.5rem] border border-orange-500/20 bg-gradient-to-br from-orange-500/[0.09] via-[hsl(var(--lesson-canvas)/0.5)] to-transparent p-4">
           <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
             <Sparkles className="size-4 text-orange-600 dark:text-orange-400" aria-hidden />
             {t('keyInsight')}
@@ -129,7 +140,22 @@ export function CompanionPanel({
         </div>
       ) : null}
 
-      <div className="rounded-2xl border border-[hsl(var(--lesson-border)/0.35)] bg-[hsl(var(--lesson-canvas)/0.55)] p-4">
+      <div className="rounded-[1.5rem] border border-[hsl(var(--lesson-border)/0.35)] bg-[hsl(var(--lesson-canvas)/0.58)] p-4">
+        <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
+          <MessageCircle className="size-4 text-primary" aria-hidden />
+          {t('coachTitle')}
+        </div>
+        <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{t('coachHint')}</p>
+        <Button
+          asChild
+          variant="outline"
+          className="mt-3 w-full rounded-full border-[hsl(var(--lesson-border)/0.55)] bg-background/80"
+        >
+          <Link href="/dashboard/ai-coach">{t('askCoach')}</Link>
+        </Button>
+      </div>
+
+      <div className="rounded-[1.5rem] border border-[hsl(var(--lesson-border)/0.35)] bg-[hsl(var(--lesson-canvas)/0.58)] p-4">
         <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
           <BookMarked className="size-4 text-primary" aria-hidden />
           {t('reflectTitle')}
@@ -144,10 +170,20 @@ export function CompanionPanel({
         </Button>
       </div>
 
+      <div className="rounded-[1.5rem] border border-[hsl(var(--lesson-border)/0.35)] bg-[hsl(var(--lesson-canvas)/0.5)] p-4">
+        <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
+          <Download className="size-4 text-primary" aria-hidden />
+          {t('resourcesTitle')}
+        </div>
+        <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+          {t('resourcesHint')}
+        </p>
+      </div>
+
       {nextLessonKey && nextLessonTitle ? (
         <Link
           href={buildLessonUrl(courseSlug, nextLessonKey, lessonLessonBasePath)}
-          className="group flex gap-3 rounded-2xl border border-[hsl(var(--lesson-border)/0.35)] bg-[hsl(var(--lesson-canvas)/0.45)] p-3 transition-colors hover:border-primary/25 hover:bg-[hsl(var(--lesson-glow)/0.45)]"
+          className="group flex gap-3 rounded-[1.5rem] border border-[hsl(var(--lesson-border)/0.35)] bg-[hsl(var(--lesson-canvas)/0.5)] p-3 transition-[border-color,background,transform] duration-200 hover:-translate-y-0.5 hover:border-primary/25 hover:bg-[hsl(var(--lesson-glow)/0.5)] motion-reduce:transform-none"
         >
           <div className="min-w-0 flex-1">
             <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
