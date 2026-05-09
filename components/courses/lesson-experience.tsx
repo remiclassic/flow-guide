@@ -1,24 +1,26 @@
-import Link from 'next/link';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
+import type { ReactNode } from 'react';
 import { LegacyLessonFrame } from '@/components/courses/legacy-lesson-frame';
 import { BlockNoteLessonBody } from '@/components/courses/blocknote-lesson-body';
 import { MarkdownLessonBody } from '@/components/courses/markdown-lesson-body';
 import {
-  LessonRoadmapAside,
   type RoadmapModule,
 } from '@/components/courses/lesson-roadmap-aside';
 import { LessonInlinePlacements } from '@/components/courses/lesson-inline-placements';
-import { LessonSectionProse } from '@/components/courses/lesson-section-prose';
-import { KnowledgeQuizSection } from '@/components/courses/knowledge-quiz-section';
+import { LessonViewerShell } from '@/components/courses/viewer/lesson-viewer-shell';
+import {
+  ActionStepsCard,
+  PauseMoment,
+  QuizSectionPremium,
+  ReflectionCard,
+} from '@/components/courses/viewer/emotional-sections';
+import { CompanionPanel } from '@/components/courses/viewer/companion-panel';
+import { LessonJourneyNav } from '@/components/courses/viewer/lesson-journey-nav';
 import { toPlacementViewModels } from '@/lib/courses/map-lesson-placements';
 import type { Lesson, LessonAsset, MediaAsset } from '@/lib/db/schema';
 import {
   lessonBlocksContainBlockTypes,
   lessonBlocksHaveContent,
 } from '@/lib/courses/blocknote-content';
-import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
-import { Button } from '@/components/ui/button';
 
 /** Lesson URLs for prev/next (shared with roadmap via `lessonLessonBasePath`). */
 export function buildLessonUrl(
@@ -40,10 +42,10 @@ export type LessonExperiencePlacementRow = {
 
 export type LessonExperienceProps = {
   courseSlug: string;
+  courseTitle: string;
   moduleTitleEn: string;
   moduleIndexDisplay: number;
   lesson: Lesson;
-  /** Resolved markdown for body (published or draft depending on caller). */
   markdownBody: string | null;
   blockNoteBody: Lesson['publishedBodyBlocks'] | null;
   legacySrc: string | null;
@@ -57,18 +59,30 @@ export type LessonExperienceProps = {
   ratioPercent: number;
   previousLessonKey: string | null;
   nextLessonKey: string | null;
-  /**
-   * When set, prev/next and roadmap use `${lessonLessonBasePath}/${lessonKey}`.
-   * Omit for default learner URLs under `/dashboard/courses/.../lessons/`.
-   */
   lessonLessonBasePath?: string;
-  headerAside: React.ReactNode;
-  /** When false, omits reflection/action/summary if empty — still renders structure when content exists. */
+  /** 1-based position in flat syllabus */
+  lessonPosition: number;
+  totalLessons: number;
+  /** Next incomplete lesson “continue” target */
+  continueHref: string;
+  continueTitle: string | null;
+  streakDays: number;
+  streakSparkline: number[];
+  heroImageUrl: string | null;
+  heroImageAlt?: string | null;
+  nextLessonTitle: string | null;
+  reflectionHref?: string;
+  variant?: 'learner' | 'preview';
+  /** Staff preview: actions card / banner */
+  previewBanner?: ReactNode;
+  /** Staff preview: companion disclaimer */
+  previewStaffNote?: string | null;
   showStructuredSections?: boolean;
 };
 
 export function LessonExperience({
   courseSlug,
+  courseTitle,
   moduleTitleEn,
   moduleIndexDisplay,
   lesson,
@@ -86,7 +100,19 @@ export function LessonExperience({
   previousLessonKey,
   nextLessonKey,
   lessonLessonBasePath,
-  headerAside,
+  lessonPosition,
+  totalLessons,
+  continueHref,
+  continueTitle,
+  streakDays,
+  streakSparkline,
+  heroImageUrl,
+  heroImageAlt,
+  nextLessonTitle,
+  reflectionHref = '/dashboard/coach',
+  variant = 'learner',
+  previewBanner,
+  previewStaffNote,
   showStructuredSections = true,
 }: LessonExperienceProps) {
   const placementModels = toPlacementViewModels(placementRows);
@@ -114,156 +140,113 @@ export function LessonExperience({
       'flowActionStep',
     ]);
 
+  const takeaway =
+    summaryEn?.slice(0, 280) ??
+    (reflectionEn?.slice(0, 200) ?? null);
+
+  const courseOverviewHref = `/dashboard/courses/${courseSlug}`;
+
+  const article = (
+    <>
+      {hasBody ? (
+        hasBlocks ? (
+          <BlockNoteLessonBody blocks={blockNoteBody} />
+        ) : md ? (
+          <MarkdownLessonBody markdown={md} />
+        ) : legacySrc ? (
+          <div className="w-full overflow-hidden rounded-3xl border border-[hsl(var(--lesson-border)/0.45)] bg-[hsl(var(--lesson-canvas)/0.5)] shadow-inner">
+            <LegacyLessonFrame src={legacySrc} title={lesson.titleEn} />
+          </div>
+        ) : null
+      ) : (
+        <p className="rounded-3xl border border-dashed border-[hsl(var(--lesson-border)/0.55)] bg-[hsl(var(--lesson-wash)/0.35)] px-6 py-10 text-center text-muted-foreground">
+          Lesson content is not available yet.
+        </p>
+      )}
+
+      <LessonInlinePlacements items={placementModels} />
+
+      {showStructuredSections ? (
+        <QuizSectionPremium quiz={lesson.knowledgeQuizJson ?? null} />
+      ) : null}
+
+      {hasBody && showStructuredSections ? <PauseMoment /> : null}
+
+      {showDbReflection ? (
+        <ReflectionCard markdown={reflectionEn!} />
+      ) : null}
+      {showDbReflection && reflectionEs && reflectionEs !== reflectionEn ? (
+        <ReflectionCard markdown={reflectionEs} />
+      ) : null}
+
+      {showDbAction ? <ActionStepsCard markdown={stepsEn!} /> : null}
+      {showDbAction && stepsEs && stepsEs !== stepsEn ? (
+        <ActionStepsCard markdown={stepsEs} />
+      ) : null}
+    </>
+  );
+
+  const journey = (
+    <LessonJourneyNav
+      courseSlug={courseSlug}
+      courseTitle={courseTitle}
+      unlocked={unlocked}
+      modules={roadmapModules}
+      currentLessonKey={currentLessonKey}
+      lessonLessonBasePath={lessonLessonBasePath}
+      ratioPercent={ratioPercent}
+      ratioCompleted={ratioCompleted}
+      ratioTotal={ratioTotal}
+      continueHref={continueHref}
+      continueTitle={continueTitle}
+      backToCourseHref={courseOverviewHref}
+    />
+  );
+
+  const companion = (
+    <CompanionPanel
+      courseSlug={courseSlug}
+      lessonKey={currentLessonKey}
+      completed={completed}
+      takeaway={takeaway}
+      streakDays={streakDays}
+      streakSparkline={streakSparkline}
+      nextLessonKey={nextLessonKey}
+      nextLessonTitle={nextLessonTitle}
+      lessonLessonBasePath={lessonLessonBasePath}
+      reflectionHref={reflectionHref}
+      previewNote={variant === 'preview' ? previewStaffNote ?? null : null}
+    />
+  );
+
+  const heroContent = {
+    moduleTitleEn,
+    moduleNum: moduleIndexDisplay,
+    titleEn: lesson.titleEn,
+    titleEs: lesson.titleEs,
+    subtitleEn: summaryEn ?? null,
+    estimatedMinutes: est,
+    lessonCurrent: lessonPosition,
+    lessonTotal: totalLessons,
+    heroImageUrl,
+    heroImageAlt: heroImageAlt ?? undefined,
+    completed,
+  };
+
   return (
-    <section className="flex-1 space-y-8 p-4 lg:p-8 lg:pb-12">
-      <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
-        <div className="min-w-0 flex-1 space-y-3">
-          <div className="flex flex-wrap items-center gap-2">
-            <Badge
-              variant="outline"
-              className="rounded-full border-border font-medium normal-case"
-            >
-              Module {moduleIndexDisplay >= 0 ? moduleIndexDisplay + 1 : '—'}
-            </Badge>
-            <Badge variant="secondary" className="rounded-full normal-case">
-              {moduleTitleEn}
-            </Badge>
-            {completed ? (
-              <Badge variant="success" className="rounded-full normal-case">
-                Completed
-              </Badge>
-            ) : (
-              <Badge
-                variant="outline"
-                className="rounded-full border-primary/35 normal-case text-primary"
-              >
-                In progress
-              </Badge>
-            )}
-          </div>
-          <h1 className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl lg:text-4xl">
-            {lesson.titleEn}
-          </h1>
-          <p className="text-base text-muted-foreground">{lesson.titleEs}</p>
-          {showStructuredSections && summaryEn ? (
-            <p className="text-lg leading-relaxed text-muted-foreground">
-              {summaryEn}
-            </p>
-          ) : null}
-          {showStructuredSections && summaryEs && summaryEs !== summaryEn ? (
-            <p className="text-base leading-relaxed text-muted-foreground/90">
-              {summaryEs}
-            </p>
-          ) : null}
-          {showStructuredSections && est != null && est > 0 ? (
-            <p className="text-sm text-muted-foreground">
-              About {est} min{est === 1 ? '' : 's'} to complete
-            </p>
-          ) : null}
-          <div className="flex max-w-lg flex-col gap-2 pt-2">
-            <div className="flex justify-between text-xs font-medium text-muted-foreground">
-              <span>Learning path progress</span>
-              <span className="tabular-nums">
-                {ratioCompleted}/{ratioTotal} lessons
-              </span>
-            </div>
-            <Progress value={ratioPercent} className="h-2.5" />
-          </div>
-        </div>
-
-        {headerAside}
-      </div>
-
-      <div className="flex flex-col gap-8 lg:flex-row lg:items-start">
-        <div className="min-w-0 flex-1 space-y-8">
-          <div className="flex flex-wrap items-center gap-2">
-            {previousLessonKey ? (
-              <Button
-                variant="ghost"
-                asChild
-                className="rounded-full text-muted-foreground hover:text-foreground"
-              >
-                <Link href={buildLessonUrl(courseSlug, previousLessonKey, lessonLessonBasePath)}>
-                  <ArrowLeft className="size-4" />
-                  Previous
-                </Link>
-              </Button>
-            ) : (
-              <span className="rounded-full px-4 py-2 text-sm text-muted-foreground">
-                Start of path
-              </span>
-            )}
-            {nextLessonKey ? (
-              <Button
-                variant="ghost"
-                asChild
-                className="rounded-full text-muted-foreground hover:text-foreground"
-              >
-                <Link href={buildLessonUrl(courseSlug, nextLessonKey, lessonLessonBasePath)}>
-                  Next lesson
-                  <ArrowRight className="size-4" />
-                </Link>
-              </Button>
-            ) : (
-              <span className="rounded-full px-4 py-2 text-sm text-muted-foreground">
-                Path complete
-              </span>
-            )}
-          </div>
-
-          {hasBody ? (
-            hasBlocks ? (
-              <BlockNoteLessonBody blocks={blockNoteBody} />
-            ) : md ? (
-              <MarkdownLessonBody markdown={md} />
-            ) : legacySrc ? (
-              <LegacyLessonFrame src={legacySrc} title={lesson.titleEn} />
-            ) : null
-          ) : (
-            <p className="rounded-2xl border border-border/80 bg-muted/15 p-6 text-muted-foreground">
-              Lesson content is not available yet.
-            </p>
-          )}
-
-          <LessonInlinePlacements items={placementModels} />
-
-          {showStructuredSections ? (
-            <KnowledgeQuizSection quiz={lesson.knowledgeQuizJson ?? null} />
-          ) : null}
-
-          {showDbReflection ? (
-            <div className="space-y-2">
-              <h2 className="text-lg font-semibold tracking-tight text-foreground">
-                Reflection
-              </h2>
-              <LessonSectionProse markdown={reflectionEn!} />
-              {reflectionEs && reflectionEs !== reflectionEn ? (
-                <LessonSectionProse markdown={reflectionEs} />
-              ) : null}
-            </div>
-          ) : null}
-
-          {showDbAction ? (
-            <div className="space-y-2">
-              <h2 className="text-lg font-semibold tracking-tight text-foreground">
-                Action steps
-              </h2>
-              <LessonSectionProse markdown={stepsEn!} />
-              {stepsEs && stepsEs !== stepsEn ? (
-                <LessonSectionProse markdown={stepsEs} />
-              ) : null}
-            </div>
-          ) : null}
-        </div>
-
-        <LessonRoadmapAside
-          courseSlug={courseSlug}
-          unlocked={unlocked}
-          modules={roadmapModules}
-          currentLessonKey={currentLessonKey}
-          lessonLessonBasePath={lessonLessonBasePath}
-        />
-      </div>
+    <section className="relative w-full min-h-[calc(100dvh-3.5rem)] bg-[radial-gradient(ellipse_120%_80%_at_50%_-20%,hsl(var(--primary)/0.07),transparent_50%),hsl(var(--lesson-canvas))] pb-6">
+      <LessonViewerShell
+        heroContent={heroContent}
+        journey={journey}
+        companion={companion}
+        article={article}
+        previewBanner={variant === 'preview' ? previewBanner : undefined}
+        courseSlug={courseSlug}
+        courseOverviewHref={courseOverviewHref}
+        lessonLessonBasePath={lessonLessonBasePath}
+        previousLessonKey={previousLessonKey}
+        nextLessonKey={nextLessonKey}
+      />
     </section>
   );
 }

@@ -6,7 +6,7 @@ export function AdminCoursePreviewBanner({
   courseSlug: string;
 }) {
   return (
-    <div className="mx-auto mb-4 flex max-w-[1600px] flex-wrap items-center justify-between gap-3 rounded-xl border border-amber-200/90 bg-amber-50/95 px-4 py-3 text-sm text-amber-950 shadow-sm backdrop-blur-[2px]">
+    <div className="mb-4 flex w-full max-w-none flex-wrap items-center justify-between gap-3 rounded-xl border border-amber-200/90 bg-amber-50/95 px-4 py-3 text-sm text-amber-950 shadow-sm backdrop-blur-[2px]">
       <p className="font-medium tracking-tight">
         Admin preview · unlocked customer view
       </p>

@@ -22,6 +22,8 @@ import { signOut } from '@/app/[locale]/(auth)/actions';
 import { User } from '@/lib/db/schema';
 import { cn } from '@/lib/utils';
 import { GLOW_FLOW_COURSE_SLUG } from '@/lib/courses/curriculum';
+import { isDashboardCourseLessonPath } from '@/lib/courses/immersive-lesson-path';
+import { ImmersiveLessonTopBar } from '@/components/dashboard/immersive-lesson-top-bar';
 import useSWR, { mutate } from 'swr';
 import {
   Users,
@@ -456,28 +458,43 @@ export default function DashboardLayout({
 }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const t = useTranslations('dashboard.layout');
+  const pathname = usePathname();
+  const immersiveLesson = isDashboardCourseLessonPath(pathname);
 
   return (
-    <div className="flex h-dvh max-h-dvh w-full flex-col overflow-hidden bg-muted/50 text-foreground">
-      <div className="fixed left-4 top-4 z-50 lg:hidden">
-        <Button
-          className="size-11 rounded-2xl border border-white/70 bg-white/90 text-foreground shadow-card-soft backdrop-blur-md hover:bg-white"
-          variant="ghost"
-          size="icon"
-          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-        >
-          <Menu className="size-6" />
-          <span className="sr-only">{t('toggleSidebar')}</span>
-        </Button>
-      </div>
+    <div
+      className={cn(
+        'flex h-dvh max-h-dvh w-full flex-col overflow-hidden text-foreground',
+        immersiveLesson
+          ? 'bg-[hsl(var(--lesson-canvas))]'
+          : 'bg-muted/50'
+      )}
+    >
+      {immersiveLesson ? <ImmersiveLessonTopBar /> : null}
+
+      {!immersiveLesson ? (
+        <div className="fixed left-4 top-4 z-50 lg:hidden">
+          <Button
+            className="size-11 rounded-2xl border border-white/70 bg-white/90 text-foreground shadow-card-soft backdrop-blur-md hover:bg-white"
+            variant="ghost"
+            size="icon"
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+          >
+            <Menu className="size-6" />
+            <span className="sr-only">{t('toggleSidebar')}</span>
+          </Button>
+        </div>
+      ) : null}
 
       <div className="relative flex min-h-0 flex-1 overflow-hidden">
         <aside
           className={cn(
             'absolute inset-y-0 left-0 z-40 flex h-full w-[272px] flex-col border-r border-sidebar-border bg-sidebar shadow-[14px_0_46px_-34px_hsl(var(--primary)/0.5)] transition-transform duration-300 ease-out lg:relative lg:translate-x-0 lg:shrink-0',
-            isSidebarOpen
-              ? 'flex translate-x-0'
-              : 'hidden -translate-x-full lg:flex lg:translate-x-0'
+            immersiveLesson
+              ? 'hidden'
+              : isSidebarOpen
+                ? 'flex translate-x-0'
+                : 'hidden -translate-x-full lg:flex lg:translate-x-0'
           )}
         >
           <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
@@ -515,7 +532,7 @@ export default function DashboardLayout({
           </div>
         </aside>
 
-        {isSidebarOpen ? (
+        {isSidebarOpen && !immersiveLesson ? (
           <button
             type="button"
             className="fixed inset-0 z-30 bg-stone-900/30 backdrop-blur-[1px] lg:hidden"
@@ -524,7 +541,14 @@ export default function DashboardLayout({
           />
         ) : null}
 
-        <main className="min-h-0 flex-1 overflow-y-auto bg-background lg:border-l lg:border-border">
+        <main
+          className={cn(
+            'min-h-0 flex-1 overflow-y-auto',
+            immersiveLesson
+              ? 'bg-transparent pt-14 lg:border-0'
+              : 'bg-background lg:border-l lg:border-border'
+          )}
+        >
           {children}
         </main>
       </div>

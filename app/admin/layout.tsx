@@ -1,11 +1,24 @@
 import Link from 'next/link';
+import { cookies } from 'next/headers';
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages, setRequestLocale } from 'next-intl/server';
 import { FlowLogoMark } from '@/components/brand/flow-logo';
 import { requireCourseStaff } from '@/lib/admin/require-staff';
+import type { Locale } from '@/i18n/routing';
+import { routing } from '@/i18n/routing';
 
 export const dynamic = 'force-dynamic';
 
 const navLinkClass =
   'text-sm font-medium text-muted-foreground transition-colors hover:text-foreground';
+
+/** Matches middleware `resolveLocale` — admin routes are outside `[locale]` so intl context must be provided here. */
+async function localeForAdmin(): Promise<Locale> {
+  const jar = await cookies();
+  const fromCookie = jar.get('NEXT_LOCALE')?.value;
+  if (fromCookie === 'en' || fromCookie === 'es') return fromCookie;
+  return routing.defaultLocale;
+}
 
 export default async function AdminLayout({
   children,
@@ -13,8 +26,12 @@ export default async function AdminLayout({
   children: React.ReactNode;
 }) {
   const user = await requireCourseStaff();
+  const locale = await localeForAdmin();
+  setRequestLocale(locale);
+  const messages = await getMessages({ locale });
 
   return (
+    <NextIntlClientProvider locale={locale} messages={messages}>
     <div className="relative min-h-screen overflow-x-hidden bg-[#fbf7f0] text-stone-950">
       <div
         className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_12%_12%,rgba(255,219,171,0.35),transparent_26rem),radial-gradient(circle_at_82%_8%,rgba(196,181,253,0.22),transparent_28rem),linear-gradient(180deg,#fffaf2_0%,#f8f0e6_48%,#fbf7f0_100%)]"
@@ -62,5 +79,6 @@ export default async function AdminLayout({
         {children}
       </main>
     </div>
+    </NextIntlClientProvider>
   );
 }

@@ -40,3 +40,6 @@ next-env.d.ts
 # Docker
 postgres_data/
 .env*.local
+
+# accidental nested copy of this repo (same folder name)
+/flow guide/

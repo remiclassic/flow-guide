@@ -29,7 +29,7 @@ export function BlockNoteLessonBodyClient({ blocks, className }: Props) {
   return (
     <div
       className={cn(
-        'flow-guide-blocknote-reader rounded-2xl border border-border/80 bg-muted/15 p-5 shadow-card-soft sm:p-6',
+        'flow-guide-blocknote-reader w-full rounded-3xl border border-[hsl(var(--lesson-border)/0.38)] bg-[hsl(var(--lesson-wash)/0.45)] p-6 shadow-[0_22px_55px_-44px_hsl(var(--primary)/0.28)] sm:p-8',
         className
       )}
     >
