@@ -1214,3 +1214,15 @@
 [data-admin-root]:has([data-unified-lesson-chrome]) > header {
   display: none;
 }
+
+/*
+  BlockNote’s stylesheet is unlayered; rules here must stay outside @layer so they win over
+  `.bn-editor { background-color: var(--bn-colors-editor-background) }` (defaults to #fff).
+*/
+.flow-guide-blocknote-reader {
+  --bn-colors-editor-background: transparent;
+}
+
+.flow-guide-blocknote-reader .bn-editor {
+  background-color: transparent;
+}
