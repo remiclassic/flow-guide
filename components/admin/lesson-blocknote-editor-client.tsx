@@ -111,6 +111,7 @@ export function LessonBlockNoteEditorClient({
 }: Props) {
   const lastJsonRef = useRef(initialBlocks ? JSON.stringify(initialBlocks) : '');
   const serializeFrameRef = useRef<number | null>(null);
+  const lastHistoryCapsRef = useRef({ canUndo: false, canRedo: false });
 
   const initialContent = useMemo(() => {
     return initialBlocks && initialBlocks.length > 0
@@ -156,6 +157,18 @@ export function LessonBlockNoteEditorClient({
     });
   }, [editor, onBlocksChange]);
 
+  const emitHistoryCaps = useCallback(
+    (caps: { canUndo: boolean; canRedo: boolean }) => {
+      const prev = lastHistoryCapsRef.current;
+      if (prev.canUndo === caps.canUndo && prev.canRedo === caps.canRedo) {
+        return;
+      }
+      lastHistoryCapsRef.current = caps;
+      onBlockHistory?.(caps);
+    },
+    [onBlockHistory]
+  );
+
   useEffect(() => {
     const tt = editor._tiptapEditor as unknown;
     onBlockApiReady?.({
@@ -192,14 +205,14 @@ export function LessonBlockNoteEditorClient({
     const tt = editor._tiptapEditor as unknown;
     const tiptap = tt as TiptapLike | null | undefined;
     if (!tiptap || typeof tiptap.on !== 'function') {
-      onBlockHistory({ canUndo: false, canRedo: false });
+      emitHistoryCaps({ canUndo: false, canRedo: false });
       return;
     }
     const notify = () => {
       try {
-        onBlockHistory(getHistoryCapsFromTiptap(tt));
+        emitHistoryCaps(getHistoryCapsFromTiptap(tt));
       } catch {
-        onBlockHistory({ canUndo: false, canRedo: false });
+        emitHistoryCaps({ canUndo: false, canRedo: false });
       }
     };
     tiptap.on('transaction', notify);
@@ -209,7 +222,7 @@ export function LessonBlockNoteEditorClient({
         tiptap.off('transaction', notify);
       }
     };
-  }, [editor, onBlockHistory]);
+  }, [editor, emitHistoryCaps, onBlockHistory]);
 
   const toolbarBlockItems = useMemo(
     () =>
@@ -226,6 +239,23 @@ export function LessonBlockNoteEditorClient({
           item.type === 'quote'
         );
       }),
+    [editor]
+  );
+
+  const renderFormattingToolbar = useCallback(
+    () => (
+      <FormattingToolbar>
+        <BlockTypeSelect items={toolbarBlockItems} />
+        <BasicTextStyleButton basicTextStyle="bold" />
+        <BasicTextStyleButton basicTextStyle="italic" />
+        <CreateLinkButton />
+      </FormattingToolbar>
+    ),
+    [toolbarBlockItems]
+  );
+
+  const getSlashMenuItems = useCallback(
+    async (query: string) => getFlowGuideSlashMenuItems(editor, query),
     [editor]
   );
 
@@ -255,19 +285,10 @@ export function LessonBlockNoteEditorClient({
       >
         <SideMenuController />
         <LinkToolbarController />
-        <FormattingToolbarController
-          formattingToolbar={() => (
-            <FormattingToolbar>
-              <BlockTypeSelect items={toolbarBlockItems} />
-              <BasicTextStyleButton basicTextStyle="bold" />
-              <BasicTextStyleButton basicTextStyle="italic" />
-              <CreateLinkButton />
-            </FormattingToolbar>
-          )}
-        />
+        <FormattingToolbarController formattingToolbar={renderFormattingToolbar} />
         <SuggestionMenuController
           triggerCharacter="/"
-          getItems={async (query) => getFlowGuideSlashMenuItems(editor, query)}
+          getItems={getSlashMenuItems}
         />
       </BlockNoteView>
     </div>

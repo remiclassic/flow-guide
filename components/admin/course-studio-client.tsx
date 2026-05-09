@@ -1231,6 +1231,12 @@ export function CourseStudioClient({
                         ? found.lesson.publishedBodyBlocks
                         : null
                   }
+                  serverBodyAlignment={{
+                    draftBodyBlocks: found.lesson.draftBodyBlocks,
+                    publishedBodyBlocks: found.lesson.publishedBodyBlocks,
+                    draftBodyMarkdown: found.lesson.draftBodyMarkdown,
+                    publishedBodyMarkdown: found.lesson.publishedBodyMarkdown,
+                  }}
                   onBlockHistory={(caps) => {
                     blockHistRef.current.caps = caps;
                   }}
@@ -1590,6 +1596,15 @@ const StudioLessonPreview = memo(function StudioLessonPreview({
             </Button>
           </div>
         </div>
+        <p className="mt-2 text-[11px] leading-snug text-stone-500">
+          Use{' '}
+          <span className="font-semibold text-stone-700">Published</span> to
+          match the live learner app (same body fields as{' '}
+          <span className="font-semibold text-stone-700">
+            /dashboard/courses/…/lessons/…
+          </span>
+          ). Draft shows work-in-progress, including unpublished BlockNote.
+        </p>
       </div>
 
       <div className="min-h-0 flex-1 overflow-y-auto bg-background">

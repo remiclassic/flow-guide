@@ -19,18 +19,19 @@ export function ReflectionCard({
   return (
     <section
       className={cn(
-        'relative overflow-hidden rounded-[2rem] border border-violet-200/60 bg-gradient-to-br from-violet-50/95 via-white/70 to-fuchsia-50/45 p-6 shadow-[0_24px_64px_-44px_hsl(262_80%_40%/0.45)] ring-1 ring-white/45 dark:border-violet-500/20 dark:from-violet-950/45 dark:via-transparent dark:to-fuchsia-950/24 dark:ring-white/10',
+        'rounded-2xl border border-[hsl(var(--lesson-border))] bg-[hsl(var(--lesson-wash)/0.55)] p-7 shadow-[inset_0_1px_0_hsl(0_0%_100%/0.55)] dark:bg-[hsl(var(--lesson-wash)/0.35)] dark:shadow-none',
         className
       )}
     >
-      <div className="pointer-events-none absolute -right-16 -top-20 size-44 rounded-full bg-violet-400/15 blur-3xl" aria-hidden />
-      <div className="mb-4 flex items-center gap-2 text-sm font-semibold text-violet-900 dark:text-violet-100">
-        <PenLine className="size-4 text-violet-600 dark:text-violet-300" aria-hidden />
-        {t('reflectionSectionTitle')}
+      <div className="mb-4 text-[0.65rem] font-bold uppercase tracking-[0.18em] text-muted-foreground">
+        <span className="inline-flex items-center gap-2">
+          <PenLine className="size-3.5 text-primary/80" aria-hidden />
+          {t('reflectionSectionTitle')}
+        </span>
       </div>
       <LessonSectionProse
         markdown={markdown}
-        className="border-0 bg-transparent px-0 py-0 shadow-none [&_p]:text-violet-950/85 dark:[&_p]:text-violet-50/85"
+        className="border-0 bg-transparent px-0 py-0 shadow-none [&_p]:text-[hsl(var(--lesson-muted))] [&_li]:text-[hsl(var(--lesson-muted))]"
       />
     </section>
   );
@@ -47,17 +48,24 @@ export function ActionStepsCard({
   return (
     <section
       className={cn(
-        'rounded-[2rem] border border-amber-200/55 bg-gradient-to-br from-amber-50/90 via-white/75 to-orange-50/40 p-6 shadow-[0_24px_60px_-44px_hsl(28_80%_38%/0.38)] ring-1 ring-white/45 dark:border-amber-500/15 dark:from-amber-950/40 dark:via-transparent dark:to-orange-950/20 dark:ring-white/10',
+        'rounded-2xl border border-primary/25 bg-[hsl(var(--lesson-canvas)/0.85)] p-7 shadow-[inset_0_1px_0_hsl(0_0%_100%/0.5)] dark:bg-[hsl(var(--card)/0.5)] dark:shadow-none',
         className
       )}
     >
-      <div className="mb-4 flex items-center gap-2 text-sm font-semibold text-amber-950 dark:text-amber-100">
-        <ListTodo className="size-4 text-amber-700 dark:text-amber-300" aria-hidden />
-        {t('actionSectionTitle')}
+      <div className="mb-5 flex items-center gap-3">
+        <div
+          className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-primary/25 bg-[hsl(var(--primary)/0.06)]"
+          aria-hidden
+        >
+          <ListTodo className="size-4 text-primary" />
+        </div>
+        <div className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-primary">
+          {t('actionSectionTitle')}
+        </div>
       </div>
       <LessonSectionProse
         markdown={markdown}
-        className="border-0 bg-transparent px-0 py-0 shadow-none"
+        className="border-0 bg-transparent px-0 py-0 shadow-none [&_p]:text-[hsl(var(--lesson-muted))] [&_li]:text-[hsl(var(--lesson-muted))] [&_strong]:text-[hsl(var(--lesson-ink))]"
       />
     </section>
   );

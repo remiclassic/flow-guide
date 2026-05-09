@@ -13,10 +13,17 @@ import { readFile } from 'fs/promises';
 import path from 'path';
 import { and, asc, eq, isNull, sql } from 'drizzle-orm';
 import { db } from '@/lib/db/drizzle';
-import { courseModules, courses, lessons, type Lesson } from '@/lib/db/schema';
+import {
+  courseModules,
+  courses,
+  lessons,
+  type Lesson,
+  type LessonContentBlocks,
+} from '@/lib/db/schema';
 import { GLOW_FLOW_COURSE_SLUG } from '@/lib/courses/curriculum';
 import { extractLegacyLessonFromHtml } from '@/lib/courses/legacy-html-extract';
 import { lessonBlocksHaveContent } from '@/lib/courses/blocknote-content';
+import { lessonToBlockNoteBlocksFromHtml } from '@/lib/courses/legacy-html-to-blocknote';
 import { lessonToBlockNoteBlocks } from '@/lib/courses/legacy-to-blocknote';
 
 type Args = {
@@ -64,14 +71,20 @@ function parseArgs(argv: string[]): Args {
 
 async function readLegacyExtract(lesson: Lesson) {
   const legacyPath = lesson.legacyHtmlPath?.trim();
-  if (!legacyPath) return { extracted: null, missingFile: false };
+  if (!legacyPath) {
+    return { extracted: null, html: null as string | null, missingFile: false };
+  }
 
   const abs = path.join(process.cwd(), 'public', 'legacy', 'course', legacyPath);
   try {
     const html = await readFile(abs, 'utf8');
-    return { extracted: extractLegacyLessonFromHtml(html), missingFile: false };
+    return {
+      extracted: extractLegacyLessonFromHtml(html),
+      html,
+      missingFile: false,
+    };
   } catch {
-    return { extracted: null, missingFile: true };
+    return { extracted: null, html: null, missingFile: true };
   }
 }
 
@@ -128,7 +141,7 @@ async function migrateLesson(
     };
   }
 
-  const { extracted, missingFile } = await readLegacyExtract(lesson);
+  const { extracted, missingFile, html } = await readLegacyExtract(lesson);
   if (missingFile && !lesson.publishedBodyMarkdown?.trim() && !lesson.draftBodyMarkdown?.trim()) {
     return {
       courseSlug: course.slug,
@@ -140,7 +153,19 @@ async function migrateLesson(
     };
   }
 
-  const blocks = lessonToBlockNoteBlocks({ lesson, extracted });
+  let blocks: LessonContentBlocks;
+  if (html?.trim()) {
+    const fromHtml = lessonToBlockNoteBlocksFromHtml({
+      html,
+      lesson,
+      extracted,
+    });
+    blocks = lessonBlocksHaveContent(fromHtml)
+      ? fromHtml
+      : lessonToBlockNoteBlocks({ lesson, extracted });
+  } else {
+    blocks = lessonToBlockNoteBlocks({ lesson, extracted });
+  }
   if (!lessonBlocksHaveContent(blocks)) {
     return {
       courseSlug: course.slug,

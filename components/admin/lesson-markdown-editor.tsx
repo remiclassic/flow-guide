@@ -16,7 +16,12 @@ import {
 import { useDebouncedAutosave } from '@/hooks/use-debounced-autosave';
 import { Button } from '@/components/ui/button';
 import { stringifyLessonBlocks } from '@/lib/courses/blocknote-content';
-import type { LessonContentBlocks } from '@/lib/db/schema';
+import type { Lesson, LessonContentBlocks } from '@/lib/db/schema';
+import {
+  lessonDraftBlockNoteNotPublished,
+  lessonMarkdownHasUnpublishedChanges,
+  lessonPublishedBlocksDifferFromDraft,
+} from '@/lib/admin/studio-lesson-state';
 import { Redo2, Undo2 } from 'lucide-react';
 import { cn, safeTimeoutDelay } from '@/lib/utils';
 
@@ -39,11 +44,20 @@ function localRecoveryKey(courseSlug: string, lessonKey: string) {
   return `fg:studio:lesson-blocks:${courseSlug}:${lessonKey}`;
 }
 
+export type LessonMarkdownEditorServerAlignment = Pick<
+  Lesson,
+  | 'draftBodyBlocks'
+  | 'publishedBodyBlocks'
+  | 'draftBodyMarkdown'
+  | 'publishedBodyMarkdown'
+>;
+
 export function LessonMarkdownEditor({
   courseSlug,
   lessonKey,
   initialDraftMarkdown,
   initialDraftBlocks,
+  serverBodyAlignment,
   onBlockHistory,
   onRegisterBlockApi,
 }: {
@@ -51,6 +65,8 @@ export function LessonMarkdownEditor({
   lessonKey: string;
   initialDraftMarkdown: string;
   initialDraftBlocks: LessonContentBlocks | null;
+  /** Last-known server draft vs published; drives publish reminder banners. */
+  serverBodyAlignment?: LessonMarkdownEditorServerAlignment | null;
   onBlockHistory?: (caps: { canUndo: boolean; canRedo: boolean }) => void;
   onRegisterBlockApi?: (
     api: { undo: () => void; redo: () => void } | null
@@ -59,6 +75,34 @@ export function LessonMarkdownEditor({
   const initialSerialized = useMemo(
     () => stringifyLessonBlocks(initialDraftBlocks),
     [initialDraftBlocks]
+  );
+
+  const draftBlocksNotPublished = useMemo(
+    () =>
+      Boolean(
+        serverBodyAlignment &&
+          lessonDraftBlockNoteNotPublished(serverBodyAlignment)
+      ),
+    [serverBodyAlignment]
+  );
+
+  const draftDiffersFromPublished = useMemo(
+    () =>
+      Boolean(
+        serverBodyAlignment &&
+          !lessonDraftBlockNoteNotPublished(serverBodyAlignment) &&
+          lessonMarkdownHasUnpublishedChanges(serverBodyAlignment)
+      ),
+    [serverBodyAlignment]
+  );
+
+  const blockNoteDriftOnly = useMemo(
+    () =>
+      Boolean(
+        serverBodyAlignment &&
+          lessonPublishedBlocksDifferFromDraft(serverBodyAlignment)
+      ),
+    [serverBodyAlignment]
   );
 
   const [blocksJson, setBlocksJson] = useState(initialSerialized);
@@ -200,7 +244,11 @@ export function LessonMarkdownEditor({
 
   const mergedBlockHistory = useCallback(
     (caps: { canUndo: boolean; canRedo: boolean }) => {
-      setBlockCaps(caps);
+      setBlockCaps((prev) =>
+        prev.canUndo === caps.canUndo && prev.canRedo === caps.canRedo
+          ? prev
+          : caps
+      );
       onBlockHistory?.(caps);
     },
     [onBlockHistory]
@@ -208,6 +256,14 @@ export function LessonMarkdownEditor({
 
   const blockApiRef = useRef<{ undo: () => void; redo: () => void } | null>(
     null
+  );
+
+  const handleBlockApiReady = useCallback(
+    (api: { undo: () => void; redo: () => void } | null) => {
+      blockApiRef.current = api;
+      onRegisterBlockApi?.(api);
+    },
+    [onRegisterBlockApi]
   );
 
   return (
@@ -264,6 +320,45 @@ export function LessonMarkdownEditor({
         </div>
       ) : null}
 
+      {draftBlocksNotPublished ? (
+        <div
+          className="rounded-2xl border border-amber-300/90 bg-amber-50/95 p-4 text-sm text-amber-950 shadow-inner"
+          role="status"
+        >
+          <p className="font-semibold text-amber-950">
+            BlockNote draft is not published yet
+          </p>
+          <p className="mt-1.5 text-xs leading-relaxed text-amber-900/90">
+            Learners still see published Markdown or legacy HTML until you
+            publish. Admin preview can show this draft, which is why it may look
+            better than the live lesson.
+          </p>
+        </div>
+      ) : null}
+
+      {!draftBlocksNotPublished && draftDiffersFromPublished ? (
+        <div
+          className={cn(
+            'rounded-2xl border p-4 text-sm shadow-inner',
+            blockNoteDriftOnly
+              ? 'border-violet-200/90 bg-violet-50/90 text-violet-950'
+              : 'border-stone-200/90 bg-stone-50/95 text-stone-800'
+          )}
+          role="status"
+        >
+          <p className="font-semibold">
+            {blockNoteDriftOnly
+              ? 'Published BlockNote differs from your draft'
+              : 'Draft differs from what learners see'}
+          </p>
+          <p className="mt-1.5 text-xs leading-relaxed opacity-90">
+            {blockNoteDriftOnly
+              ? 'Use Publish to learners to ship the BlockNote you have in the editor. Toggle “Published” in the docked preview to confirm the live experience.'
+              : 'Publishing copies the current draft (BlockNote and/or markdown fields) to the learner-facing version.'}
+          </p>
+        </div>
+      ) : null}
+
       <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-stone-200/85 bg-white/80 px-4 py-3 shadow-inner">
         <div className="flex flex-wrap items-center gap-2">
           <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-stone-500">
@@ -316,10 +411,7 @@ export function LessonMarkdownEditor({
         initialMarkdown={initialDraftMarkdown}
         onBlocksChange={wrappedSetBlocks}
         onBlockHistory={mergedBlockHistory}
-        onBlockApiReady={(api) => {
-          blockApiRef.current = api;
-          onRegisterBlockApi?.(api);
-        }}
+        onBlockApiReady={handleBlockApiReady}
       />
       {publishMessage ? (
         <p

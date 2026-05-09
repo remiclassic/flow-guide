@@ -10,7 +10,10 @@ import { routing } from '@/i18n/routing';
 export const dynamic = 'force-dynamic';
 
 const navLinkClass =
-  'text-sm font-medium text-muted-foreground transition-colors hover:text-foreground';
+  'rounded-md px-2 py-1 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground';
+
+const navLinkButtonClass =
+  'rounded-full border border-border/45 bg-background/80 px-3 py-1 text-xs font-medium text-foreground shadow-none backdrop-blur-sm transition-colors hover:bg-muted/40';
 
 /** Matches middleware `resolveLocale` — admin routes are outside `[locale]` so intl context must be provided here. */
 async function localeForAdmin(): Promise<Locale> {
@@ -32,53 +35,61 @@ export default async function AdminLayout({
 
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
-    <div className="relative min-h-screen overflow-x-hidden bg-[#fbf7f0] text-stone-950">
       <div
-        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_12%_12%,rgba(255,219,171,0.35),transparent_26rem),radial-gradient(circle_at_82%_8%,rgba(196,181,253,0.22),transparent_28rem),linear-gradient(180deg,#fffaf2_0%,#f8f0e6_48%,#fbf7f0_100%)]"
-        aria-hidden
-      />
-      <header className="sticky top-0 z-40 border-b border-border bg-card/85 backdrop-blur-md shadow-card-soft">
-        <div className="flex w-full max-w-none flex-col gap-4 px-4 py-3.5 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
-          <Link
-            href="/admin"
-            className="flex min-w-0 items-center gap-3 transition-opacity hover:opacity-90"
-          >
-            <FlowLogoMark size={40} fetchPriority="high" className="size-10 shrink-0" />
-            <span className="flex min-w-0 flex-col leading-tight">
-              <span className="text-lg font-semibold tracking-tight text-foreground">
-                Flow Guide
-              </span>
-              <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-amber-700">
-                Creator hub
-              </span>
-              <span className="truncate text-xs text-muted-foreground">
-                {user.email} · {user.role}
-              </span>
-            </span>
-          </Link>
-          <nav className="flex flex-wrap items-center gap-x-5 gap-y-2">
-            <Link href="/admin" className={navLinkClass}>
-              Overview
-            </Link>
-            <Link href="/admin/courses" className={navLinkClass}>
-              Courses
-            </Link>
-            <Link href="/admin/media" className={navLinkClass}>
-              Media library
-            </Link>
+        data-admin-root
+        className="relative min-h-screen bg-[#fbf7f0] text-stone-950 [--admin-lesson-sticky-top:4.75rem] sm:[--admin-lesson-sticky-top:2.875rem]"
+      >
+        <div
+          className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_12%_12%,rgba(255,219,171,0.35),transparent_26rem),radial-gradient(circle_at_82%_8%,rgba(196,181,253,0.22),transparent_28rem),linear-gradient(180deg,#fffaf2_0%,#f8f0e6_48%,#fbf7f0_100%)]"
+          aria-hidden
+        />
+        <header
+          className="fixed inset-x-0 top-[var(--admin-preview-ribbon-h,0px)] z-[80] border-b border-border/25 bg-background/70 backdrop-blur-xl supports-[backdrop-filter]:bg-background/55"
+          title={`${user.email} · ${user.role}`}
+        >
+          <div className="flex h-11 w-full items-center justify-between gap-3 px-3 sm:gap-6 sm:px-5 lg:px-8">
             <Link
-              href="/dashboard/courses"
-              className={`${navLinkClass} rounded-full border border-stone-300/80 bg-white/70 px-3 py-1.5 shadow-sm backdrop-blur hover:bg-white`}
+              href="/admin"
+              className="flex min-w-0 shrink items-center gap-2.5 transition-opacity hover:opacity-85"
             >
-              Learner app
+              <FlowLogoMark
+                size={28}
+                fetchPriority="high"
+                className="size-7 shrink-0"
+              />
+              <span className="flex min-w-0 items-baseline gap-2 leading-none">
+                <span className="truncate text-[13px] font-semibold tracking-tight text-foreground">
+                  Flow Guide
+                </span>
+                <span className="hidden text-[10px] font-medium uppercase tracking-[0.18em] text-muted-foreground sm:inline">
+                  Creator
+                </span>
+              </span>
             </Link>
-          </nav>
-        </div>
-      </header>
-      <main className="w-full max-w-none px-4 py-8 sm:px-6 lg:px-8">
-        {children}
-      </main>
-    </div>
+            <nav
+              className="-mr-1 flex max-w-[min(100%,calc(100vw-11rem))] shrink-0 items-center gap-0.5 overflow-x-auto pb-px [-ms-overflow-style:none] [scrollbar-width:none] sm:max-w-none sm:gap-1 [&::-webkit-scrollbar]:hidden"
+              aria-label="Creator hub"
+            >
+              <Link href="/admin" className={navLinkClass}>
+                Overview
+              </Link>
+              <Link href="/admin/courses" className={navLinkClass}>
+                Courses
+              </Link>
+              <Link href="/admin/media" className={navLinkClass}>
+                <span className="sm:hidden">Media</span>
+                <span className="hidden sm:inline">Media library</span>
+              </Link>
+              <Link href="/dashboard/courses" className={`${navLinkButtonClass} ml-1 sm:ml-2`}>
+                Learner app
+              </Link>
+            </nav>
+          </div>
+        </header>
+        <main className="w-full max-w-none overflow-visible px-4 pb-8 pt-[calc(var(--admin-preview-ribbon-h,0px)+var(--admin-lesson-sticky-top,2.875rem))] sm:px-6 lg:px-8">
+          {children}
+        </main>
+      </div>
     </NextIntlClientProvider>
   );
 }

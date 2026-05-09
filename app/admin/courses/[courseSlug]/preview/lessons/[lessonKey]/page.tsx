@@ -122,50 +122,59 @@ export default async function AdminCourseLessonPreviewPage(props: {
   const totalLessons = Math.max(flatLessons.length, 1);
   const nextLessonTitle = lessonTitleForKey(outline, nextLessonKey);
 
-  const previewBar = (
-    <div className="flex w-full flex-wrap items-center gap-2 sm:gap-3">
-      {/* Left: label */}
-      <div className="flex min-w-0 flex-1 items-center gap-2">
-        <FlaskConical className="size-3.5 shrink-0 text-amber-600 dark:text-amber-400" aria-hidden />
-        <span className="truncate text-[11px] font-semibold text-amber-800 dark:text-amber-200">
-          Admin preview — unlocked customer view
-        </span>
-      </div>
+  /** Ephemeral utility strip — muted, minimal (see LessonViewerShell). */
+  const previewRibbon = (
+    <div className="flex min-w-0 items-center gap-1.5">
+      <FlaskConical
+        className="size-3 shrink-0 text-muted-foreground/70"
+        aria-hidden
+      />
+      <span className="truncate text-[10px] font-medium tracking-wide text-muted-foreground">
+        Preview · customer view (staff only)
+      </span>
+    </div>
+  );
 
-      {/* Right: language + actions */}
-      <div className="flex shrink-0 items-center gap-2">
-        <LanguageSwitcher />
-        <form action={markLessonProgressStaffPreviewAction} className="contents">
-          <input type="hidden" name="courseSlug" value={courseSlug} />
-          <input type="hidden" name="lessonKey" value={lessonKey} />
-          <input type="hidden" name="completed" value={completed ? 'false' : 'true'} />
-          <Button
-            type="submit"
-            size="sm"
-            variant="outline"
-            className="h-7 rounded-full border-amber-400/60 bg-white/70 px-3 text-[11px] font-semibold text-amber-900 hover:bg-amber-100/80 dark:border-amber-600/40 dark:bg-amber-900/30 dark:text-amber-100"
-          >
-            {completed ? (
-              <><CheckCircle2 className="mr-1 size-3.5 text-emerald-600" aria-hidden />Mark undone</>
-            ) : (
-              <><Circle className="mr-1 size-3.5" aria-hidden />Mark complete</>
-            )}
-          </Button>
-        </form>
-
+  /** Inline staff controls — composed into one chrome row with breadcrumbs + completion. */
+  const previewToolbar = (
+    <>
+      <LanguageSwitcher compact />
+      <form action={markLessonProgressStaffPreviewAction} className="contents">
+        <input type="hidden" name="courseSlug" value={courseSlug} />
+        <input type="hidden" name="lessonKey" value={lessonKey} />
+        <input type="hidden" name="completed" value={completed ? 'false' : 'true'} />
         <Button
+          type="submit"
           size="sm"
           variant="outline"
-          className="h-7 rounded-full border-amber-400/60 bg-white/70 px-3 text-[11px] font-semibold text-amber-900 hover:bg-amber-100/80 dark:border-amber-600/40 dark:bg-amber-900/30 dark:text-amber-100"
-          asChild
+          className="h-8 shrink-0 rounded-md border-border/50 bg-transparent px-2.5 text-[11px] font-medium shadow-none hover:bg-muted/40"
         >
-          <Link href={`/admin/courses/${courseSlug}/studio`}>
-            <ArrowLeft className="mr-1 size-3.5" aria-hidden />
-            Back to Studio
-          </Link>
+          {completed ? (
+            <>
+              <CheckCircle2 className="mr-1 size-3 text-emerald-600" aria-hidden />
+              Undo
+            </>
+          ) : (
+            <>
+              <Circle className="mr-1 size-3" aria-hidden />
+              Complete
+            </>
+          )}
         </Button>
-      </div>
-    </div>
+      </form>
+
+      <Button
+        size="sm"
+        variant="outline"
+        className="h-8 shrink-0 rounded-md border-border/50 bg-transparent px-2.5 text-[11px] font-medium shadow-none hover:bg-muted/40"
+        asChild
+      >
+        <Link href={`/admin/courses/${courseSlug}/studio`}>
+          <ArrowLeft className="mr-1 size-3" aria-hidden />
+          Studio
+        </Link>
+      </Button>
+    </>
   );
 
   return (
@@ -200,7 +209,8 @@ export default async function AdminCourseLessonPreviewPage(props: {
       nextLessonTitle={nextLessonTitle}
       variant="preview"
       previewStaffNote={tPreview('previewStaffNote')}
-      previewBanner={previewBar}
+      previewBanner={previewRibbon}
+      previewToolbar={previewToolbar}
     />
   );
 }

@@ -60,10 +60,10 @@ export function CompanionPanel({
         </p>
       ) : null}
 
-      <div className="rounded-[1.5rem] border border-[hsl(var(--lesson-border)/0.35)] bg-[hsl(var(--lesson-canvas)/0.68)] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.42)] dark:shadow-none">
+      <div className="rounded-xl border border-sidebar-border bg-muted/25 p-4 shadow-[inset_0_1px_0_hsl(0_0%_100%/0.45)] dark:bg-muted/15 dark:shadow-none">
         <div className="mb-3 flex items-center gap-2">
           <CheckCircle2 className="size-4 text-primary" aria-hidden />
-          <p className="text-sm font-semibold text-foreground">
+          <p className="text-sm font-semibold text-sidebar-foreground">
             {completed ? t('completedLesson') : t('inProgressLesson')}
           </p>
         </div>
@@ -75,7 +75,7 @@ export function CompanionPanel({
                 cy="18"
                 r="15.5"
                 fill="none"
-                className="stroke-[hsl(var(--lesson-border)/0.55)]"
+                className="stroke-sidebar-border"
                 strokeWidth="2.5"
               />
               <circle
@@ -108,7 +108,7 @@ export function CompanionPanel({
         </div>
       </div>
 
-      <div className="rounded-[1.5rem] border border-primary/15 bg-gradient-to-br from-primary/[0.09] via-[hsl(var(--lesson-glow)/0.45)] to-transparent p-4">
+      <div className="rounded-xl border border-primary/15 bg-gradient-to-br from-primary/[0.09] via-sidebar-accent/80 to-transparent p-4">
         <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
           <Flame className="size-4 text-[hsl(var(--stat-streak))]" aria-hidden />
           {t('streakLabel')}
@@ -131,7 +131,7 @@ export function CompanionPanel({
       </div>
 
       {takeaway?.trim() ? (
-        <div className="rounded-[1.5rem] border border-orange-500/20 bg-gradient-to-br from-orange-500/[0.09] via-[hsl(var(--lesson-canvas)/0.5)] to-transparent p-4">
+        <div className="rounded-xl border border-orange-500/20 bg-gradient-to-br from-orange-500/[0.09] via-muted/40 to-transparent p-4">
           <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
             <Sparkles className="size-4 text-orange-600 dark:text-orange-400" aria-hidden />
             {t('keyInsight')}
@@ -140,8 +140,8 @@ export function CompanionPanel({
         </div>
       ) : null}
 
-      <div className="rounded-[1.5rem] border border-[hsl(var(--lesson-border)/0.35)] bg-[hsl(var(--lesson-canvas)/0.58)] p-4">
-        <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
+      <div className="rounded-xl border border-sidebar-border bg-muted/25 p-4 dark:bg-muted/15">
+        <div className="flex items-center gap-2 text-sm font-semibold text-sidebar-foreground">
           <MessageCircle className="size-4 text-primary" aria-hidden />
           {t('coachTitle')}
         </div>
@@ -149,7 +149,7 @@ export function CompanionPanel({
         <Button
           asChild
           variant="outline"
-          className="mt-3 w-full rounded-full border-[hsl(var(--lesson-border)/0.55)] bg-background/80"
+          className="mt-3 w-full rounded-full border-sidebar-border bg-background/80"
         >
           <Link href="/dashboard/ai-coach">{t('askCoach')}</Link>
         </Button>
@@ -170,8 +170,8 @@ export function CompanionPanel({
         </Button>
       </div>
 
-      <div className="rounded-[1.5rem] border border-[hsl(var(--lesson-border)/0.35)] bg-[hsl(var(--lesson-canvas)/0.5)] p-4">
-        <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
+      <div className="rounded-xl border border-sidebar-border bg-muted/25 p-4 dark:bg-muted/15">
+        <div className="flex items-center gap-2 text-sm font-semibold text-sidebar-foreground">
           <Download className="size-4 text-primary" aria-hidden />
           {t('resourcesTitle')}
         </div>
@@ -183,7 +183,7 @@ export function CompanionPanel({
       {nextLessonKey && nextLessonTitle ? (
         <Link
           href={buildLessonUrl(courseSlug, nextLessonKey, lessonLessonBasePath)}
-          className="group flex gap-3 rounded-[1.5rem] border border-[hsl(var(--lesson-border)/0.35)] bg-[hsl(var(--lesson-canvas)/0.5)] p-3 transition-[border-color,background,transform] duration-200 hover:-translate-y-0.5 hover:border-primary/25 hover:bg-[hsl(var(--lesson-glow)/0.5)] motion-reduce:transform-none"
+          className="group flex gap-3 rounded-xl border border-sidebar-border bg-muted/25 p-3 transition-[border-color,background,transform] duration-200 hover:-translate-y-0.5 hover:border-primary/25 hover:bg-muted/45 motion-reduce:transform-none dark:bg-muted/15"
         >
           <div className="min-w-0 flex-1">
             <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">

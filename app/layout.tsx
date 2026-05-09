@@ -31,7 +31,7 @@ export default async function RootLayout({
   return (
     <html
       lang={locale}
-      className={`bg-background ${manrope.className}`}
+      className={`bg-background scrollbar-themed ${manrope.className}`}
       suppressHydrationWarning
     >
       <body className="min-h-[100dvh] bg-background">

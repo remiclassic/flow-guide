@@ -17,6 +17,16 @@ function hasMeaningfulContent(value: unknown, keyHint?: string): boolean {
   );
 }
 
+/** BlockNote `props` often hold lesson text (custom blocks) — any non-empty string counts. */
+function blockPropsHaveLessonText(props: unknown): boolean {
+  if (!props || typeof props !== 'object') return false;
+  return Object.values(props as Record<string, unknown>).some((v) => {
+    if (typeof v === 'string') return v.trim().length > 0;
+    if (Array.isArray(v)) return v.some((x) => String(x).trim().length > 0);
+    return false;
+  });
+}
+
 export function lessonBlocksHaveContent(
   blocks: LessonBlocksJson | undefined
 ): blocks is LessonContentBlocks {
@@ -25,7 +35,7 @@ export function lessonBlocksHaveContent(
   return blocks.some(
     (block) =>
       hasMeaningfulContent(block.content) ||
-      hasMeaningfulContent(block.props) ||
+      blockPropsHaveLessonText(block.props) ||
       hasMeaningfulContent(block.children)
   );
 }

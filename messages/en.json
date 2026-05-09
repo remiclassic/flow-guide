@@ -243,6 +243,8 @@
       "floatingModule": "Course overview",
       "openJourney": "Outline",
       "openCompanion": "Tools",
+      "lessonExerciseEyebrow": "Lesson exercise",
+      "lessonExerciseSuccessLabel": "You'll know it worked when...",
       "quizSectionTitle": "Check your understanding",
       "reflectionSectionTitle": "Reflection",
       "actionSectionTitle": "Action steps",

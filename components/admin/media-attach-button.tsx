@@ -62,7 +62,7 @@ export function MediaAttachButton({
       </Button>
       <dialog
         ref={dialogRef}
-        className="fixed left-1/2 top-1/2 z-50 w-[min(100vw-2rem,520px)] -translate-x-1/2 -translate-y-1/2 rounded-[1.75rem] border border-white/85 bg-[#fbf7f0] p-0 text-stone-950 shadow-[0_28px_90px_-44px_rgba(120,83,45,0.55)] backdrop:bg-stone-950/40"
+        className="fixed left-1/2 top-1/2 z-[100] w-[min(100vw-2rem,520px)] -translate-x-1/2 -translate-y-1/2 rounded-[1.75rem] border border-white/85 bg-[#fbf7f0] p-0 text-stone-950 shadow-[0_28px_90px_-44px_rgba(120,83,45,0.55)] backdrop:bg-stone-950/40"
       >
         <div className="border-b border-stone-200/80 bg-white/80 px-4 py-3 backdrop-blur-sm">
           <p className="text-sm font-semibold text-stone-950">Choose from library</p>

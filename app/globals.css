@@ -273,9 +273,28 @@
     row-gap: 0.18rem;
   }
 
-  /* Gap between consecutive paragraph/list blocks */
+  /* Gap between consecutive paragraph/list blocks (legacy lesson-section rhythm) */
   .flow-guide-blocknote-reader .bn-block-group {
-    row-gap: 0.4rem;
+    row-gap: 0.55rem;
+  }
+
+  /* Atom blocks: legacy outcomes / vignette / framework / quote / exercise */
+  .flow-guide-blocknote-reader .bn-block[data-content-type='flowOutcomes'],
+  .flow-guide-blocknote-reader .bn-block[data-content-type='flowKeyInsight'],
+  .flow-guide-blocknote-reader .bn-block[data-content-type='flowVignette'],
+  .flow-guide-blocknote-reader .bn-block[data-content-type='flowFramework'],
+  .flow-guide-blocknote-reader .bn-block[data-content-type='flowPullQuote'],
+  .flow-guide-blocknote-reader .bn-block[data-content-type='flowLessonExercise'] {
+    margin-block: 1.35rem;
+  }
+
+  .flow-guide-blocknote-reader .bn-block-group > .bn-block:first-child[data-content-type='flowOutcomes'],
+  .flow-guide-blocknote-reader .bn-block-group > .bn-block:first-child[data-content-type='flowKeyInsight'],
+  .flow-guide-blocknote-reader .bn-block-group > .bn-block:first-child[data-content-type='flowVignette'],
+  .flow-guide-blocknote-reader .bn-block-group > .bn-block:first-child[data-content-type='flowFramework'],
+  .flow-guide-blocknote-reader .bn-block-group > .bn-block:first-child[data-content-type='flowPullQuote'],
+  .flow-guide-blocknote-reader .bn-block-group > .bn-block:first-child[data-content-type='flowLessonExercise'] {
+    margin-top: 0;
   }
 
   /* Extra top breathing room before heading blocks using :has() */
@@ -312,7 +331,7 @@
     font-weight: 760;
     letter-spacing: -0.03em;
     line-height: 1.15;
-    color: hsl(260 28% 12%);
+    color: hsl(var(--lesson-ink));
     margin-bottom: 0.5rem;
   }
 
@@ -325,13 +344,19 @@
     line-height: 1.15;
   }
 
+  /* Reader strong inside body — legacy p strong */
+  .flow-guide-blocknote-reader strong {
+    color: hsl(var(--lesson-ink));
+    font-weight: 600;
+  }
+
   .flow-guide-blocknote-reader h2 {
-    margin-block: 0 0.8rem;
-    color: hsl(260 28% 13%);
-    font-size: clamp(1.35rem, 2.4vw, 1.7rem);
-    font-weight: 780;
-    letter-spacing: -0.03em;
-    line-height: 1.2;
+    margin-block: 0 1rem;
+    color: hsl(var(--lesson-ink));
+    font-size: clamp(1.35rem, 2.6vw, 1.95rem);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
   }
 
   .flow-guide-blocknote-editor h3 {
@@ -343,15 +368,17 @@
     line-height: 1.24;
   }
 
-  /* H3 in reader: small-caps label above a section or callout */
+  /* H3 in reader: legacy `.lesson-section h3` — left rail, sentence case */
   .flow-guide-blocknote-reader h3 {
-    margin-block: 0 0.65rem;
-    color: hsl(262 55% 38%);
-    font-size: 0.78rem;
-    font-weight: 800;
-    letter-spacing: 0.11em;
-    text-transform: uppercase;
-    line-height: 1.4;
+    margin-block: 0 0.75rem;
+    padding-left: 1rem;
+    border-left: 2px solid hsl(var(--primary) / 0.35);
+    color: hsl(var(--lesson-ink));
+    font-size: clamp(1.05rem, 2vw, 1.32rem);
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    line-height: 1.25;
+    text-transform: none;
   }
 
   /* ── Paragraphs ── */
@@ -360,9 +387,9 @@
   }
 
   .flow-guide-blocknote-reader p {
-    color: hsl(260 20% 28%);
-    line-height: 1.88;
-    font-size: 1.045rem;
+    color: hsl(var(--lesson-muted));
+    line-height: 1.75;
+    font-size: 0.97rem;
   }
 
   /* ── Links ── */
@@ -381,10 +408,10 @@
   }
 
   .flow-guide-blocknote-reader li {
-    padding-block: 0.3rem;
-    color: hsl(260 20% 28%);
-    line-height: 1.85;
-    font-size: 1.045rem;
+    padding-block: 0.25rem;
+    color: hsl(var(--lesson-muted));
+    line-height: 1.75;
+    font-size: 0.97rem;
   }
 
   /* ── Blockquote (editor) ── */
@@ -396,39 +423,28 @@
     padding: 0.7rem 1rem;
   }
 
-  /* ── Blockquote (reader): card with left accent rail ── */
+  /* ── Blockquote (reader): legacy `.callout.insight` ── */
   .flow-guide-blocknote-reader blockquote {
-    position: relative;
     display: block;
-    border: 1px solid hsl(var(--lesson-border) / 0.5);
-    background: linear-gradient(135deg, hsl(var(--primary) / 0.04), hsl(var(--lesson-wash) / 0.65));
-    border-radius: 1rem;
-    padding: 1.4rem 1.65rem 1.4rem 2rem;
+    margin-block: 1.75rem;
+    border: none;
+    border-radius: 10px;
+    border-left: 3px solid hsl(var(--primary));
+    background: hsl(var(--primary) / 0.05);
+    padding: 1.25rem 1.25rem 1.25rem 1.5rem;
     font-style: normal;
     overflow: hidden;
   }
 
-  .flow-guide-blocknote-reader blockquote::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 1rem;
-    bottom: 1rem;
-    width: 3px;
-    border-radius: 999px;
-    background: linear-gradient(180deg, hsl(262 72% 64%), hsl(278 62% 70%));
-    opacity: 0.8;
-  }
-
   .flow-guide-blocknote-reader blockquote > * {
-    color: hsl(260 18% 34%);
-    font-size: 1.02rem;
-    line-height: 1.85;
+    color: hsl(var(--lesson-ink));
+    font-size: 0.9rem;
+    line-height: 1.75;
     margin: 0;
   }
 
   .flow-guide-blocknote-reader blockquote > p + p {
-    margin-top: 0.9rem;
+    margin-top: 0.65rem;
   }
 
   .flow-guide-blocknote-editor code,
@@ -462,7 +478,7 @@
   }
 
   .dark .flow-guide-blocknote-reader h3 {
-    color: hsl(var(--primary));
+    color: hsl(var(--lesson-ink));
   }
 
   .dark .flow-guide-blocknote-reader p,
@@ -471,7 +487,7 @@
   }
 
   .dark .flow-guide-blocknote-reader blockquote > * {
-    color: hsl(var(--lesson-muted));
+    color: hsl(var(--lesson-ink));
   }
 
   .flow-guide-blocknote-custom {
@@ -545,9 +561,550 @@
     background: linear-gradient(180deg, hsl(35 84% 58%), hsl(24 76% 56%));
   }
 
+  .flow-guide-blocknote-reader .flow-guide-blocknote-custom.flow-guide-blocknote-custom--exercise {
+    border-radius: 1rem;
+    border: 1px solid hsl(var(--primary) / 0.28);
+    background: hsl(var(--lesson-canvas) / 0.92);
+  }
+
+  .dark .flow-guide-blocknote-reader .flow-guide-blocknote-custom.flow-guide-blocknote-custom--exercise {
+    background: hsl(260 18% 11%);
+  }
+
   .flow-guide-blocknote-custom--resource .flow-guide-blocknote-custom__rail,
   .flow-guide-blocknote-custom--video .flow-guide-blocknote-custom__rail {
     background: linear-gradient(180deg, hsl(205 72% 54%), hsl(180 48% 43%));
+  }
+
+  /* ── Legacy course section templates (markdown ```fg-* fences) ───────── */
+  .lesson-article-body .fg-lesson-outcomes,
+  .flow-guide-blocknote-reader .fg-lesson-outcomes {
+    margin-bottom: 2.5rem;
+    border-radius: 1rem;
+    border: 1px solid hsl(var(--primary) / 0.22);
+    background: hsl(var(--primary) / 0.06);
+    padding: 1.75rem 2rem;
+  }
+
+  .lesson-article-body .fg-lesson-outcomes-inner ul,
+  .flow-guide-blocknote-reader .fg-lesson-outcomes-inner ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+  }
+
+  .lesson-article-body .fg-lesson-outcomes-inner li,
+  .flow-guide-blocknote-reader .fg-lesson-outcomes-inner li {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    padding: 0.45rem 0;
+    border-bottom: 1px solid hsl(var(--primary) / 0.22);
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: hsl(var(--lesson-ink));
+  }
+
+  .lesson-article-body .fg-lesson-outcomes-inner li:last-child,
+  .flow-guide-blocknote-reader .fg-lesson-outcomes-inner li:last-child {
+    border-bottom: none;
+  }
+
+  .lesson-article-body .fg-lesson-outcomes-inner li::before,
+  .flow-guide-blocknote-reader .fg-lesson-outcomes-inner li::before {
+    content: '→';
+    flex-shrink: 0;
+    font-weight: 700;
+    color: hsl(var(--primary));
+    margin-top: 0.1rem;
+  }
+
+  .lesson-article-body .fg-lesson-outcomes-inner li > p,
+  .flow-guide-blocknote-reader .fg-lesson-outcomes-inner li > p {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+  }
+
+  .lesson-article-body .fg-lesson-vignette,
+  .flow-guide-blocknote-reader .fg-lesson-vignette {
+    margin: 2rem 0;
+    border-radius: 1rem;
+    border: 1px solid hsl(var(--lesson-border) / 0.55);
+    background: hsl(var(--lesson-wash) / 0.55);
+    padding: 2rem;
+  }
+
+  .dark .lesson-article-body .fg-lesson-vignette,
+  .dark .flow-guide-blocknote-reader .fg-lesson-vignette {
+    background: hsl(260 18% 12%);
+  }
+
+  .lesson-article-body .fg-lesson-vignette-kicker,
+  .flow-guide-blocknote-reader .fg-lesson-vignette-kicker {
+    margin: 0 0 1rem;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: hsl(var(--muted-foreground));
+  }
+
+  .lesson-article-body .fg-lesson-vignette-title,
+  .flow-guide-blocknote-reader .fg-lesson-vignette-title {
+    margin: 0 0 0.75rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: hsl(var(--lesson-ink));
+  }
+
+  .lesson-article-body .fg-lesson-vignette-intro,
+  .flow-guide-blocknote-reader .fg-lesson-vignette-intro {
+    margin-bottom: 1.25rem;
+  }
+
+  .lesson-article-body .fg-lesson-vignette-grid,
+  .flow-guide-blocknote-reader .fg-lesson-vignette-grid {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .lesson-article-body .fg-lesson-vignette-grid,
+    .flow-guide-blocknote-reader .fg-lesson-vignette-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .lesson-article-body .fg-lesson-vignette-col,
+  .flow-guide-blocknote-reader .fg-lesson-vignette-col {
+    border-radius: 0.625rem;
+    border: 1px solid hsl(var(--lesson-border) / 0.45);
+    background: hsl(var(--lesson-canvas) / 0.88);
+    padding: 1.25rem;
+  }
+
+  .dark .lesson-article-body .fg-lesson-vignette-col,
+  .dark .flow-guide-blocknote-reader .fg-lesson-vignette-col {
+    background: hsl(260 18% 14%);
+  }
+
+  .lesson-article-body .fg-lesson-vignette-col-head,
+  .flow-guide-blocknote-reader .fg-lesson-vignette-col-head {
+    margin: 0 0 0.5rem;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: hsl(var(--primary));
+  }
+
+  .lesson-article-body .fg-lesson-framework,
+  .flow-guide-blocknote-reader .fg-lesson-framework {
+    margin: 2rem 0;
+    border-radius: 1rem;
+    border: 1px solid hsl(var(--lesson-border) / 0.55);
+    background: hsl(var(--lesson-canvas) / 0.78);
+    padding: 2rem;
+  }
+
+  .dark .lesson-article-body .fg-lesson-framework,
+  .dark .flow-guide-blocknote-reader .fg-lesson-framework {
+    background: hsl(260 18% 11%);
+  }
+
+  .lesson-article-body .fg-lesson-framework-kicker,
+  .flow-guide-blocknote-reader .fg-lesson-framework-kicker {
+    margin: 0 0 0.75rem;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: hsl(var(--primary));
+  }
+
+  .lesson-article-body .fg-lesson-framework-title,
+  .flow-guide-blocknote-reader .fg-lesson-framework-title {
+    margin: 0 0 0.35rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: hsl(var(--lesson-ink));
+  }
+
+  .lesson-article-body .fg-lesson-framework-inner ol,
+  .flow-guide-blocknote-reader .fg-lesson-framework-inner ol {
+    list-style: none;
+    padding-left: 0;
+    margin: 1rem 0 0;
+    counter-reset: fg-fw;
+  }
+
+  .lesson-article-body .fg-lesson-framework-inner ol > li,
+  .flow-guide-blocknote-reader .fg-lesson-framework-inner ol > li {
+    counter-increment: fg-fw;
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid hsl(var(--lesson-border) / 0.45);
+    font-size: 0.9rem;
+    line-height: 1.65;
+    color: hsl(var(--lesson-muted));
+  }
+
+  .lesson-article-body .fg-lesson-framework-inner ol > li:last-child,
+  .flow-guide-blocknote-reader .fg-lesson-framework-inner ol > li:last-child {
+    border-bottom: none;
+  }
+
+  .lesson-article-body .fg-lesson-framework-inner ol > li::before,
+  .flow-guide-blocknote-reader .fg-lesson-framework-inner ol > li::before {
+    content: counter(fg-fw);
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: hsl(var(--primary));
+    background: hsl(var(--primary) / 0.18);
+    margin-top: 0.12rem;
+  }
+
+  .lesson-article-body .fg-lesson-framework-inner ol > li strong,
+  .flow-guide-blocknote-reader .fg-lesson-framework-inner ol > li strong {
+    color: hsl(var(--lesson-ink));
+  }
+
+  .lesson-article-body .fg-lesson-framework-inner ol > li p,
+  .flow-guide-blocknote-reader .fg-lesson-framework-inner ol > li p {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+  }
+
+  .lesson-article-body .fg-lesson-exercise,
+  .flow-guide-blocknote-reader .fg-lesson-exercise,
+  .flow-guide-blocknote-editor .fg-lesson-exercise {
+    margin: 2.5rem 0;
+    border-radius: 1rem;
+    border: 1px solid hsl(var(--primary) / 0.28);
+    background: hsl(var(--lesson-canvas) / 0.9);
+    padding: 2rem 2rem 2.25rem;
+  }
+
+  .flow-guide-blocknote-editor .fg-lesson-exercise {
+    margin: 0.85rem 0;
+    padding: 1.25rem 1.25rem 1.5rem;
+  }
+
+  .dark .lesson-article-body .fg-lesson-exercise,
+  .dark .flow-guide-blocknote-reader .fg-lesson-exercise,
+  .dark .flow-guide-blocknote-editor .fg-lesson-exercise {
+    background: hsl(260 18% 11%);
+  }
+
+  .lesson-article-body .fg-lesson-exercise-head,
+  .flow-guide-blocknote-reader .fg-lesson-exercise-head,
+  .flow-guide-blocknote-editor .fg-lesson-exercise-head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .lesson-article-body .fg-lesson-exercise-icon,
+  .flow-guide-blocknote-reader .fg-lesson-exercise-icon,
+  .flow-guide-blocknote-editor .fg-lesson-exercise-icon {
+    display: flex;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    border: 1px solid hsl(var(--primary) / 0.28);
+    background: hsl(var(--primary) / 0.06);
+    font-size: 1rem;
+    line-height: 1;
+  }
+
+  .lesson-article-body .fg-lesson-exercise-head-text,
+  .flow-guide-blocknote-reader .fg-lesson-exercise-head-text,
+  .flow-guide-blocknote-editor .fg-lesson-exercise-head-text {
+    min-width: 0;
+  }
+
+  .lesson-article-body .fg-lesson-exercise-eyebrow,
+  .flow-guide-blocknote-reader .fg-lesson-exercise-eyebrow,
+  .flow-guide-blocknote-editor .fg-lesson-exercise-eyebrow {
+    margin-bottom: 0.2rem;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: hsl(var(--primary));
+  }
+
+  .lesson-article-body .fg-lesson-exercise-title,
+  .flow-guide-blocknote-reader .fg-lesson-exercise-title,
+  .flow-guide-blocknote-editor .fg-lesson-exercise-title {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: hsl(var(--lesson-ink));
+  }
+
+  .lesson-article-body .fg-lesson-exercise-body ol,
+  .flow-guide-blocknote-reader .fg-lesson-exercise-body ol,
+  .flow-guide-blocknote-editor .fg-lesson-exercise-body ol {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    counter-reset: fg-ex;
+  }
+
+  .lesson-article-body .fg-lesson-exercise-body ol > li,
+  .flow-guide-blocknote-reader .fg-lesson-exercise-body ol > li,
+  .flow-guide-blocknote-editor .fg-lesson-exercise-body ol > li {
+    counter-increment: fg-ex;
+    display: flex;
+    gap: 0.85rem;
+    align-items: flex-start;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid hsl(var(--lesson-border) / 0.45);
+    font-size: 0.9rem;
+    line-height: 1.65;
+    color: hsl(var(--lesson-muted));
+  }
+
+  .lesson-article-body .fg-lesson-exercise-body ol > li:last-child,
+  .flow-guide-blocknote-reader .fg-lesson-exercise-body ol > li:last-child,
+  .flow-guide-blocknote-editor .fg-lesson-exercise-body ol > li:last-child {
+    border-bottom: none;
+  }
+
+  .lesson-article-body .fg-lesson-exercise-body ol > li::before,
+  .flow-guide-blocknote-reader .fg-lesson-exercise-body ol > li::before,
+  .flow-guide-blocknote-editor .fg-lesson-exercise-body ol > li::before {
+    content: counter(fg-ex);
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: hsl(var(--primary));
+    background: hsl(var(--primary) / 0.26);
+    margin-top: 0.05rem;
+  }
+
+  .lesson-article-body .fg-lesson-exercise-body ol > li strong,
+  .flow-guide-blocknote-reader .fg-lesson-exercise-body ol > li strong,
+  .flow-guide-blocknote-editor .fg-lesson-exercise-body ol > li strong {
+    color: hsl(var(--lesson-ink));
+  }
+
+  .lesson-article-body .fg-lesson-exercise-body ol > li p,
+  .flow-guide-blocknote-reader .fg-lesson-exercise-body ol > li p,
+  .flow-guide-blocknote-editor .fg-lesson-exercise-body ol > li p {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+  }
+
+  .lesson-article-body .fg-lesson-exercise-body hr + h3,
+  .flow-guide-blocknote-reader .fg-lesson-exercise-body hr + h3,
+  .flow-guide-blocknote-editor .fg-lesson-exercise-body hr + h3 {
+    margin-top: 1rem;
+  }
+
+  /* Legacy `.exercise-success` — top rule + success-colored label */
+  .lesson-article-body .fg-lesson-exercise-success,
+  .flow-guide-blocknote-reader .fg-lesson-exercise-success,
+  .flow-guide-blocknote-editor .fg-lesson-exercise-success {
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid hsl(var(--lesson-border) / 0.45);
+  }
+
+  .lesson-article-body .fg-lesson-exercise-success-label,
+  .flow-guide-blocknote-reader .fg-lesson-exercise-success-label,
+  .flow-guide-blocknote-editor .fg-lesson-exercise-success-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: hsl(var(--stat-done));
+    margin-bottom: 0.4rem;
+  }
+
+  .lesson-article-body .fg-lesson-exercise-success-body,
+  .flow-guide-blocknote-reader .fg-lesson-exercise-success-body,
+  .flow-guide-blocknote-editor .fg-lesson-exercise-success-body {
+    margin: 0;
+  }
+
+  .lesson-article-body .fg-lesson-pullquote,
+  .flow-guide-blocknote-reader .fg-lesson-pullquote {
+    margin: 2.25rem 0;
+    padding: 2.25rem 1rem;
+    border-left: none;
+    border-top: 1px solid hsl(var(--lesson-border) / 0.65);
+    border-bottom: 1px solid hsl(var(--lesson-border) / 0.65);
+    background: transparent;
+  }
+
+  /* ── Quiz: legacy “check understanding” panel (.knowledge-quiz on course.css) ─ */
+  .lesson-article-body .fg-lesson-quiz,
+  .flow-guide-blocknote-reader .fg-lesson-quiz {
+    margin-block: 2.5rem 2rem;
+    border-radius: 1rem;
+    border: 1px solid hsl(var(--primary) / 0.28);
+    background: hsl(var(--lesson-canvas) / 0.92);
+    padding: 1.65rem 1.75rem;
+    box-shadow:
+      inset 0 1px 0 hsl(0 0% 100% / 0.55),
+      0 12px 36px -28px hsl(var(--primary) / 0.35);
+  }
+
+  .dark .lesson-article-body .fg-lesson-quiz,
+  .dark .flow-guide-blocknote-reader .fg-lesson-quiz {
+    background: hsl(260 18% 11%);
+    border-color: hsl(var(--primary) / 0.32);
+    box-shadow:
+      inset 0 1px 0 hsl(0 0% 100% / 0.04),
+      0 12px 36px -28px hsl(0 0% 0% / 0.45);
+  }
+
+  .lesson-article-body .fg-lesson-quiz .fg-lesson-quiz-heading,
+  .flow-guide-blocknote-reader .fg-lesson-quiz .fg-lesson-quiz-heading {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: hsl(var(--lesson-ink));
+  }
+
+  .lesson-article-body .fg-lesson-quiz .fg-lesson-quiz-sub,
+  .flow-guide-blocknote-reader .fg-lesson-quiz .fg-lesson-quiz-sub {
+    margin-top: 0.35rem;
+    display: block;
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: hsl(var(--lesson-muted));
+  }
+
+  .lesson-article-body .fg-lesson-quiz .fg-lesson-quiz-intro,
+  .flow-guide-blocknote-reader .fg-lesson-quiz .fg-lesson-quiz-intro {
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    line-height: 1.65;
+    color: hsl(var(--lesson-muted));
+  }
+
+  .lesson-article-body .fg-lesson-quiz ol > li,
+  .flow-guide-blocknote-reader .fg-lesson-quiz ol > li {
+    border-top: 1px solid hsl(var(--lesson-border) / 0.45);
+    padding-top: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .lesson-article-body .fg-lesson-quiz ol > li:first-child,
+  .flow-guide-blocknote-reader .fg-lesson-quiz ol > li:first-child {
+    border-top: none;
+    padding-top: 0;
+    margin-top: 1.25rem;
+  }
+
+  .lesson-article-body .fg-lesson-quiz .fg-lesson-quiz-q,
+  .flow-guide-blocknote-reader .fg-lesson-quiz .fg-lesson-quiz-q {
+    margin: 0 0 0.75rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: hsl(var(--lesson-ink));
+  }
+
+  .lesson-article-body .fg-lesson-quiz .fg-lesson-quiz-opt,
+  .flow-guide-blocknote-reader .fg-lesson-quiz .fg-lesson-quiz-opt {
+    border-radius: 0.5rem;
+    border: 1px solid hsl(var(--lesson-border) / 0.55);
+    background: hsl(var(--muted) / 0.35);
+    color: hsl(var(--lesson-muted));
+  }
+
+  .dark .lesson-article-body .fg-lesson-quiz .fg-lesson-quiz-opt,
+  .dark .flow-guide-blocknote-reader .fg-lesson-quiz .fg-lesson-quiz-opt {
+    background: hsl(260 18% 14%);
+    border-color: hsl(var(--lesson-border) / 0.5);
+  }
+
+  .lesson-article-body .fg-lesson-quiz .fg-lesson-quiz-opt:hover:not(:disabled),
+  .flow-guide-blocknote-reader .fg-lesson-quiz .fg-lesson-quiz-opt:hover:not(:disabled) {
+    background: hsl(var(--muted) / 0.55);
+  }
+
+  /**
+   * Scrollbars — site tokens (primary / muted).
+   * `.scrollbar-themed` — main page scrollports (html, main).
+   * `.scrollbar-lesson-sidebar` — thin rail for sidebar panels.
+   */
+  .scrollbar-themed {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--primary) / 0.42) hsl(var(--muted) / 0.4);
+  }
+
+  .scrollbar-themed::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .scrollbar-themed::-webkit-scrollbar-track {
+    background: hsl(var(--muted) / 0.35);
+    border-radius: 9999px;
+  }
+
+  .scrollbar-themed::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--primary) / 0.38);
+    border-radius: 9999px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+
+  .scrollbar-themed::-webkit-scrollbar-thumb:hover {
+    background-color: hsl(var(--primary) / 0.58);
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+
+  .scrollbar-lesson-sidebar {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--sidebar-primary) / 0.48) transparent;
+  }
+
+  .scrollbar-lesson-sidebar::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  .scrollbar-lesson-sidebar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-lesson-sidebar::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--sidebar-primary) / 0.32);
+    border-radius: 9999px;
+  }
+
+  .scrollbar-lesson-sidebar::-webkit-scrollbar-thumb:hover {
+    background-color: hsl(var(--sidebar-primary) / 0.52);
   }
 }
 
@@ -651,4 +1208,9 @@
   body {
     @apply bg-background text-foreground antialiased;
   }
+}
+
+/* Lesson preview: unified chrome (shell) replaces the layout Creator hub — avoid double headers */
+[data-admin-root]:has([data-unified-lesson-chrome]) > header {
+  display: none;
 }

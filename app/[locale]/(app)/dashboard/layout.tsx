@@ -286,7 +286,7 @@ function DashboardSidebarNavInner({
   );
 
   return (
-    <nav className="min-h-0 flex-1 space-y-3 overflow-y-auto overflow-x-hidden px-3 py-3">
+    <nav className="scrollbar-lesson-sidebar min-h-0 flex-1 space-y-3 overflow-y-auto overflow-x-hidden px-3 py-3">
       {navSections.map((section) => (
         <div key={section.label}>
           <p className="mb-1.5 px-2.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
@@ -543,7 +543,7 @@ export default function DashboardLayout({
 
         <main
           className={cn(
-            'min-h-0 flex-1 overflow-y-auto',
+            'scrollbar-themed min-h-0 flex-1 overflow-y-auto',
             immersiveLesson
               ? 'bg-transparent pt-14 lg:border-0'
               : 'bg-background lg:border-l lg:border-border'

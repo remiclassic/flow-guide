@@ -36,20 +36,14 @@ export function KnowledgeQuizSection({ quiz, className }: Props) {
   }, 0);
 
   return (
-    <section
-      className={cn(
-        'rounded-2xl border border-border/80 bg-muted/10 p-5 sm:p-6',
-        className
-      )}
-      aria-labelledby="kq-heading"
-    >
+    <section className={cn('fg-lesson-quiz', className)} aria-labelledby="kq-heading">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <h2
           id="kq-heading"
-          className="text-lg font-semibold tracking-tight text-foreground"
+          className="fg-lesson-quiz-heading text-lg font-semibold tracking-tight text-foreground"
         >
           <span className="block">Check your understanding</span>
-          <span className="mt-0.5 block text-base font-normal text-muted-foreground">
+          <span className="fg-lesson-quiz-sub mt-0.5 block text-base font-normal text-muted-foreground">
             Comprueba tu comprensión
           </span>
         </h2>
@@ -65,14 +59,14 @@ export function KnowledgeQuizSection({ quiz, className }: Props) {
       </div>
 
       {(quiz.introEn?.trim() || quiz.introEs?.trim()) ? (
-        <div className="mt-4 space-y-2 text-sm leading-relaxed text-muted-foreground">
+        <div className="fg-lesson-quiz-intro mt-4 space-y-2 text-sm leading-relaxed text-muted-foreground">
           {quiz.introEn?.trim() ? <p>{quiz.introEn.trim()}</p> : null}
           {quiz.introEs?.trim() ? (
             <p className="text-muted-foreground/90">{quiz.introEs.trim()}</p>
           ) : null}
         </div>
       ) : (
-        <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+        <p className="fg-lesson-quiz-intro mt-4 text-sm leading-relaxed text-muted-foreground">
           Multiple-choice questions. They do not affect course progress — they
           help you see how clear the ideas are.
         </p>
@@ -87,7 +81,7 @@ export function KnowledgeQuizSection({ quiz, className }: Props) {
         </p>
       ) : null}
 
-      <ol className="mt-6 space-y-8">
+      <ol className="fg-lesson-quiz-items mt-6 list-none space-y-0 p-0">
         {quiz.items.map((item, qIdx) => {
           const choice = picked[qIdx];
           const showResult = choice != null;
@@ -95,7 +89,7 @@ export function KnowledgeQuizSection({ quiz, className }: Props) {
 
           return (
             <li key={qIdx} className="space-y-3">
-              <p className="text-base font-medium text-foreground">
+              <p className="fg-lesson-quiz-q text-base font-medium text-foreground">
                 <span className="tabular-nums text-muted-foreground">
                   {qIdx + 1}.{' '}
                 </span>
@@ -124,7 +118,7 @@ export function KnowledgeQuizSection({ quiz, className }: Props) {
                         setPicked((prev) => ({ ...prev, [qIdx]: oIdx }))
                       }
                       className={cn(
-                        'rounded-xl border px-4 py-3 text-left text-sm transition',
+                        'fg-lesson-quiz-opt rounded-xl border px-4 py-3 text-left text-sm transition',
                         'border-border bg-background hover:bg-muted/40',
                         selected && !showResult && 'border-primary/50 bg-primary/5',
                         highlight &&

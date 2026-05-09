@@ -64,26 +64,26 @@ export function LessonJourneyNav({
 
   return (
     <nav
-      className={cn('flex flex-col gap-4', className)}
+      className={cn('flex min-h-full flex-col gap-4', className)}
       aria-label={t('journeyTitle')}
     >
-      <div className="flex items-start gap-3">
+      <div className="flex items-start gap-3 px-0.5">
         <FlowLogoMark size={40} className="size-10 shrink-0" />
-        <div className="min-w-0">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+        <div className="min-w-0 flex flex-col leading-tight">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
             Flow Guide
           </p>
-          <p className="truncate text-sm font-semibold leading-snug text-foreground">
+          <p className="truncate text-base font-semibold tracking-[-0.025em] text-sidebar-foreground">
             {courseTitle}
           </p>
         </div>
       </div>
 
-      <div className="space-y-2">
-        <p className="px-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+      <div className="space-y-3">
+        <p className="mb-1.5 px-2.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
           {t('lessonOutline')}
         </p>
-        <ul className="space-y-1">
+        <ul className="space-y-0.5">
           {modules.map((mod) => {
             const isOpen = expanded.has(mod.id);
             const doneCount = mod.lessons.filter((lesson) => lesson.done).length;
@@ -92,14 +92,14 @@ export function LessonJourneyNav({
                 ? Math.round((doneCount / mod.lessons.length) * 100)
                 : 0;
             return (
-              <li key={mod.id} className="rounded-2xl border border-transparent">
+              <li key={mod.id} className="rounded-xl border border-transparent">
                 <button
                   type="button"
                   onClick={() => toggleModule(mod.id)}
-                  className="w-full rounded-[1.1rem] px-2 py-2 text-left transition-colors hover:bg-[hsl(var(--lesson-glow)/0.5)]"
+                  className="w-full rounded-xl px-3 py-2 text-left transition-all duration-150 hover:bg-muted/80"
                   aria-expanded={isOpen}
                 >
-                  <span className="flex items-center gap-2 text-sm font-semibold text-foreground">
+                  <span className="flex items-center gap-2 text-[13px] font-semibold text-sidebar-foreground">
                     {isOpen ? (
                       <ChevronDown className="size-4 shrink-0 text-muted-foreground" />
                     ) : (
@@ -112,11 +112,11 @@ export function LessonJourneyNav({
                   </span>
                   <Progress
                     value={modulePercent}
-                    className="mt-2 h-1 rounded-full bg-[hsl(var(--lesson-border)/0.4)] [&>div]:bg-gradient-to-r [&>div]:from-primary/70 [&>div]:to-[hsl(34_88%_62%/0.8)]"
+                    className="mt-2 h-1 rounded-full bg-muted [&>div]:bg-gradient-to-r [&>div]:from-primary [&>div]:to-[hsl(34_88%_62%)]"
                   />
                 </button>
                 {isOpen ? (
-                  <ul className="space-y-0.5 pb-2 pl-2">
+                  <ul className="space-y-0.5 pb-2 pt-0.5">
                     {mod.lessons.map((lesson) => {
                       const active = lesson.lessonKey === currentLessonKey;
                       const base = lessonLessonBasePath?.trim();
@@ -131,24 +131,39 @@ export function LessonJourneyNav({
                           <Link
                             href={href}
                             className={cn(
-                              'group/lesson flex items-center gap-2 rounded-xl px-2.5 py-2 text-[13px] transition-[background,color,box-shadow,transform] duration-200 hover:translate-x-0.5 motion-reduce:transform-none',
+                              'group relative flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-[13px] font-semibold transition-all duration-150',
                               active
-                                ? 'bg-primary/[0.13] font-semibold text-primary shadow-[inset_3px_0_0_hsl(var(--primary)),0_10px_22px_-18px_hsl(var(--primary)/0.5)] ring-1 ring-primary/20'
-                                : 'text-muted-foreground hover:bg-[hsl(var(--lesson-glow)/0.55)] hover:text-foreground'
+                                ? 'bg-[linear-gradient(135deg,hsl(var(--primary)/0.12),hsl(var(--sidebar-accent)))] text-sidebar-accent-foreground shadow-sm ring-1 ring-primary/10'
+                                : 'text-muted-foreground hover:bg-muted/80 hover:text-foreground'
                             )}
                           >
-                            {lesson.done ? (
-                              <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400">
-                                <Check className="size-3.5" strokeWidth={2.5} />
-                              </span>
-                            ) : active ? (
-                              <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary/15 text-primary">
-                                <Play className="size-3.5 fill-current" />
-                              </span>
-                            ) : (
-                              <Circle className="size-4 shrink-0 text-muted-foreground/40 transition-colors group-hover/lesson:text-primary/50" />
-                            )}
-                            <span className="min-w-0 flex-1 leading-snug">{lesson.titleEn}</span>
+                            {active ? (
+                              <span
+                                className="absolute right-0 top-1/2 h-6 w-1 -translate-y-1/2 rounded-l-full bg-primary"
+                                aria-hidden
+                              />
+                            ) : null}
+                            <span
+                              className={cn(
+                                'flex size-8 shrink-0 items-center justify-center rounded-lg transition-colors',
+                                active
+                                  ? 'bg-white/80 text-primary shadow-sm'
+                                  : lesson.done
+                                    ? 'bg-muted/55 text-emerald-600 dark:text-emerald-400'
+                                    : 'bg-muted/55 text-foreground/70 group-hover:text-foreground'
+                              )}
+                            >
+                              {lesson.done ? (
+                                <Check className="size-[15px]" strokeWidth={2.5} />
+                              ) : active ? (
+                                <Play className="size-[15px] fill-current" />
+                              ) : (
+                                <Circle className="size-[15px] text-muted-foreground/45 transition-colors group-hover:text-primary/55" />
+                              )}
+                            </span>
+                            <span className="min-w-0 flex-1 truncate leading-snug">
+                              {lesson.titleEn}
+                            </span>
                           </Link>
                         </li>
                       );
@@ -163,7 +178,7 @@ export function LessonJourneyNav({
 
       <Link
         href={backToCourseHref}
-        className="mt-auto inline-flex items-center justify-center rounded-full border border-[hsl(var(--lesson-border)/0.55)] bg-[hsl(var(--lesson-canvas)/0.58)] px-4 py-2.5 text-sm font-semibold text-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.4)] transition-colors hover:bg-[hsl(var(--lesson-glow)/0.6)]"
+        className="mt-auto inline-flex w-full items-center justify-center rounded-xl border border-sidebar-border bg-muted/40 px-3 py-2 text-[13px] font-semibold text-muted-foreground transition-all duration-150 hover:bg-muted/80 hover:text-foreground"
       >
         {t('backToCourse')}
       </Link>

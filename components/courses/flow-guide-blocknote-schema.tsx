@@ -15,14 +15,28 @@ import {
 import {
   BookOpen,
   Brain,
+  ClipboardList,
+  Columns2,
   Download,
   Dumbbell,
   Flame,
+  LayoutList,
+  Lightbulb,
   ListChecks,
   MessageSquareQuote,
   PlaySquare,
+  Quote,
   Sparkles,
+  Target,
 } from 'lucide-react';
+import {
+  flowOutcomesBlock,
+  flowKeyInsightBlock,
+  flowVignetteBlock,
+  flowFrameworkLessonBlock,
+  flowPullQuoteBlock,
+  flowLessonExerciseBlock,
+} from '@/components/courses/flow-guide-blocknote-legacy-blocks';
 
 type FlowBlockTone =
   | 'reflection'
@@ -133,6 +147,12 @@ const flowVideoEmbed = createFlowBlock('flowVideoEmbed', 'video');
 export const flowGuideBlockNoteSchema = BlockNoteSchema.create({
   blockSpecs: {
     ...defaultBlockSpecs,
+    flowOutcomes: flowOutcomesBlock,
+    flowKeyInsight: flowKeyInsightBlock,
+    flowVignette: flowVignetteBlock,
+    flowFramework: flowFrameworkLessonBlock,
+    flowPullQuote: flowPullQuoteBlock,
+    flowLessonExercise: flowLessonExerciseBlock,
     flowReflection,
     flowActionStep,
     flowExercise,
@@ -182,6 +202,23 @@ function insertFlowBlock(
   });
 }
 
+function insertLegacyPropBlock(
+  editor: FlowGuideEditor,
+  type:
+    | 'flowOutcomes'
+    | 'flowKeyInsight'
+    | 'flowVignette'
+    | 'flowFramework'
+    | 'flowPullQuote'
+    | 'flowLessonExercise',
+  props: Record<string, string>
+) {
+  insertOrUpdateBlockForSlashMenu(editor, {
+    type,
+    props,
+  });
+}
+
 export function getFlowGuideSlashMenuItems(
   editor: FlowGuideEditor,
   query: string
@@ -191,6 +228,90 @@ export function getFlowGuideSlashMenuItems(
   );
 
   const flowItems: DefaultReactSuggestionItem[] = [
+    {
+      title: 'Lesson outcomes',
+      subtext: '"By the end of this lesson" checklist (legacy outcomes box).',
+      aliases: ['outcomes', 'objectives', 'goals'],
+      group: 'Flow Guide',
+      icon: <Target className="size-4" />,
+      onItemClick: () =>
+        insertLegacyPropBlock(editor, 'flowOutcomes', {
+          title: 'By the end of this lesson',
+          bulletsText: '- First learning outcome\n- Second learning outcome',
+        }),
+    },
+    {
+      title: 'Key insight callout',
+      subtext: 'Labeled insight block (legacy key point / callout).',
+      aliases: ['insight', 'key point', 'callout'],
+      group: 'Flow Guide',
+      icon: <Lightbulb className="size-4" />,
+      onItemClick: () =>
+        insertLegacyPropBlock(editor, 'flowKeyInsight', {
+          label: 'Key point',
+          bodyMd: 'The idea learners should remember from this section.',
+        }),
+    },
+    {
+      title: 'Real example (vignette)',
+      subtext: 'Two-column story contrast (legacy vignette).',
+      aliases: ['vignette', 'example', 'story'],
+      group: 'Flow Guide',
+      icon: <Columns2 className="size-4" />,
+      onItemClick: () =>
+        insertLegacyPropBlock(editor, 'flowVignette', {
+          kicker: 'Real example',
+          title: 'Scenario title',
+          introMd: 'Short setup in one or two sentences.',
+          columnsJson: JSON.stringify([
+            { title: 'Without structure', body: 'What tends to happen.' },
+            { title: 'With structure', body: 'What changes instead.' },
+          ]),
+        }),
+    },
+    {
+      title: 'Framework steps',
+      subtext: 'Numbered framework (legacy framework box).',
+      aliases: ['framework', 'pillars', 'steps'],
+      group: 'Flow Guide',
+      icon: <LayoutList className="size-4" />,
+      onItemClick: () =>
+        insertLegacyPropBlock(editor, 'flowFramework', {
+          kicker: 'Framework',
+          title: 'Your framework title',
+          bodyMd:
+            '1. **First pillar:** What it means in practice.\n\n2. **Second pillar:** Supporting detail.',
+        }),
+    },
+    {
+      title: 'Featured quote',
+      subtext: 'Large centered pull quote (legacy lesson quote).',
+      aliases: ['pullquote', 'pull quote', 'banner quote'],
+      group: 'Flow Guide',
+      icon: <Quote className="size-4" />,
+      onItemClick: () =>
+        insertLegacyPropBlock(editor, 'flowPullQuote', {
+          bodyMd: 'One bold line learners should carry with them.',
+        }),
+    },
+    {
+      title: 'Lesson exercise (structured)',
+      subtext: 'Full lesson exercise with steps + success check (legacy exercise block).',
+      aliases: ['lesson exercise', 'audit', 'worksheet'],
+      group: 'Flow Guide',
+      icon: <ClipboardList className="size-4" />,
+      onItemClick: () =>
+        insertLegacyPropBlock(editor, 'flowLessonExercise', {
+          eyebrow: 'Lesson exercise',
+          title: 'Short exercise title',
+          iconEmoji: '✍️',
+          introMd: 'Why this matters in one paragraph.',
+          stepsMd:
+            '1. **Step one:** What the learner writes or does.\n\n2. **Step two:** Follow-up prompt.',
+          successLabel: "You'll know it worked when...",
+          successBodyMd: 'Observable signal that the exercise landed.',
+        }),
+    },
     {
       title: 'Reflection block',
       subtext: 'Prompt learners to pause and connect the lesson to real life.',

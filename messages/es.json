@@ -243,6 +243,8 @@
       "floatingModule": "Resumen del curso",
       "openJourney": "Índice",
       "openCompanion": "Herramientas",
+      "lessonExerciseEyebrow": "Ejercicio de la lección",
+      "lessonExerciseSuccessLabel": "Sabrás que funcionó cuando...",
       "quizSectionTitle": "Comprueba tu comprensión",
       "reflectionSectionTitle": "Reflexión",
       "actionSectionTitle": "Pasos de acción",

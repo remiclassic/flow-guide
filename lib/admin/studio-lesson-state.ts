@@ -27,6 +27,28 @@ export function lessonMarkdownHasUnpublishedChanges(
   );
 }
 
+/** Draft BlockNote exists but nothing published yet — learners fall back to markdown/legacy. */
+export function lessonDraftBlockNoteNotPublished(
+  lesson: Pick<Lesson, 'draftBodyBlocks' | 'publishedBodyBlocks'>
+): boolean {
+  return (
+    lessonBlocksHaveContent(lesson.draftBodyBlocks) &&
+    !lessonBlocksHaveContent(lesson.publishedBodyBlocks)
+  );
+}
+
+/** Both sides have BlockNote JSON but they differ (publish will sync learners to draft). */
+export function lessonPublishedBlocksDifferFromDraft(
+  lesson: Pick<Lesson, 'draftBodyBlocks' | 'publishedBodyBlocks'>
+): boolean {
+  if (!lessonBlocksHaveContent(lesson.draftBodyBlocks)) return false;
+  if (!lessonBlocksHaveContent(lesson.publishedBodyBlocks)) return false;
+  return (
+    JSON.stringify(lesson.draftBodyBlocks) !==
+    JSON.stringify(lesson.publishedBodyBlocks)
+  );
+}
+
 /** Lesson appears in learner nav when published MD or legacy exists (existing product rule). */
 export function lessonHasLearnerVisibleBody(
   lesson: Pick<

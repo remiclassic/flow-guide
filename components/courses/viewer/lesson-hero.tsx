@@ -45,10 +45,13 @@ export function LessonHero({
 
   return (
     <header
-      className={cn('relative w-full', className)}
+      className={cn(
+        'relative w-full border-b border-[hsl(var(--lesson-border))] pb-10 mb-10',
+        className
+      )}
     >
-      {/* Eyebrow */}
-      <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.22em] text-primary/80">
+      {/* Eyebrow — legacy `.lesson-tag` pill */}
+      <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-primary/25 bg-[hsl(var(--primary)/0.06)] px-[0.85rem] py-[0.3rem] text-[0.7rem] font-bold uppercase tracking-[0.15em] text-primary">
         {t('moduleChapter', {
           num: moduleNum >= 0 ? moduleNum + 1 : '—',
           title: moduleTitleEn,
@@ -58,7 +61,7 @@ export function LessonHero({
       {/* Two-col: text left, optional image right */}
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_min(260px,34%)] lg:items-center lg:gap-10">
         <div className="min-w-0 space-y-5">
-          <h1 className="text-[clamp(1.9rem,4.5vw,3rem)] font-semibold leading-[1.06] tracking-[-0.04em] text-[hsl(var(--lesson-ink))]">
+          <h1 className="text-[clamp(1.85rem,4vw,2.75rem)] font-black leading-[1.1] tracking-[-0.03em] text-[hsl(var(--lesson-ink))]">
             {titleEn}
           </h1>
 
@@ -69,13 +72,13 @@ export function LessonHero({
           ) : null}
 
           {subtitleEn?.trim() ? (
-            <p className="text-[1.05rem] leading-relaxed text-[hsl(var(--lesson-muted))]">
+            <p className="max-w-[620px] text-[1.05rem] font-normal leading-[1.8] text-[hsl(var(--lesson-muted))]">
               {subtitleEn.trim()}
             </p>
           ) : null}
 
-          {/* Metadata row — clean horizontal, no card */}
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-[hsl(var(--lesson-muted))]">
+          {/* Metadata row — legacy `.lesson-meta-row` / `.meta-item` */}
+          <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-[0.75rem] font-medium text-muted-foreground">
             {est != null ? (
               <span className="inline-flex items-center gap-1.5">
                 <Clock className="size-3.5 shrink-0 text-primary/70" aria-hidden />

@@ -74,8 +74,10 @@ export type LessonExperienceProps = {
   nextLessonTitle: string | null;
   reflectionHref?: string;
   variant?: 'learner' | 'preview';
-  /** Staff preview: actions card / banner */
+  /** Staff preview: amber ribbon text only (pinned above Creator hub). */
   previewBanner?: ReactNode;
+  /** Staff preview: toolbar row under Creator hub (language, progress actions). */
+  previewToolbar?: ReactNode;
   /** Staff preview: companion disclaimer */
   previewStaffNote?: string | null;
   showStructuredSections?: boolean;
@@ -113,6 +115,7 @@ export function LessonExperience({
   reflectionHref = '/dashboard/coach',
   variant = 'learner',
   previewBanner,
+  previewToolbar,
   previewStaffNote,
   showStructuredSections = true,
 }: LessonExperienceProps) {
@@ -245,6 +248,13 @@ export function LessonExperience({
         companion={companion}
         article={article}
         previewBanner={variant === 'preview' ? previewBanner : undefined}
+        previewToolbar={variant === 'preview' ? previewToolbar : undefined}
+        stickyHeaderTopClassName={
+          variant === 'preview'
+            ? 'top-[var(--admin-lesson-sticky-top,6rem)]'
+            : 'top-14'
+        }
+        stickyHeaderZClassName={variant === 'preview' ? 'z-[57]' : 'z-[59]'}
         courseSlug={courseSlug}
         courseOverviewHref={courseOverviewHref}
         lessonLessonBasePath={lessonLessonBasePath}

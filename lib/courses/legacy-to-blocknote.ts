@@ -15,7 +15,7 @@ type InlineLink = {
 
 type InlineContent = InlineText | InlineLink;
 
-type PartialBlockJson = {
+export type PartialBlockJson = {
   type: string;
   props?: Record<string, unknown>;
   content?: string | InlineContent[];
@@ -59,7 +59,7 @@ function textNode(text: string, styles: Record<string, boolean> = {}): InlineTex
   return { type: 'text', text, styles };
 }
 
-function parseInlineMarkdown(value: string): InlineContent[] {
+export function parseInlineMarkdown(value: string): InlineContent[] {
   const input = normalizeText(value);
   if (!input) return [];
 
@@ -98,7 +98,7 @@ function parseInlineMarkdown(value: string): InlineContent[] {
   return tokens.length ? tokens : [textNode(input)];
 }
 
-function contentBlock(
+export function contentBlock(
   type: string,
   content: string,
   props?: Record<string, unknown>
@@ -284,10 +284,11 @@ function splitMarkdownItems(value: string): string[] {
     .filter(Boolean);
 }
 
-function appendStructuredLessonBlocks(
+export function appendStructuredLessonBlocks(
   blocks: PartialBlockJson[],
   lesson: Pick<Lesson, 'reflectionPromptEn' | 'actionStepsEn'>,
-  extracted?: Pick<LegacyLessonExtract, 'reflectionPromptEn' | 'actionStepsEn'> | null
+  extracted?: Pick<LegacyLessonExtract, 'reflectionPromptEn' | 'actionStepsEn'> | null,
+  opts?: { skipActionSteps?: boolean }
 ) {
   const reflection = lesson.reflectionPromptEn?.trim() || extracted?.reflectionPromptEn?.trim();
   if (reflection) {
@@ -295,6 +296,8 @@ function appendStructuredLessonBlocks(
       blocks.push(customBlock('flowReflection', item));
     }
   }
+
+  if (opts?.skipActionSteps) return;
 
   const action = lesson.actionStepsEn?.trim() || extracted?.actionStepsEn?.trim();
   if (action) {

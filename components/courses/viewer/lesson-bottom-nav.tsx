@@ -44,7 +44,7 @@ export function LessonBottomNav({
         className
       )}
     >
-      <div className="mx-auto flex w-full max-w-[1680px] items-center gap-2 px-4 sm:gap-3 sm:px-6 lg:px-8 xl:px-10">
+      <div className="flex w-full items-center gap-2 px-3 sm:gap-3 sm:px-6 lg:px-8 xl:px-10">
 
         {/* LEFT ZONE — previous + mobile outline toggle */}
         <div className="flex items-center gap-1 sm:gap-2">
