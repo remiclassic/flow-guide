@@ -48,7 +48,7 @@ export function ActionStepsCard({
   return (
     <section
       className={cn(
-        'rounded-2xl border border-primary/25 bg-[hsl(var(--lesson-canvas)/0.85)] p-7 shadow-[inset_0_1px_0_hsl(0_0%_100%/0.5)] dark:bg-[hsl(var(--card)/0.5)] dark:shadow-none',
+        'lesson-action-steps-card rounded-2xl border border-primary/25 bg-[hsl(var(--lesson-canvas)/0.85)] px-8 py-10 shadow-[inset_0_1px_0_hsl(0_0%_100%/0.5)] dark:bg-[hsl(var(--card)/0.5)] dark:shadow-none',
         className
       )}
     >
@@ -125,7 +125,7 @@ export function ContinueJourneyCard({
   return (
     <section
       className={cn(
-        'relative overflow-hidden rounded-[2.25rem] border border-primary/20 bg-[radial-gradient(ellipse_70%_80%_at_15%_0%,hsl(var(--primary)/0.16),transparent_58%),linear-gradient(135deg,hsl(var(--lesson-wash)/0.78),hsl(var(--lesson-canvas)/0.84))] p-6 shadow-[0_30px_80px_-54px_hsl(var(--primary)/0.5)] ring-1 ring-white/35 sm:p-8 dark:ring-white/10',
+        'lesson-continue-journey-card relative overflow-hidden rounded-[2.25rem] border border-primary/20 bg-[radial-gradient(ellipse_70%_80%_at_15%_0%,hsl(var(--primary)/0.16),transparent_58%),linear-gradient(135deg,hsl(var(--lesson-wash)/0.78),hsl(var(--lesson-canvas)/0.84))] p-6 shadow-[0_30px_80px_-54px_hsl(var(--primary)/0.5)] ring-1 ring-white/35 sm:p-8 dark:ring-white/10',
         className
       )}
       aria-labelledby="continue-journey-title"

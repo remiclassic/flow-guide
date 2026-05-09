@@ -269,48 +269,86 @@
     padding-block: 0.1rem;
   }
 
-  .flow-guide-blocknote-editor .bn-block-group {
-    row-gap: 0.18rem;
-  }
-
-  /* Gap between consecutive paragraph/list blocks (legacy lesson-section rhythm) */
+  /* Unified block rhythm: “double space” (Studio + preview) */
+  .flow-guide-blocknote-editor .bn-block-group,
   .flow-guide-blocknote-reader .bn-block-group {
-    row-gap: 0.55rem;
+    row-gap: 1.5rem !important;
   }
 
-  /* Atom blocks: legacy outcomes / vignette / framework / quote / exercise */
+  /**
+   * Paragraph blocks — extra separation at the content shell so rhythm survives
+   * BlockNote/Mantine inner resets (row-gap alone can look tight on prose).
+   */
+  .flow-guide-blocknote-editor .bn-block[data-content-type='paragraph'] > .bn-block-content,
+  .flow-guide-blocknote-reader .bn-block[data-content-type='paragraph'] > .bn-block-content {
+    margin-bottom: 2rem !important;
+  }
+
+  /* Only the last top-level paragraph in the doc: avoid trailing slab of margin */
+  .flow-guide-blocknote-editor .bn-block-group > .bn-block[data-content-type='paragraph']:last-child > .bn-block-content,
+  .flow-guide-blocknote-reader .bn-block-group > .bn-block[data-content-type='paragraph']:last-child > .bn-block-content {
+    margin-bottom: 0 !important;
+  }
+
+  /**
+   * Atom blocks — modest vertical margin so row-gap defines rhythm
+   * (avoids compounding 1.35rem gap + 1.35rem margin).
+   */
+  .flow-guide-blocknote-editor .bn-block[data-content-type='flowOutcomes'],
+  .flow-guide-blocknote-editor .bn-block[data-content-type='flowKeyInsight'],
+  .flow-guide-blocknote-editor .bn-block[data-content-type='flowVignette'],
+  .flow-guide-blocknote-editor .bn-block[data-content-type='flowFramework'],
+  .flow-guide-blocknote-editor .bn-block[data-content-type='flowPullQuote'],
   .flow-guide-blocknote-reader .bn-block[data-content-type='flowOutcomes'],
   .flow-guide-blocknote-reader .bn-block[data-content-type='flowKeyInsight'],
   .flow-guide-blocknote-reader .bn-block[data-content-type='flowVignette'],
   .flow-guide-blocknote-reader .bn-block[data-content-type='flowFramework'],
-  .flow-guide-blocknote-reader .bn-block[data-content-type='flowPullQuote'],
-  .flow-guide-blocknote-reader .bn-block[data-content-type='flowLessonExercise'] {
-    margin-block: 1.35rem;
+  .flow-guide-blocknote-reader .bn-block[data-content-type='flowPullQuote'] {
+    margin-block: 0.75rem;
   }
 
+  /* Lesson exercise atom — larger vertical separation (dense internal UI) */
+  .flow-guide-blocknote-editor .bn-block[data-content-type='flowLessonExercise'],
+  .flow-guide-blocknote-reader .bn-block[data-content-type='flowLessonExercise'] {
+    margin-block: 2.5rem;
+  }
+
+  .flow-guide-blocknote-editor .bn-block-group > .bn-block:first-child[data-content-type='flowOutcomes'],
+  .flow-guide-blocknote-editor .bn-block-group > .bn-block:first-child[data-content-type='flowKeyInsight'],
+  .flow-guide-blocknote-editor .bn-block-group > .bn-block:first-child[data-content-type='flowVignette'],
+  .flow-guide-blocknote-editor .bn-block-group > .bn-block:first-child[data-content-type='flowFramework'],
+  .flow-guide-blocknote-editor .bn-block-group > .bn-block:first-child[data-content-type='flowPullQuote'],
   .flow-guide-blocknote-reader .bn-block-group > .bn-block:first-child[data-content-type='flowOutcomes'],
   .flow-guide-blocknote-reader .bn-block-group > .bn-block:first-child[data-content-type='flowKeyInsight'],
   .flow-guide-blocknote-reader .bn-block-group > .bn-block:first-child[data-content-type='flowVignette'],
   .flow-guide-blocknote-reader .bn-block-group > .bn-block:first-child[data-content-type='flowFramework'],
-  .flow-guide-blocknote-reader .bn-block-group > .bn-block:first-child[data-content-type='flowPullQuote'],
+  .flow-guide-blocknote-reader .bn-block-group > .bn-block:first-child[data-content-type='flowPullQuote'] {
+    margin-top: 0;
+  }
+
+  .flow-guide-blocknote-editor .bn-block-group > .bn-block:first-child[data-content-type='flowLessonExercise'],
   .flow-guide-blocknote-reader .bn-block-group > .bn-block:first-child[data-content-type='flowLessonExercise'] {
     margin-top: 0;
   }
 
-  /* Extra top breathing room before heading blocks using :has() */
+  /* Heading wrapper rhythm — block unit owns top-air (editor + reader) */
+  .flow-guide-blocknote-editor .bn-block-group > .bn-block:has(> .bn-block-content > h1),
   .flow-guide-blocknote-reader .bn-block-group > .bn-block:has(> .bn-block-content > h1) {
     margin-top: 0.5rem;
   }
 
+  .flow-guide-blocknote-editor .bn-block-group > .bn-block:has(> .bn-block-content > h2),
   .flow-guide-blocknote-reader .bn-block-group > .bn-block:has(> .bn-block-content > h2) {
     margin-top: 2.75rem;
   }
 
+  .flow-guide-blocknote-editor .bn-block-group > .bn-block:has(> .bn-block-content > h3),
   .flow-guide-blocknote-reader .bn-block-group > .bn-block:has(> .bn-block-content > h3) {
     margin-top: 2rem;
   }
 
   /* First block never gets extra top margin */
+  .flow-guide-blocknote-editor .bn-block-group > .bn-block:first-child,
   .flow-guide-blocknote-reader .bn-block-group > .bn-block:first-child {
     margin-top: 0 !important;
   }
@@ -335,9 +373,17 @@
     margin-bottom: 0.5rem;
   }
 
+  /* Wrapper owns heading top-air; keep semantic ink token */
+  .flow-guide-blocknote-editor h2,
+  .flow-guide-blocknote-editor h3,
+  .flow-guide-blocknote-reader h2,
+  .flow-guide-blocknote-reader h3 {
+    margin-top: 0;
+    color: hsl(var(--lesson-ink));
+  }
+
   .flow-guide-blocknote-editor h2 {
-    margin-block: 1rem 0.4rem;
-    color: hsl(260 25% 16%);
+    margin-block: 0 0.4rem;
     font-size: clamp(1.45rem, 2.6vw, 2rem);
     font-weight: 760;
     letter-spacing: -0.035em;
@@ -352,7 +398,6 @@
 
   .flow-guide-blocknote-reader h2 {
     margin-block: 0 1rem;
-    color: hsl(var(--lesson-ink));
     font-size: clamp(1.35rem, 2.6vw, 1.95rem);
     font-weight: 800;
     letter-spacing: -0.025em;
@@ -360,8 +405,7 @@
   }
 
   .flow-guide-blocknote-editor h3 {
-    margin-block: 0.85rem 0.32rem;
-    color: hsl(260 24% 18%);
+    margin-block: 0 0.32rem;
     font-size: 1.22rem;
     font-weight: 740;
     letter-spacing: -0.02em;
@@ -373,7 +417,6 @@
     margin-block: 0 0.75rem;
     padding-left: 1rem;
     border-left: 2px solid hsl(var(--primary) / 0.35);
-    color: hsl(var(--lesson-ink));
     font-size: clamp(1.05rem, 2vw, 1.32rem);
     font-weight: 700;
     letter-spacing: -0.015em;
@@ -559,6 +602,51 @@
   .flow-guide-blocknote-custom--action .flow-guide-blocknote-custom__rail,
   .flow-guide-blocknote-custom--exercise .flow-guide-blocknote-custom__rail {
     background: linear-gradient(180deg, hsl(35 84% 58%), hsl(24 76% 56%));
+  }
+
+  /* Action-step chrome (flowActionStep): readable internal rhythm */
+  .flow-guide-blocknote-editor .flow-guide-blocknote-custom--action,
+  .flow-guide-blocknote-reader .flow-guide-blocknote-custom--action {
+    padding: 1.35rem 1.35rem 1.35rem 1.1rem;
+  }
+
+  .flow-guide-blocknote-editor .flow-guide-blocknote-custom--action .flow-guide-blocknote-custom__header,
+  .flow-guide-blocknote-reader .flow-guide-blocknote-custom--action .flow-guide-blocknote-custom__header {
+    margin-bottom: 1rem;
+  }
+
+  .flow-guide-blocknote-editor .flow-guide-blocknote-custom--action .flow-guide-blocknote-custom__content,
+  .flow-guide-blocknote-reader .flow-guide-blocknote-custom--action .flow-guide-blocknote-custom__content {
+    line-height: 1.6;
+  }
+
+  .flow-guide-blocknote-editor .flow-guide-blocknote-custom--action .flow-guide-blocknote-custom__content p,
+  .flow-guide-blocknote-reader .flow-guide-blocknote-custom--action .flow-guide-blocknote-custom__content p {
+    margin: 0 0 1.25rem;
+  }
+
+  .flow-guide-blocknote-editor .flow-guide-blocknote-custom--action .flow-guide-blocknote-custom__content p:last-child,
+  .flow-guide-blocknote-reader .flow-guide-blocknote-custom--action .flow-guide-blocknote-custom__content p:last-child {
+    margin-bottom: 0;
+  }
+
+  .flow-guide-blocknote-editor .flow-guide-blocknote-custom--action .flow-guide-blocknote-custom__content ol,
+  .flow-guide-blocknote-reader .flow-guide-blocknote-custom--action .flow-guide-blocknote-custom__content ol,
+  .flow-guide-blocknote-editor .flow-guide-blocknote-custom--action .flow-guide-blocknote-custom__content ul,
+  .flow-guide-blocknote-reader .flow-guide-blocknote-custom--action .flow-guide-blocknote-custom__content ul {
+    margin: 0.5rem 0 0;
+    padding-left: 1.25rem;
+  }
+
+  .flow-guide-blocknote-editor .flow-guide-blocknote-custom--action .flow-guide-blocknote-custom__content li,
+  .flow-guide-blocknote-reader .flow-guide-blocknote-custom--action .flow-guide-blocknote-custom__content li {
+    margin-bottom: 1.25rem;
+    line-height: 1.6;
+  }
+
+  .flow-guide-blocknote-editor .flow-guide-blocknote-custom--action .flow-guide-blocknote-custom__content li:last-child,
+  .flow-guide-blocknote-reader .flow-guide-blocknote-custom--action .flow-guide-blocknote-custom__content li:last-child {
+    margin-bottom: 0;
   }
 
   .flow-guide-blocknote-reader .flow-guide-blocknote-custom.flow-guide-blocknote-custom--exercise {
@@ -790,16 +878,20 @@
   .lesson-article-body .fg-lesson-exercise,
   .flow-guide-blocknote-reader .fg-lesson-exercise,
   .flow-guide-blocknote-editor .fg-lesson-exercise {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
     margin: 2.5rem 0;
     border-radius: 1rem;
     border: 1px solid hsl(var(--primary) / 0.28);
     background: hsl(var(--lesson-canvas) / 0.9);
-    padding: 2rem 2rem 2.25rem;
+    padding: 2.5rem 2rem;
+    line-height: 1.6;
   }
 
   .flow-guide-blocknote-editor .fg-lesson-exercise {
     margin: 0.85rem 0;
-    padding: 1.25rem 1.25rem 1.5rem;
+    padding: 2rem 1.35rem;
   }
 
   .dark .lesson-article-body .fg-lesson-exercise,
@@ -814,7 +906,7 @@
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    margin-bottom: 1.25rem;
+    margin-bottom: 0;
   }
 
   .lesson-article-body .fg-lesson-exercise-icon,
@@ -853,7 +945,8 @@
   .lesson-article-body .fg-lesson-exercise-title,
   .flow-guide-blocknote-reader .fg-lesson-exercise-title,
   .flow-guide-blocknote-editor .fg-lesson-exercise-title {
-    margin: 0;
+    display: block;
+    margin: 0 0 1rem;
     font-size: 0.95rem;
     font-weight: 700;
     color: hsl(var(--lesson-ink));
@@ -875,10 +968,10 @@
     display: flex;
     gap: 0.85rem;
     align-items: flex-start;
-    padding: 0.75rem 0;
+    padding: 1.1rem 0;
     border-bottom: 1px solid hsl(var(--lesson-border) / 0.45);
     font-size: 0.9rem;
-    line-height: 1.65;
+    line-height: 1.6;
     color: hsl(var(--lesson-muted));
   }
 
@@ -917,7 +1010,14 @@
   .flow-guide-blocknote-editor .fg-lesson-exercise-body ol > li p {
     flex: 1;
     min-width: 0;
-    margin: 0;
+    margin: 0 0 1.25rem;
+    line-height: 1.6;
+  }
+
+  .lesson-article-body .fg-lesson-exercise-body ol > li p:last-child,
+  .flow-guide-blocknote-reader .fg-lesson-exercise-body ol > li p:last-child,
+  .flow-guide-blocknote-editor .fg-lesson-exercise-body ol > li p:last-child {
+    margin-bottom: 0;
   }
 
   .lesson-article-body .fg-lesson-exercise-body hr + h3,
@@ -930,26 +1030,37 @@
   .lesson-article-body .fg-lesson-exercise-success,
   .flow-guide-blocknote-reader .fg-lesson-exercise-success,
   .flow-guide-blocknote-editor .fg-lesson-exercise-success {
-    margin-top: 1.5rem;
-    padding-top: 1.25rem;
+    margin-top: 0;
+    padding-top: 1.5rem;
     border-top: 1px solid hsl(var(--lesson-border) / 0.45);
   }
 
   .lesson-article-body .fg-lesson-exercise-success-label,
   .flow-guide-blocknote-reader .fg-lesson-exercise-success-label,
   .flow-guide-blocknote-editor .fg-lesson-exercise-success-label {
+    display: block;
     font-size: 0.65rem;
     font-weight: 700;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: hsl(var(--stat-done));
-    margin-bottom: 0.4rem;
+    margin-bottom: 1rem;
   }
 
   .lesson-article-body .fg-lesson-exercise-success-body,
   .flow-guide-blocknote-reader .fg-lesson-exercise-success-body,
   .flow-guide-blocknote-editor .fg-lesson-exercise-success-body {
     margin: 0;
+    line-height: 1.6;
+  }
+
+  /* Lesson viewer: DB markdown Action steps + Continue journey cards */
+  .lesson-action-steps-card + .lesson-action-steps-card {
+    margin-top: 1.75rem;
+  }
+
+  .lesson-continue-journey-card {
+    margin-top: 3rem;
   }
 
   .lesson-article-body .fg-lesson-pullquote,
