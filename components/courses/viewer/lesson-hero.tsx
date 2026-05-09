@@ -60,7 +60,7 @@ export function LessonHero({
 
       {/* Two-col: text left, optional image right */}
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_min(260px,34%)] lg:items-center lg:gap-10">
-        <div className="min-w-0 space-y-5">
+        <div className="min-w-0 space-y-6">
           <h1 className="text-[clamp(1.85rem,4vw,2.75rem)] font-black leading-[1.1] tracking-[-0.03em] text-[hsl(var(--lesson-ink))]">
             {titleEn}
           </h1>
@@ -78,7 +78,7 @@ export function LessonHero({
           ) : null}
 
           {/* Metadata row — legacy `.lesson-meta-row` / `.meta-item` */}
-          <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-[0.75rem] font-medium text-muted-foreground">
+          <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-[0.75rem] font-medium text-muted-foreground">
             {est != null ? (
               <span className="inline-flex items-center gap-1.5">
                 <Clock className="size-3.5 shrink-0 text-primary/70" aria-hidden />

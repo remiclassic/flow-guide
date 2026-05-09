@@ -469,7 +469,7 @@ export function LessonViewerShell({
                   id="lesson-article-body"
                   className={cn(
                     'lesson-article-body w-full',
-                    isPreview ? 'pt-6 sm:pt-8' : 'pt-8 sm:pt-10',
+                    isPreview ? 'pt-7 sm:pt-9' : 'pt-9 sm:pt-11',
                   )}
                 >
                   {article}
